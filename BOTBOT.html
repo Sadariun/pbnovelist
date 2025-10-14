@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конструктор Сайтов</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        /* --- Global Styles & Resets --- */
+        :root {
+            --primary-color: #4f46e5;
+            --primary-color-hover: #4338ca;
+            --primary-color-disabled: #a5b4fc;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --red-500: #ef4444;
+            --red-700: #b91c1c;
+            --green-500: #22c55e;
+            --green-600: #16a34a;
+            --blue-500: #3b82f6;
+            --blue-600: #2563eb;
+            --white: #ffffff;
+            --yellow-100: #fef9c3;
+            --yellow-700: #a16207;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+            color: var(--gray-800);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            margin: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        /* --- Layout --- */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin: 0;
+        }
+
+        .page-header p {
+            font-size: 1.125rem;
+            color: var(--gray-600);
+            margin-top: 0.5rem;
+        }
+        
+        main > section + section {
+            margin-top: 2rem;
+        }
+        
+        #notification-area {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            z-index: 100;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            animation: fadeInOut 4s ease-in-out;
+        }
+
+        #notification-area.notification-error {
+             background-color: var(--red-500);
+             color: var(--white);
+        }
+        #notification-area.notification-info {
+             background-color: var(--yellow-100);
+             color: var(--yellow-700);
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; transform: translate(-50%, -20px); }
+            10%, 90% { opacity: 1; transform: translate(-50%, 0); }
+        }
+
+        /* --- Cards --- */
+        .step-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        
+        .step-card h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .section-card {
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: var(--white);
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .section-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        
+        .section-card h3 {
+            font-weight: 700;
+            text-transform: capitalize;
+            margin: 0;
+        }
+        
+        .section-card .required-badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--red-500);
+        }
+
+        /* --- Grids --- */
+        .form-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: 1fr;
+        }
+        
+        #sections-container {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        /* --- Forms & Inputs --- */
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gray-700);
+            margin-bottom: 0.25rem;
+        }
+
+        input[type="text"],
+        select {
+            display: block;
+            width: 100%;
+            border-radius: 6px;
+            border: 1px solid var(--gray-300);
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            padding: 0.5rem 0.75rem;
+            font-size: 1rem;
+        }
+        
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
+        }
+        
+        /* --- Buttons --- */
+        .btn {
+            display: inline-block;
+            font-weight: 700;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+        }
+        
+        .btn:disabled {
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-color-hover);
+        }
+        .btn-primary:disabled {
+            background-color: var(--primary-color-disabled);
+        }
+        
+        .btn-secondary {
+            background-color: var(--gray-200);
+            color: var(--gray-800);
+        }
+        .btn-secondary:hover {
+            background-color: var(--gray-300);
+        }
+
+        .btn-green {
+            background-color: var(--green-500);
+            color: var(--white);
+        }
+        .btn-green:hover {
+            background-color: var(--green-600);
+        }
+
+        .btn-blue {
+            background-color: var(--blue-500);
+            color: var(--white);
+        }
+        .btn-blue:hover {
+            background-color: var(--blue-600);
+        }
+
+        .section-card button, .section-card select {
+            margin-top: 0.5rem;
+        }
+
+        /* --- Result & Preview --- */
+        #result-container .actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        #result-html {
+            width: 100%;
+            height: 16rem; /* 256px */
+            font-family: monospace;
+            font-size: 0.875rem;
+            background-color: var(--gray-100);
+            border-radius: 6px;
+            padding: 0.5rem;
+            border: 1px solid var(--gray-300);
+        }
+        
+        #previewFrame {
+            width: 100%;
+            height: 600px;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+        }
+
+        /* --- Selected Sections List --- */
+        #selected-sections-list > div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--gray-100);
+            padding: 0.5rem;
+            border-radius: 6px;
+        }
+
+        .remove-btn {
+            background: none;
+            border: none;
+            color: var(--red-500);
+            font-weight: 700;
+            font-size: 1.5rem;
+            line-height: 1;
+            cursor: pointer;
+            padding: 0 0.5rem;
+        }
+        .remove-btn:hover {
+            color: var(--red-700);
+        }
+
+        /* --- Loader / Spinner --- */
+        .spinner-container {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .spinner {
+            animation: spin 1s linear infinite;
+            border-radius: 50%;
+            width: 3rem; /* 48px */
+            height: 3rem; /* 48px */
+            border-top: 2px solid var(--primary-color);
+            border-right: 2px solid transparent;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .spinner-container p {
+            margin-top: 1rem;
+            color: var(--gray-600);
+        }
+        
+        /* --- Utility & Hidden --- */
+        .hidden {
+            display: none;
+        }
+
+        /* --- Responsive --- */
+        @media (min-width: 768px) {
+            .container {
+                padding: 2rem;
+            }
+            .form-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            #sections-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            #sections-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="notification-area"></div>
+
+    <div class="container">
+        <header class="page-header">
+            <h1>Конструктор Сайтов</h1>
+            <p>Создайте свой сайт в несколько простых шагов</p>
+        </header>
+
+        <main>
+            <!-- Шаг 1: Основные переменные -->
+            <section id="step1" class="step-card">
+                <h2>Шаг 1: Основные данные</h2>
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="repoUrl">URL репозитория GitHub (raw content)</label>
+                    <div style="display: flex; gap: 0.5rem; margin-top: 0.25rem;">
+                        <input type="text" id="repoUrl" value="https://raw.githubusercontent.com/Sadariun/pbnovelist/master/">
+                        <button id="loadRepoBtn" class="btn btn-secondary" style="flex-shrink: 0;">Загрузить секции</button>
+                    </div>
+                    <p style="font-size: 0.75rem; color: var(--gray-600); margin-top: 0.25rem;">Убедитесь, что репозиторий публичный.</p>
+                </div>
+                <div class="form-grid">
+                    <div>
+                        <label for="domainName">Имя домена (без .ru, .com)</label>
+                        <input type="text" id="domainName" placeholder="например, google">
+                    </div>
+                    <div>
+                        <label for="tld">Домен верхнего уровня (TLD)</label>
+                        <input type="text" id="tld" placeholder="например, com">
+                    </div>
+                    <div>
+                        <label for="useWww">Canonical с WWW?</label>
+                        <select id="useWww">
+                            <option value="no">Нет</option>
+                            <option value="yes">Да</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Шаг 2: Выбор секций -->
+            <section id="step2" class="step-card">
+                <h2>Шаг 2: Выберите секции для сайта</h2>
+                <div id="sections-loader" class="spinner-container">
+                    <div class="spinner"></div>
+                    <p>Загрузка доступных секций...</p>
+                </div>
+                <div id="sections-container"></div>
+            </section>
+            
+            <!-- Шаг 3: Выбранные секции и генерация -->
+            <section id="step3" class="step-card">
+                <h2>Шаг 3: Ваш сайт</h2>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <p style="color: var(--gray-600);">Выбрано секций: <span id="selected-count" style="font-weight: 700;">0</span>. (Минимум: 4)</p>
+                     <button id="generate-btn" disabled class="btn btn-primary">
+                        Создать сайт
+                    </button>
+                </div>
+                <div id="selected-sections-list" style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem;">
+                    <!-- Выбранные секции будут здесь -->
+                </div>
+            </section>
+            
+             <!-- Шаг 4: Результат -->
+            <section id="step4" class="step-card hidden">
+                <h2>Шаг 4: Готово!</h2>
+                <div id="generation-spinner" class="spinner-container hidden">
+                    <div class="spinner"></div>
+                    <p>Магия в процессе... Собираем ваш сайт.</p>
+                </div>
+                <div id="result-container" class="hidden">
+                    <div class="actions">
+                         <button id="copy-html-btn" class="btn btn-secondary">Копировать HTML</button>
+                         <button id="download-html-btn" class="btn btn-green">Скачать index.html</button>
+                         <button id="show-preview-btn" class="btn btn-blue">Показать превью</button>
+                    </div>
+                    <div id="preview-wrapper" class="hidden">
+                         <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Превью сайта</h3>
+                         <iframe id="previewFrame" title="Превью сайта"></iframe>
+                    </div>
+                    <textarea id="result-html" readonly></textarea>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const SECTIONS_PATH = ''; // Убрали жесткий путь 'sections/'
+            
+            // Больше не используем жестко заданный список
+            // const ALL_SECTIONS = [ ... ];
+
+            let availableSections = [];
+            let selectedSections = [];
+
+            // --- DOM Element References ---
+            const sectionsContainer = document.getElementById('sections-container');
+            const sectionsLoader = document.getElementById('sections-loader');
+            const generateBtn = document.getElementById('generate-btn');
+            const selectedCountEl = document.getElementById('selected-count');
+            const selectedListEl = document.getElementById('selected-sections-list');
+            const resultHtmlEl = document.getElementById('result-html');
+            const step4 = document.getElementById('step4');
+            const resultContainer = document.getElementById('result-container');
+            const generationSpinner = document.getElementById('generation-spinner');
+            const copyBtn = document.getElementById('copy-html-btn');
+            const downloadBtn = document.getElementById('download-html-btn');
+            const showPreviewBtn = document.getElementById('show-preview-btn');
+            const previewWrapper = document.getElementById('preview-wrapper');
+            const previewFrame = document.getElementById('previewFrame');
+            const repoUrlInput = document.getElementById('repoUrl');
+            const loadRepoBtn = document.getElementById('loadRepoBtn');
+            const notificationArea = document.getElementById('notification-area');
+
+
+            // --- 0. Утилиты ---
+            function showNotification(message, type = 'error') {
+                notificationArea.textContent = message;
+                notificationArea.className = `notification-${type}`;
+                notificationArea.style.display = 'block';
+                setTimeout(() => {
+                    notificationArea.style.display = 'none';
+                }, 4000);
+            }
+
+            function formatSectionName(name) {
+                return name
+                    .replace(/^\d+\./, '') // Убираем нумерацию "1."
+                    .replace(/[-_]/g, ' ') // Заменяем дефисы и подчеркивания на пробелы
+                    .toLowerCase();
+            }
+
+            // --- 1. Загрузка и обработка метаданных секций ---
+            
+            async function fetchJson(url) {
+                try {
+                    const response = await fetch(url, { cache: 'no-store' });
+                    if (!response.ok) return null;
+                    return await response.json();
+                } catch (error) {
+                    console.error(`Ошибка при загрузке JSON ${url}:`, error);
+                    return null;
+                }
+            }
+            
+            async function fetchSectionMeta(sectionName) {
+                const baseUrl = repoUrlInput.value.trim();
+                if (!baseUrl) return null;
+                const GITHUB_REPO_RAW_URL = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+
+                const metaUrl = `${GITHUB_REPO_RAW_URL}${SECTIONS_PATH}${sectionName}/meta.json`;
+                const meta = await fetchJson(metaUrl);
+                if (meta) {
+                    return { ...meta, name: sectionName, hasVersions: false, versions: [] };
+                }
+
+                const versions = [];
+                const prefixes = ['ver', 'var']; // Искать папки с префиксами 'ver' и 'var'
+
+                for (const prefix of prefixes) {
+                    let versionCounter = 1;
+                    while (true) {
+                        const versionName = `${prefix}${versionCounter}`;
+                        const verMetaUrl = `${GITHUB_REPO_RAW_URL}${SECTIONS_PATH}${sectionName}/${versionName}/meta.json`;
+                        const verMeta = await fetchJson(verMetaUrl);
+                        
+                        if (verMeta) {
+                            if (!versions.some(v => v.name === versionName)) {
+                                versions.push({ ...verMeta, name: versionName });
+                            }
+                            versionCounter++;
+                        } else {
+                            break; // Прекращаем поиск для этого префикса, если последовательность нарушена
+                        }
+                    }
+                }
+                
+                // Сортируем версии, чтобы обеспечить предсказуемый порядок
+                versions.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
+
+                if (versions.length > 0) {
+                    return {
+                        name: sectionName, hasVersions: true, versions: versions,
+                        // Используем данные из первой найденной версии как базовые
+                        required: versions[0].required, index: versions[0].index
+                    };
+                }
+                return null;
+            }
+
+            async function loadSections() {
+                availableSections = [];
+                selectedSections = [];
+                selectedListEl.innerHTML = '';
+                updateSelectedList();
+
+                sectionsLoader.style.display = 'block';
+                sectionsContainer.innerHTML = '';
+
+                const repoUrl = repoUrlInput.value.trim();
+                if (!repoUrl) {
+                    showNotification('Пожалуйста, введите URL репозитория.', 'info');
+                    sectionsLoader.style.display = 'none';
+                    return;
+                }
+                
+                let dynamicSections = [];
+                try {
+                    // Преобразуем raw URL в API URL для получения содержимого репозитория
+                    // Пример: https://raw.githubusercontent.com/Sadariun/pbnovelist/master/
+                    const match = repoUrl.match(/githubusercontent\.com\/([^\/]+)\/([^\/]+)/);
+                    if (!match) {
+                        throw new Error("Неверный URL репозитория GitHub. Убедитесь, что это raw content URL.");
+                    }
+                    const owner = match[1];
+                    const repo = match[2];
+                    const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/`;
+
+                    const response = await fetch(apiUrl, { cache: 'no-store' });
+                    if (!response.ok) {
+                        throw new Error(`Ошибка API GitHub: ${response.status}. Возможно, репозиторий приватный или не существует.`);
+                    }
+                    const contents = await response.json();
+                    
+                    // Фильтруем, чтобы получить только папки, и игнорируем служебные
+                    dynamicSections = contents
+                        .filter(item => item.type === 'dir' && !item.name.startsWith('.') && item.name.toLowerCase() !== 'assets')
+                        .map(item => item.name);
+
+                } catch (e) {
+                    console.error("Ошибка при получении списка секций из API:", e);
+                    sectionsLoader.style.display = 'none';
+                    sectionsContainer.innerHTML = `<p style="color: var(--red-700); text-align: center; grid-column: 1 / -1;"><b>Ошибка:</b> Не удалось получить список секций. ${e.message}</p>`;
+                    return;
+                }
+                
+                if (dynamicSections.length === 0) {
+                    sectionsLoader.style.display = 'none';
+                    sectionsContainer.innerHTML = '<p style="color: var(--red-700); text-align: center; grid-column: 1 / -1;">В репозитории не найдено папок с секциями.</p>';
+                    return;
+                }
+
+                const promises = dynamicSections.map(fetchSectionMeta);
+                const results = await Promise.all(promises);
+                availableSections = results.filter(s => s !== null);
+                
+                availableSections.sort((a, b) => a.index - b.index);
+                sectionsLoader.style.display = 'none';
+
+                if (availableSections.length === 0) {
+                    sectionsContainer.innerHTML = '<p style="color: var(--red-700); text-align: center; grid-column: 1 / -1;">Не удалось загрузить meta.json ни для одной секции. Проверьте структуру папок.</p>';
+                } else {
+                    renderSections();
+                    addRequiredSections();
+                }
+            }
+            
+            // --- 2. Рендеринг UI ---
+            
+            function renderSections() {
+                sectionsContainer.innerHTML = '';
+                availableSections.forEach(section => {
+                    const card = document.createElement('div');
+                    card.className = 'section-card';
+                    
+                    let optionsHtml = '';
+                    if (section.hasVersions) {
+                        optionsHtml = `<select data-section="${section.name}">
+                            <option value="">Выбрать версию</option>
+                            <option value="random">Случайно</option>
+                            ${section.versions.map(v => `<option value="${v.name}">${v.name}</option>`).join('')}
+                        </select>`;
+                    } else {
+                        optionsHtml = `<button data-section="${section.name}" class="btn btn-secondary" style="width: 100%; background-color: #eef2ff; color: #4338ca;">Добавить</button>`;
+                    }
+
+                    card.innerHTML = `
+                        <div>
+                            <h3 style="text-transform: capitalize;">${formatSectionName(section.name)}</h3>
+                            ${section.required ? '<span class="required-badge">Обязательный</span>' : ''}
+                        </div>
+                        ${optionsHtml}
+                    `;
+                    
+                    sectionsContainer.appendChild(card);
+
+                    if (section.required) {
+                        card.querySelector('select, button').disabled = true;
+                        card.style.backgroundColor = 'var(--gray-100)';
+                        card.style.opacity = '0.7';
+                    }
+                });
+            }
+
+            function updateSelectedList() {
+                selectedListEl.innerHTML = selectedSections
+                    .sort((a,b) => a.meta.index - b.meta.index)
+                    .map(s => `
+                        <div>
+                            <span>${s.name} ${s.version ? `(${s.version})` : ''}</span>
+                            <button data-id="${s.id}" class="remove-btn">&times;</button>
+                        </div>
+                    `).join('');
+                
+                selectedCountEl.textContent = selectedSections.length;
+                generateBtn.disabled = selectedSections.length < 4;
+            }
+            
+            function addRequiredSections() {
+                availableSections.forEach(section => {
+                    if (section.required) {
+                        let version = null;
+                        let meta = section;
+                        if (section.hasVersions) {
+                            version = section.versions[0].name;
+                            meta = section.versions[0];
+                        }
+                        addSection(section.name, version, meta);
+                    }
+                });
+            }
+
+            // --- 3. Управление состоянием (выбранные секции) ---
+
+            function addSection(name, version, meta) {
+                if (selectedSections.find(s => s.name === name)) return;
+                selectedSections.push({ id: `${name}-${version || ''}`, name, version, meta });
+                updateSelectedList();
+            }
+
+            function removeSection(id) {
+                selectedSections = selectedSections.filter(s => s.id !== id);
+                updateSelectedList();
+            }
+            
+            sectionsContainer.addEventListener('click', (e) => {
+                if (e.target.tagName === 'BUTTON' && e.target.dataset.section) {
+                    const sectionName = e.target.dataset.section;
+                    const sectionData = availableSections.find(s => s.name === sectionName);
+                    if (sectionData) addSection(sectionName, null, sectionData);
+                }
+            });
+
+            sectionsContainer.addEventListener('change', (e) => {
+                if (e.target.tagName === 'SELECT' && e.target.dataset.section) {
+                    const sectionName = e.target.dataset.section;
+                    let versionName = e.target.value;
+                    if (!versionName) return;
+
+                    const sectionData = availableSections.find(s => s.name === sectionName);
+                    if (versionName === 'random') {
+                        const randomIndex = Math.floor(Math.random() * sectionData.versions.length);
+                        versionName = sectionData.versions[randomIndex].name;
+                    }
+                    
+                    const versionMeta = sectionData.versions.find(v => v.name === versionName);
+                    selectedSections = selectedSections.filter(s => s.name !== sectionName);
+                    addSection(sectionName, versionName, versionMeta);
+                    e.target.value = '';
+                }
+            });
+
+            selectedListEl.addEventListener('click', e => {
+                if (e.target.classList.contains('remove-btn')) {
+                    const id = e.target.dataset.id;
+                    const section = selectedSections.find(s => s.id === id);
+                    if (section && availableSections.find(s => s.name === section.name)?.required) {
+                        showNotification('Эту секцию нельзя удалить, она обязательная.', 'info');
+                        return;
+                    }
+                    removeSection(id);
+                }
+            });
+            
+            // --- 4. Логика генерации сайта ---
+
+            async function fetchFileContent(path) {
+                const baseUrl = repoUrlInput.value.trim();
+                if (!baseUrl) return '';
+                const GITHUB_REPO_RAW_URL = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+                try {
+                    const response = await fetch(`${GITHUB_REPO_RAW_URL}${path}`);
+                    if (!response.ok) return '';
+                    return await response.text();
+                } catch { return ''; }
+            }
+
+            async function handleGenerate() {
+                step4.classList.remove('hidden');
+                generationSpinner.classList.remove('hidden');
+                resultContainer.classList.add('hidden');
+
+                const domainName = document.getElementById('domainName').value || 'example';
+                const tld = document.getElementById('tld').value || 'com';
+                const useWww = document.getElementById('useWww').value === 'yes';
+                const canonicalDomain = `${useWww ? 'www.' : ''}${domainName}.${tld}`;
+                const textVariables = { domainName, tld, canonicalDomain, companyName: 'My Website', phone: '' };
+
+                // Сначала загружаем глобальные стили
+                const globalCssContent = await fetchFileContent('assets/global.css');
+
+                const sortedSections = [...selectedSections].sort((a, b) => a.meta.index - b.meta.index);
+                const filePromises = [];
+                
+                sortedSections.forEach(section => {
+                    const basePath = `${SECTIONS_PATH}${section.name}/${section.version ? section.version + '/' : ''}`;
+                    filePromises.push(fetchFileContent(`${basePath}index.html`).then(content => ({ type: 'html', content, name: section.name })));
+                    section.meta.components.forEach(componentFile => {
+                        const fileType = componentFile.split('.').pop();
+                        filePromises.push(fetchFileContent(`${basePath}${componentFile}`).then(content => ({ type: fileType, content, name: componentFile })));
+                    });
+                });
+
+                const allFiles = await Promise.all(filePromises);
+
+                const defaultResetCss = `html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}`;
+                
+                let allCss = `/* --- Default Reset --- */\n${defaultResetCss}\n\n`;
+
+                if (globalCssContent) {
+                    allCss += `/* --- Global Styles (assets/global.css) --- */\n${globalCssContent}\n\n`;
+                }
+                
+                allCss += allFiles.filter(f => f.type === 'css').map(f => `/* --- ${f.name} --- */\n${f.content}`).join('\n\n');
+                let allJs = allFiles.filter(f => f.type === 'js').map(f => `// --- ${f.name} ---\n${f.content}`).join('\n\n');
+                let allHtml = allFiles.filter(f => f.type === 'html').map(f => `<!-- SECTION: ${f.name} -->\n${f.content}`).join('\n\n');
+                
+                const anchorIds = (allHtml.match(/id="([^"]+)"/g) || []).map(idAttr => idAttr.substring(4, idAttr.length - 1)).filter(id => id !== 'header' && id !== 'footer');
+                anchorIds.forEach((id, index) => {
+                    allHtml = allHtml.replace(new RegExp(`{{anchor${index + 1}}}`, 'g'), `#${id}`);
+                });
+
+                for (const [key, value] of Object.entries(textVariables)) {
+                    const placeholder = new RegExp(`{{${key}}}`, 'g');
+                    allHtml = allHtml.replace(placeholder, value);
+                    allCss = allCss.replace(placeholder, value);
+                    allJs = allJs.replace(placeholder, value);
+                }
+
+                // Оборачиваем весь JS в самовызывающуюся функцию для немедленного исполнения
+                const finalJs = `(function() {\n${allJs}\n})();`;
+
+                const finalHtml = `<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${domainName}.${tld}</title><link rel="canonical" href="https://${canonicalDomain}" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" /><style>${allCss}</style></head><body>${allHtml}<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"><\/script><script>${finalJs}<\/script></body></html>`;
+                
+                resultHtmlEl.value = finalHtml;
+                generationSpinner.classList.add('hidden');
+                resultContainer.classList.remove('hidden');
+                previewWrapper.classList.add('hidden');
+            }
+
+            // --- 5. Обработчики событий для результата ---
+            generateBtn.addEventListener('click', handleGenerate);
+            copyBtn.addEventListener('click', () => {
+                resultHtmlEl.select();
+                document.execCommand('copy');
+                copyBtn.textContent = 'Скопировано!';
+                setTimeout(() => { copyBtn.textContent = 'Копировать HTML'; }, 2000);
+            });
+            downloadBtn.addEventListener('click', () => {
+                const blob = new Blob([resultHtmlEl.value], { type: 'text/html' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = 'index.html';
+                document.body.appendChild(a); a.click(); document.body.removeChild(a);
+            });
+            showPreviewBtn.addEventListener('click', () => {
+                 previewWrapper.classList.toggle('hidden');
+                 if(!previewWrapper.classList.contains('hidden')) {
+                    previewFrame.srcdoc = resultHtmlEl.value;
+                 }
+            });
+
+            // --- Инициализация ---
+            loadRepoBtn.addEventListener('click', loadSections);
+            loadSections();
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
