@@ -1,0 +1,36 @@
+   .partnerContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 64px;
+}
+
+.partnerLogo{
+    display: block;
+    height: min(150px, 12rem);
+    width: min(150px, 12rem);
+    padding: 1rem;
+    border-radius: 50%;
+    background-color: var(--innerBg, white);
+    border: var(--accent, blue) 4px solid;
+    transition: all .4s cubic-bezier(.075, .82, .165, 1)
+}
+
+.partnerLogo:hover, .partnerLogo:active{
+    scale: 1.04;
+    box-shadow: inset 0px 0px 100px 0px var(--accent, blue);
+    /* background: var(--accent); */
+}
+
+.partnerLogo img{
+    height: 100%;
+    object-fit: contain;
+}
+
+@media (max-width: 768px){
+    .partnerContainer{
+    flex-direction: column;
+    gap: 20px;
+}
+}

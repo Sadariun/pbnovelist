@@ -1,0 +1,24 @@
+.hero div{
+    display: grid;
+    grid-template-columns: 0.8fr 1fr;
+    gap: 8px;
+    background-color: cyan;
+    padding: 32px 64px;
+}
+
+.hero div div:first-child {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    justify-content: center;
+}
+
+.hero div div:nth-child(2){
+    max-height: 100%;
+}
+
+.hero_img{
+    width: 100%;
+    height: auto;
+    background-color: blue;
+}

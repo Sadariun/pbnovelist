@@ -1,0 +1,5 @@
+{
+  "index": 3,
+  "required": true,
+  "components": ["style.css","toc.js"]
+}
