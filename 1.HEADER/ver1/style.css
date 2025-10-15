@@ -201,6 +201,10 @@ header img, footer img{
     .mobile__menu {
         display:block
     }
+
+    header .mainBtn{
+        display: none;
+    }
 }
 
 .fadeInDown,header {
