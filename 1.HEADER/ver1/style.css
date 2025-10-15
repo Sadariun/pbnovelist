@@ -199,7 +199,9 @@ header img, footer img{
 
 @media (max-width: 1024px) {
     .mobile__menu {
-        display:block
+        display:block;
+        justify-self: flex-end;
+        margin-left: auto;
     }
 
     header .mainBtn{

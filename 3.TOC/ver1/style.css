@@ -1,6 +1,7 @@
 .toc{
     background-color: var(--innerBg);
-    padding: var(--sectionPadding)
+    padding: var(--sectionPadding);
+    border-radius: var(--brad);
 }
 
 .toc__container>ul li {

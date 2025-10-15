@@ -37,6 +37,12 @@ img{
     align-self: center;
 }
 
+.heading .mainBtn{
+    align-self: flex-start;
+    width: 70%;
+    text-align: center;
+}
+
 @media(max-width: 768px){
 .hero div{
     display: grid;
