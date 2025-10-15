@@ -3,7 +3,8 @@ header {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 48px 0 16px;
+    padding: 48px 0;
+    margin-bottom: 0!important;
 }
 
 header>nav>a {

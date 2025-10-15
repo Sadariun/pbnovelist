@@ -58,3 +58,11 @@ p{
     font-size: 18px;
 }
 }
+
+.logo{
+    transition: all;
+    transition: all .4s cubic-bezier(.075, .82, .165, 1);
+}
+.logo:hover{
+    scale: 1.04;
+}

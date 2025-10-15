@@ -2,12 +2,12 @@
     /*BG*/
     --bg: #5e5e5e;
     --innerBg: #b4b4b4;
-    --innerBlackBg: #585858;
-    --innerBlackLighterBg: #3d3d3d;
+    --innerBlackBg: #383838;
+    --innerBlackLighterBg: #222222;
 
     /*ACCENT*/
-    --accent: #9e1493;
-    --accentHover: #d614cc;
+    --accent: #ffb7b7;
+    --accentHover: #ff6d6d;
     
     /*TEXT*/
     --textMain: #fcf0f0;
