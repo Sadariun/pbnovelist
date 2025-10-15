@@ -18,6 +18,7 @@ body{
     background: var(--accent);
     border-radius: var(--brad);
     transition: transform 150ms cubic-bezier(0.47, 0, 0.745, 0.715);
+    box-sizing: border-box;
 }
 
 .mainBtn:hover{
@@ -28,5 +29,11 @@ body{
 a{
     color: unset;
     text-decoration: none;
+}
+
+@media(max-width: 768px){
+    .wrapper, section:not(.noWrap){
+        max-width: 95%;
+    }
 }
 
