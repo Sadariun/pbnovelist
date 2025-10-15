@@ -121,12 +121,10 @@
 .pricing__card_cost span:first-child {
     font-size: 30px;
     line-height: 100%;
-    color: #fff;
     font-weight: 700;
 }
 
 .pricing__card_features_title {
-    color: #fff;
     margin-bottom: 14px!important
 }
 
@@ -165,6 +163,10 @@
     max-width: fit-content;
     justify-self: center;
     max-width: 88%;
+}
+
+.pricing__container .pricing__card:nth-child(2) .mainBtn{
+    background-color: var(--innerBg);
 }
 
 @media (max-width: 768px) {
