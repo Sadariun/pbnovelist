@@ -29,6 +29,7 @@ span, b{
 
 a, p{
     font-size: 18px;
+    margin-bottom: 2.5rem;
 }
 
 @media (max-width: 768px){

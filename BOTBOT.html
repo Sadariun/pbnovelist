@@ -42,6 +42,14 @@
         * {
             box-sizing: border-box;
         }
+        
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
 
         /* --- Layout --- */
         .container {
@@ -182,6 +190,7 @@
         }
 
         input[type="text"],
+        input[type="password"],
         select {
             display: block;
             width: 100%;
@@ -193,6 +202,7 @@
         }
         
         input[type="text"]:focus,
+        input[type="password"]:focus,
         select:focus {
             outline: none;
             border-color: var(--primary-color);
@@ -373,6 +383,15 @@
                     </div>
                     <p style="font-size: 0.75rem; color: var(--gray-600); margin-top: 0.25rem;">Убедитесь, что репозиторий публичный.</p>
                 </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="githubToken">GitHub Personal Access Token (опционально)</label>
+                    <input type="password" id="githubToken" placeholder="Вставьте токен, если получаете ошибку 403">
+                    <p style="font-size: 0.75rem; color: var(--gray-600); margin-top: 0.25rem;">
+                        Нужен для обхода лимитов GitHub API. Создайте 
+                        <a href="https://github.com/settings/tokens/new?scopes=public_repo&description=Website%20Builder" target="_blank" rel="noopener noreferrer">здесь</a>
+                        с правами `public_repo`.
+                    </p>
+                </div>
                 <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
                     <div>
                         <label for="domainName">Имя домена (без .ru, .com)</label>
@@ -517,15 +536,26 @@
 
             async function getRepoContents(path = '') {
                 const repoUrl = repoUrlInput.value.trim();
-                 const match = repoUrl.match(/githubusercontent\.com\/([^\/]+)\/([^\/]+)/);
+                const match = repoUrl.match(/githubusercontent\.com\/([^\/]+)\/([^\/]+)/);
                 if (!match) throw new Error("Неверный URL репозитория GitHub.");
                 
                 const [_, owner, repo] = match;
-                // Add a cache-busting timestamp to the API URL
                 const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?t=${new Date().getTime()}`;
-                const response = await fetch(apiUrl, { cache: 'no-store' });
+                
+                const githubToken = document.getElementById('githubToken').value.trim();
+                const headers = { 'Accept': 'application/vnd.github.v3+json' };
+                if (githubToken) {
+                    headers['Authorization'] = `token ${githubToken}`;
+                }
 
-                if (!response.ok) throw new Error(`Ошибка API GitHub: ${response.status} для пути ${path}`);
+                const response = await fetch(apiUrl, { cache: 'no-store', headers: headers });
+
+                if (response.status === 403) {
+                    throw new Error(`Ошибка API GitHub: 403 Forbidden. Вероятно, вы достигли лимита запросов. Попробуйте использовать Personal Access Token.`);
+                }
+                if (!response.ok) {
+                    throw new Error(`Ошибка API GitHub: ${response.status} для пути ${path}`);
+                }
                 return await response.json();
             }
             
@@ -560,9 +590,8 @@
                         const paletteFiles = await getRepoContents(palettesDir.path);
                         if (paletteFiles.length > 0) {
                             paletteSelect.innerHTML = paletteFiles
-                                .filter(item => item.type === 'file') // Убрали строгую проверку на .css
+                                .filter(item => item.type === 'file')
                                 .map(file => {
-                                    // Отображаем имя без .css, но в value храним полное имя файла
                                     const displayName = file.name.replace('.css', '');
                                     const valueName = file.name;
                                     return `<option value="${valueName}">${displayName}</option>`
@@ -913,10 +942,4 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
 
