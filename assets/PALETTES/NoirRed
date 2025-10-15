@@ -6,8 +6,8 @@
     --innerBlackLighterBg: #222222;
 
     /*ACCENT*/
-    --accent: #ffb7b7;
-    --accentHover: #ff6d6d;
+    --accent: #8f0000;
+    --accentHover: #be0000;
     
     /*TEXT*/
     --textMain: #fcf0f0;
