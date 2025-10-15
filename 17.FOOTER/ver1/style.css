@@ -84,8 +84,6 @@ footer {
 }
 
 .footer__bottom p {
-    color: #606162!important;
-    font-size: 14px;
     justify-self: center;
 }
 
@@ -154,6 +152,8 @@ footer {
 
 .logo, .footer__top div:first-child a{
     transition: all .4s cubic-bezier(.075, .82, .165, 1);
+    border-radius: var(--brad);
+    padding: 8px;
 }
 
 .btnContainer:hover, .logo:hover, .footer__top div:first-child a:hover{

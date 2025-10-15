@@ -2,7 +2,7 @@
     /*BG*/
     --bg: #020c55;
     --innerBg: #011d9c;
-    --innerBlackBg: #7005a1;
+    --innerBlackBg: #281e53;
     --innerBlackLighterBg: #195c9b;
 
     /*ACCENT*/
