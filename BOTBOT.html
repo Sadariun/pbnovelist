@@ -854,7 +854,14 @@
                 const tld = document.getElementById('tld').value || 'com';
                 const useWww = document.getElementById('useWww').value === 'yes';
                 const canonicalDomain = `${useWww ? 'www.' : ''}${domainName}.${tld}`;
-                const textVariables = { domainName, tld, canonicalDomain, companyName: 'My Website', phone: '' };
+                const textVariables = { 
+                    domainName, 
+                    tld, 
+                    canonicalDomain, 
+                    canonicalName: canonicalDomain, 
+                    companyName: 'My Website', 
+                    phone: '' 
+                };
 
                 const selectedStyle = styleSelect.value;
                 const selectedPaletteFile = paletteSelect.value; // Теперь это полное имя файла, например "Blue_Navy"
