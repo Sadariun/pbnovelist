@@ -16,27 +16,23 @@ header>nav>a {
     display: none!important
 }
 
-header>nav>ul {
+header ul {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 39px
 }
 
-header>nav>ul a {
+header ul a {
     width: max-content;
     transition: all .4s cubic-bezier(.075, .82, .165, 1)
 }
 
-header>nav>ul a::after {
-    content: none
-}
-
-header>nav>ul a:hover {
+header ul a:hover {
     color: var(--accent)!important
 }
 
-header>a {
+header a {
     max-width: 186px;
     z-index: 80
 }
@@ -54,7 +50,7 @@ header.wrapper{
         display: none
     }
 
-    header>nav {
+    header ul {
         position: absolute;
         top: 0;
         left: 0;
@@ -69,7 +65,7 @@ header.wrapper{
         flex-direction: column
     }
 
-    header>nav>ul {
+    header ul {
         margin-top: 124px;
         margin-left: 24px;
         flex-direction: column;
@@ -80,12 +76,11 @@ header.wrapper{
         overflow-x: hidden
     }
 
-    header>nav>ul a {
+    header ul a {
         color: var(--textMain)!important;
-        font-size: 16px!important
     }
 
-    header>nav>a {
+    header nav a {
         display: inline-block!important;
         margin-top: auto;
         margin-left: auto;
@@ -219,3 +214,9 @@ header.mainBtn{
     animation-delay: .5s!important
 }
 
+.headerContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 0!important;
+}
