@@ -4,7 +4,9 @@
 
 #faq{
     background-color: var(--innerBg);
-    border-radius: var(--brad)
+    border-radius: var(--brad);
+    padding: var(--sectionPadding);
+
 }
 
 .accord__container {
@@ -51,9 +53,6 @@
     text-align: left;
 }
 
-.accord__item{
-    border-radius: 0%;
-}
 /* .accord__item:first-child{
     border-radius: var(--brad) var(--brad) 0 0;
 }
