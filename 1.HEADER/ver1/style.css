@@ -3,42 +3,40 @@ header {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 36px 0;
-    background: var(--innerBg);
-}
-
-.header__nav{
-    display: flex;
-    gap: 2rem;
+    padding: 48px 0 16px;
 }
 
 header>nav>a {
     display: none!important
 }
 
-header ul {
+header>nav>ul {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 39px
 }
 
-header ul a {
+header>nav>ul a {
     width: max-content;
     transition: all .4s cubic-bezier(.075, .82, .165, 1)
 }
 
-header ul a:hover {
+header>nav>ul a::after {
+    content: none
+}
+
+header>nav>ul a:hover {
     color: var(--accent)!important
 }
 
-header a {
+header>a {
     max-width: 186px;
     z-index: 80
 }
 
-header.wrapper{
-    margin-bottom: 0!important;
+header img, footer img{
+    border-radius: 0;
 }
 
 @media (max-width: 1024px) {
@@ -50,7 +48,7 @@ header.wrapper{
         display: none
     }
 
-    header ul {
+    header>nav {
         position: absolute;
         top: 0;
         left: 0;
@@ -65,7 +63,7 @@ header.wrapper{
         flex-direction: column
     }
 
-    header ul {
+    header>nav>ul {
         margin-top: 124px;
         margin-left: 24px;
         flex-direction: column;
@@ -76,11 +74,12 @@ header.wrapper{
         overflow-x: hidden
     }
 
-    header ul a {
+    header>nav>ul a {
         color: var(--textMain)!important;
+        /* font-size: 16px!important */
     }
 
-    header nav a {
+    header>nav>a {
         display: inline-block!important;
         margin-top: auto;
         margin-left: auto;
@@ -196,27 +195,12 @@ header.wrapper{
     top: 20px
 }
 
-header.mainBtn{
-    align-self: start;
-}
-
 @media (max-width: 1024px) {
     .mobile__menu {
         display:block
     }
-
-    header.mainBtn{
-    align-self: center;
-}
 }
 
 .fadeInDown,header {
     animation-delay: .5s!important
-}
-
-.headerContainer{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding-bottom: 0!important;
 }
