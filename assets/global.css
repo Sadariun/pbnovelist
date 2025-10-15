@@ -1,5 +1,9 @@
+body{
+    background: var(--bg);
+}
+
 .wrapper, section:not(.noWrap){
-    min-width: 95%;
+    width: 100%;
     max-width: 1140px;
     margin: auto;
     margin-right: auto;
@@ -24,3 +28,4 @@
 a{
     color: unset;
 }
+

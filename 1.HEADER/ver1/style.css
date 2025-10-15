@@ -195,12 +195,21 @@ header.wrapper{
     top: 20px
 }
 
+header.mainBtn{
+    align-self: start;
+}
+
 @media (max-width: 1024px) {
     .mobile__menu {
         display:block
     }
+
+    header.mainBtn{
+    align-self: center;
+}
 }
 
 .fadeInDown,header {
     animation-delay: .5s!important
 }
+

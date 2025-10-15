@@ -3,19 +3,10 @@
     flex-direction: row-reverse;
     align-items: stretch;
     justify-content: space-between;
-    /* padding: 32px; */
-    /* background-color: var(--innerBg2); */
-    /* background: linear-gradient(
-        to right,
-        rgba(134, 138, 255, 0.3) 0%,
-        rgba(18, 203, 163, 0.3) 100%
-    ); */
     border-radius: var(--brad);
-    /* #868bff 0%,
-    #64aee7 50%,
-    #12cba3 100% */
-    /* (#252527, #252527) */
     gap: 48px;
+    padding: var(--sectionPadding);
+    background: var(--innerBg);
 }
 
 .hiw > div {

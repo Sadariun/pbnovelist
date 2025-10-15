@@ -139,6 +139,20 @@
             margin: 0;
         }
         
+        /* Style for selected cards */
+        .section-card.selected {
+            border-color: var(--green-600);
+            background-color: #f0fdf4; /* Light green background */
+        }
+
+        .section-card.selected button,
+        .section-card.selected select {
+            background-color: var(--green-500);
+            color: var(--white);
+            border-color: var(--green-600);
+            cursor: default;
+        }
+
         .section-card .required-badge {
             font-size: 0.75rem;
             font-weight: 600;
@@ -324,9 +338,9 @@
                 padding: 2rem;
             }
             .form-grid {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(2, 1fr);
             }
-            #sections-container {
+             #sections-container {
                 grid-template-columns: repeat(3, 1fr);
             }
         }
@@ -355,11 +369,11 @@
                     <label for="repoUrl">URL репозитория GitHub (raw content)</label>
                     <div style="display: flex; gap: 0.5rem; margin-top: 0.25rem;">
                         <input type="text" id="repoUrl" value="https://raw.githubusercontent.com/Sadariun/pbnovelist/master/">
-                        <button id="loadRepoBtn" class="btn btn-secondary" style="flex-shrink: 0;">Загрузить секции</button>
+                        <button id="loadRepoBtn" class="btn btn-secondary" style="flex-shrink: 0;">Загрузить компоненты</button>
                     </div>
                     <p style="font-size: 0.75rem; color: var(--gray-600); margin-top: 0.25rem;">Убедитесь, что репозиторий публичный.</p>
                 </div>
-                <div class="form-grid">
+                <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
                     <div>
                         <label for="domainName">Имя домена (без .ru, .com)</label>
                         <input type="text" id="domainName" placeholder="например, google">
@@ -377,10 +391,31 @@
                     </div>
                 </div>
             </section>
-
-            <!-- Шаг 2: Выбор секций -->
+            
+            <!-- Шаг 2: Стили и палитры -->
             <section id="step2" class="step-card">
-                <h2>Шаг 2: Выберите секции для сайта</h2>
+                <h2>Шаг 2: Выберите стиль</h2>
+                 <div class="form-grid">
+                    <div>
+                        <label for="style-select">Стиль (шрифты, размеры)</label>
+                        <select id="style-select" disabled>
+                            <option>Сначала загрузите компоненты</option>
+                        </select>
+                        <div id="styles-loader" class="spinner-container hidden"><div class="spinner"></div></div>
+                    </div>
+                    <div>
+                        <label for="palette-select">Цветовая палитра</label>
+                        <select id="palette-select" disabled>
+                            <option>Сначала загрузите компоненты</option>
+                        </select>
+                        <div id="palettes-loader" class="spinner-container hidden"><div class="spinner"></div></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Шаг 3: Выбор секций -->
+            <section id="step3" class="step-card">
+                <h2>Шаг 3: Выберите секции для сайта</h2>
                 <div id="sections-loader" class="spinner-container">
                     <div class="spinner"></div>
                     <p>Загрузка доступных секций...</p>
@@ -388,9 +423,9 @@
                 <div id="sections-container"></div>
             </section>
             
-            <!-- Шаг 3: Выбранные секции и генерация -->
-            <section id="step3" class="step-card">
-                <h2>Шаг 3: Ваш сайт</h2>
+            <!-- Шаг 4: Выбранные секции и генерация -->
+            <section id="step4" class="step-card">
+                <h2>Шаг 4: Ваш сайт</h2>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
                     <p style="color: var(--gray-600);">Выбрано секций: <span id="selected-count" style="font-weight: 700;">0</span>. (Минимум: 4)</p>
                      <button id="generate-btn" disabled class="btn btn-primary">
@@ -402,9 +437,9 @@
                 </div>
             </section>
             
-             <!-- Шаг 4: Результат -->
-            <section id="step4" class="step-card hidden">
-                <h2>Шаг 4: Готово!</h2>
+             <!-- Шаг 5: Результат -->
+            <section id="step5" class="step-card hidden">
+                <h2>Шаг 5: Готово!</h2>
                 <div id="generation-spinner" class="spinner-container hidden">
                     <div class="spinner"></div>
                     <p>Магия в процессе... Собираем ваш сайт.</p>
@@ -427,10 +462,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const SECTIONS_PATH = ''; // Убрали жесткий путь 'sections/'
-            
-            // Больше не используем жестко заданный список
-            // const ALL_SECTIONS = [ ... ];
+            const SECTIONS_PATH = ''; 
 
             let availableSections = [];
             let selectedSections = [];
@@ -442,7 +474,7 @@
             const selectedCountEl = document.getElementById('selected-count');
             const selectedListEl = document.getElementById('selected-sections-list');
             const resultHtmlEl = document.getElementById('result-html');
-            const step4 = document.getElementById('step4');
+            const step5 = document.getElementById('step5');
             const resultContainer = document.getElementById('result-container');
             const generationSpinner = document.getElementById('generation-spinner');
             const copyBtn = document.getElementById('copy-html-btn');
@@ -453,6 +485,10 @@
             const repoUrlInput = document.getElementById('repoUrl');
             const loadRepoBtn = document.getElementById('loadRepoBtn');
             const notificationArea = document.getElementById('notification-area');
+            const styleSelect = document.getElementById('style-select');
+            const paletteSelect = document.getElementById('palette-select');
+            const stylesLoader = document.getElementById('styles-loader');
+            const palettesLoader = document.getElementById('palettes-loader');
 
 
             // --- 0. Утилиты ---
@@ -466,25 +502,90 @@
             }
 
             function formatSectionName(name) {
-                return name
-                    .replace(/^\d+\./, '') // Убираем нумерацию "1."
-                    .replace(/[-_]/g, ' ') // Заменяем дефисы и подчеркивания на пробелы
-                    .toLowerCase();
+                return name.replace(/^\d+\./, '').replace(/[-_]/g, ' ').toLowerCase();
             }
 
-            // --- 1. Загрузка и обработка метаданных секций ---
-            
             async function fetchJson(url) {
                 try {
                     const response = await fetch(url, { cache: 'no-store' });
                     if (!response.ok) return null;
                     return await response.json();
-                } catch (error) {
-                    console.error(`Ошибка при загрузке JSON ${url}:`, error);
-                    return null;
-                }
+                } catch (error) { console.error(`Ошибка при загрузке JSON ${url}:`, error); return null; }
+            }
+
+            // --- 1. Логика загрузки ---
+
+            async function getRepoContents(path = '') {
+                const repoUrl = repoUrlInput.value.trim();
+                 const match = repoUrl.match(/githubusercontent\.com\/([^\/]+)\/([^\/]+)/);
+                if (!match) throw new Error("Неверный URL репозитория GitHub.");
+                
+                const [_, owner, repo] = match;
+                // Add a cache-busting timestamp to the API URL
+                const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?t=${new Date().getTime()}`;
+                const response = await fetch(apiUrl, { cache: 'no-store' });
+
+                if (!response.ok) throw new Error(`Ошибка API GitHub: ${response.status} для пути ${path}`);
+                return await response.json();
             }
             
+            async function loadStylesAndPalettes() {
+                stylesLoader.classList.remove('hidden');
+                palettesLoader.classList.remove('hidden');
+                styleSelect.innerHTML = '';
+                paletteSelect.innerHTML = '';
+
+                try {
+                    const assetsContent = await getRepoContents('assets');
+                    
+                    // Загрузка стилей
+                    const stylesDir = assetsContent.find(item => item.name === 'STYLES' && item.type === 'dir');
+                    if (stylesDir) {
+                        const styleFolders = await getRepoContents(stylesDir.path);
+                        if (styleFolders.length > 0) {
+                            styleSelect.innerHTML = styleFolders
+                                .filter(item => item.type === 'dir')
+                                .map(dir => `<option value="${dir.name}">${dir.name}</option>`)
+                                .join('');
+                        } else {
+                            styleSelect.innerHTML = '<option>Стили не найдены</option>';
+                        }
+                    } else {
+                        styleSelect.innerHTML = '<option>Папка STYLES не найдена</option>';
+                    }
+
+                    // Загрузка палитр
+                    const palettesDir = assetsContent.find(item => item.name === 'PALETTES' && item.type === 'dir');
+                    if (palettesDir) {
+                        const paletteFiles = await getRepoContents(palettesDir.path);
+                        if (paletteFiles.length > 0) {
+                            paletteSelect.innerHTML = paletteFiles
+                                .filter(item => item.type === 'file') // Убрали строгую проверку на .css
+                                .map(file => {
+                                    // Отображаем имя без .css, но в value храним полное имя файла
+                                    const displayName = file.name.replace('.css', '');
+                                    const valueName = file.name;
+                                    return `<option value="${valueName}">${displayName}</option>`
+                                })
+                                .join('');
+                        } else {
+                            paletteSelect.innerHTML = '<option>Палитры не найдены</option>';
+                        }
+                    } else {
+                        paletteSelect.innerHTML = '<option>Папка PALETTES не найдена</option>';
+                    }
+                    styleSelect.disabled = false;
+                    paletteSelect.disabled = false;
+                } catch (e) {
+                    showNotification(`Ошибка загрузки стилей: ${e.message}`);
+                    styleSelect.innerHTML = '<option>Ошибка загрузки</option>';
+                    paletteSelect.innerHTML = '<option>Ошибка загрузки</option>';
+                } finally {
+                    stylesLoader.classList.add('hidden');
+                    palettesLoader.classList.add('hidden');
+                }
+            }
+
             async function fetchSectionMeta(sectionName) {
                 const baseUrl = repoUrlInput.value.trim();
                 if (!baseUrl) return null;
@@ -492,13 +593,10 @@
 
                 const metaUrl = `${GITHUB_REPO_RAW_URL}${SECTIONS_PATH}${sectionName}/meta.json`;
                 const meta = await fetchJson(metaUrl);
-                if (meta) {
-                    return { ...meta, name: sectionName, hasVersions: false, versions: [] };
-                }
-
+                if (meta) return { ...meta, name: sectionName, hasVersions: false, versions: [] };
+                
                 const versions = [];
-                const prefixes = ['ver', 'var']; // Искать папки с префиксами 'ver' и 'var'
-
+                const prefixes = ['ver', 'var']; 
                 for (const prefix of prefixes) {
                     let versionCounter = 1;
                     while (true) {
@@ -507,26 +605,15 @@
                         const verMeta = await fetchJson(verMetaUrl);
                         
                         if (verMeta) {
-                            if (!versions.some(v => v.name === versionName)) {
-                                versions.push({ ...verMeta, name: versionName });
-                            }
+                            if (!versions.some(v => v.name === versionName)) versions.push({ ...verMeta, name: versionName });
                             versionCounter++;
-                        } else {
-                            break; // Прекращаем поиск для этого префикса, если последовательность нарушена
-                        }
+                        } else break;
                     }
                 }
                 
-                // Сортируем версии, чтобы обеспечить предсказуемый порядок
                 versions.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
 
-                if (versions.length > 0) {
-                    return {
-                        name: sectionName, hasVersions: true, versions: versions,
-                        // Используем данные из первой найденной версии как базовые
-                        required: versions[0].required, index: versions[0].index
-                    };
-                }
+                if (versions.length > 0) return { name: sectionName, hasVersions: true, versions, required: versions[0].required, index: versions[0].index };
                 return null;
             }
 
@@ -539,36 +626,12 @@
                 sectionsLoader.style.display = 'block';
                 sectionsContainer.innerHTML = '';
 
-                const repoUrl = repoUrlInput.value.trim();
-                if (!repoUrl) {
-                    showNotification('Пожалуйста, введите URL репозитория.', 'info');
-                    sectionsLoader.style.display = 'none';
-                    return;
-                }
-                
                 let dynamicSections = [];
                 try {
-                    // Преобразуем raw URL в API URL для получения содержимого репозитория
-                    // Пример: https://raw.githubusercontent.com/Sadariun/pbnovelist/master/
-                    const match = repoUrl.match(/githubusercontent\.com\/([^\/]+)\/([^\/]+)/);
-                    if (!match) {
-                        throw new Error("Неверный URL репозитория GitHub. Убедитесь, что это raw content URL.");
-                    }
-                    const owner = match[1];
-                    const repo = match[2];
-                    const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/`;
-
-                    const response = await fetch(apiUrl, { cache: 'no-store' });
-                    if (!response.ok) {
-                        throw new Error(`Ошибка API GitHub: ${response.status}. Возможно, репозиторий приватный или не существует.`);
-                    }
-                    const contents = await response.json();
-                    
-                    // Фильтруем, чтобы получить только папки, и игнорируем служебные
-                    dynamicSections = contents
+                    const rootContents = await getRepoContents();
+                    dynamicSections = rootContents
                         .filter(item => item.type === 'dir' && !item.name.startsWith('.') && item.name.toLowerCase() !== 'assets')
                         .map(item => item.name);
-
                 } catch (e) {
                     console.error("Ошибка при получении списка секций из API:", e);
                     sectionsLoader.style.display = 'none';
@@ -590,79 +653,82 @@
                 sectionsLoader.style.display = 'none';
 
                 if (availableSections.length === 0) {
-                    sectionsContainer.innerHTML = '<p style="color: var(--red-700); text-align: center; grid-column: 1 / -1;">Не удалось загрузить meta.json ни для одной секции. Проверьте структуру папок.</p>';
+                    sectionsContainer.innerHTML = '<p style="color: var(--red-700); text-align: center; grid-column: 1 / -1;">Не удалось загрузить meta.json ни для одной секции.</p>';
                 } else {
                     renderSections();
                     addRequiredSections();
                 }
             }
-            
-            // --- 2. Рендеринг UI ---
-            
+
             function renderSections() {
                 sectionsContainer.innerHTML = '';
                 availableSections.forEach(section => {
                     const card = document.createElement('div');
                     card.className = 'section-card';
-                    
+                    card.dataset.sectionName = section.name; // Add section name for easy access
                     let optionsHtml = '';
                     if (section.hasVersions) {
-                        optionsHtml = `<select data-section="${section.name}">
-                            <option value="">Выбрать версию</option>
-                            <option value="random">Случайно</option>
-                            ${section.versions.map(v => `<option value="${v.name}">${v.name}</option>`).join('')}
-                        </select>`;
+                        optionsHtml = `<select data-section="${section.name}"><option value="">Выбрать версию</option><option value="random">Случайно</option>${section.versions.map(v => `<option value="${v.name}">${v.name}</option>`).join('')}</select>`;
                     } else {
                         optionsHtml = `<button data-section="${section.name}" class="btn btn-secondary" style="width: 100%; background-color: #eef2ff; color: #4338ca;">Добавить</button>`;
                     }
-
-                    card.innerHTML = `
-                        <div>
-                            <h3 style="text-transform: capitalize;">${formatSectionName(section.name)}</h3>
-                            ${section.required ? '<span class="required-badge">Обязательный</span>' : ''}
-                        </div>
-                        ${optionsHtml}
-                    `;
-                    
+                    card.innerHTML = `<div><h3 style="text-transform: capitalize;">${formatSectionName(section.name)}</h3>${section.required ? '<span class="required-badge">Обязательный</span>' : ''}</div>${optionsHtml}`;
                     sectionsContainer.appendChild(card);
-
                     if (section.required) {
                         card.querySelector('select, button').disabled = true;
-                        card.style.backgroundColor = 'var(--gray-100)';
-                        card.style.opacity = '0.7';
+                        card.style.cssText = 'background-color: var(--gray-100); opacity: 0.7;';
+                    }
+                });
+            }
+
+            function updateSectionCardsState() {
+                const cards = document.querySelectorAll('#sections-container .section-card');
+                cards.forEach(card => {
+                    const sectionName = card.dataset.sectionName;
+                    const selection = selectedSections.find(s => s.name === sectionName);
+                    const control = card.querySelector('button, select');
+                    const sectionData = availableSections.find(s => s.name === sectionName);
+
+                    if (!sectionData) return; // Exit if data not ready
+
+                    if (selection) {
+                        card.classList.add('selected');
+                        if (control.tagName === 'SELECT') {
+                            control.value = selection.version;
+                        } else if (control.tagName === 'BUTTON') {
+                            control.disabled = true;
+                            control.textContent = 'Добавлено';
+                        }
+                    } else { // Not selected
+                        card.classList.remove('selected');
+                        if (!sectionData.required) {
+                           if (control.tagName === 'BUTTON') {
+                                control.disabled = false;
+                                control.textContent = 'Добавить';
+                            } else if (control.tagName === 'SELECT') {
+                                control.value = "";
+                            }
+                        }
                     }
                 });
             }
 
             function updateSelectedList() {
-                selectedListEl.innerHTML = selectedSections
-                    .sort((a,b) => a.meta.index - b.meta.index)
-                    .map(s => `
-                        <div>
-                            <span>${s.name} ${s.version ? `(${s.version})` : ''}</span>
-                            <button data-id="${s.id}" class="remove-btn">&times;</button>
-                        </div>
-                    `).join('');
-                
+                selectedListEl.innerHTML = selectedSections.sort((a,b) => a.meta.index - b.meta.index).map(s => `<div><span>${s.name} ${s.version ? `(${s.version})` : ''}</span><button data-id="${s.id}" class="remove-btn">&times;</button></div>`).join('');
                 selectedCountEl.textContent = selectedSections.length;
                 generateBtn.disabled = selectedSections.length < 4;
+                updateSectionCardsState(); // Update card styles on every change
             }
             
             function addRequiredSections() {
                 availableSections.forEach(section => {
                     if (section.required) {
-                        let version = null;
-                        let meta = section;
-                        if (section.hasVersions) {
-                            version = section.versions[0].name;
-                            meta = section.versions[0];
-                        }
+                        let version = section.hasVersions ? section.versions[0].name : null;
+                        let meta = section.hasVersions ? section.versions[0] : section;
                         addSection(section.name, version, meta);
                     }
                 });
             }
-
-            // --- 3. Управление состоянием (выбранные секции) ---
 
             function addSection(name, version, meta) {
                 if (selectedSections.find(s => s.name === name)) return;
@@ -685,20 +751,43 @@
 
             sectionsContainer.addEventListener('change', (e) => {
                 if (e.target.tagName === 'SELECT' && e.target.dataset.section) {
-                    const sectionName = e.target.dataset.section;
-                    let versionName = e.target.value;
-                    if (!versionName) return;
+                    const selectElement = e.target;
+                    const sectionName = selectElement.dataset.section;
+                    let versionName = selectElement.value;
 
                     const sectionData = availableSections.find(s => s.name === sectionName);
+                    if (!sectionData) return;
+
+                    // Remove any existing version of this section first
+                    const index = selectedSections.findIndex(s => s.name === sectionName);
+                    if (index > -1) {
+                        selectedSections.splice(index, 1);
+                    }
+                    
+                    // If user selected "Выбрать версию", we just removed it, so update and exit.
+                    if (!versionName) {
+                        updateSelectedList();
+                        return;
+                    }
+
                     if (versionName === 'random') {
                         const randomIndex = Math.floor(Math.random() * sectionData.versions.length);
                         versionName = sectionData.versions[randomIndex].name;
                     }
                     
                     const versionMeta = sectionData.versions.find(v => v.name === versionName);
-                    selectedSections = selectedSections.filter(s => s.name !== sectionName);
-                    addSection(sectionName, versionName, versionMeta);
-                    e.target.value = '';
+                    if (!versionMeta) return;
+
+                    // Add the new version
+                    selectedSections.push({
+                        id: `${sectionName}-${versionName}`,
+                        name: sectionName,
+                        version: versionName,
+                        meta: versionMeta
+                    });
+                    
+                    // Update UI list which will also update the cards state
+                    updateSelectedList();
                 }
             });
 
@@ -728,7 +817,7 @@
             }
 
             async function handleGenerate() {
-                step4.classList.remove('hidden');
+                document.getElementById('step5').classList.remove('hidden');
                 generationSpinner.classList.remove('hidden');
                 resultContainer.classList.add('hidden');
 
@@ -738,39 +827,46 @@
                 const canonicalDomain = `${useWww ? 'www.' : ''}${domainName}.${tld}`;
                 const textVariables = { domainName, tld, canonicalDomain, companyName: 'My Website', phone: '' };
 
-                // Сначала загружаем глобальные стили
-                const globalCssContent = await fetchFileContent('assets/global.css');
-
-                const sortedSections = [...selectedSections].sort((a, b) => a.meta.index - b.meta.index);
-                const filePromises = [];
+                const selectedStyle = styleSelect.value;
+                const selectedPaletteFile = paletteSelect.value; // Теперь это полное имя файла, например "Blue_Navy"
+                // Fix for style filename case (e.g., folder 'CLASSIC' -> file 'Classic.css')
+                const styleCssFileName = selectedStyle.charAt(0).toUpperCase() + selectedStyle.slice(1).toLowerCase();
                 
-                sortedSections.forEach(section => {
-                    const basePath = `${SECTIONS_PATH}${section.name}/${section.version ? section.version + '/' : ''}`;
-                    filePromises.push(fetchFileContent(`${basePath}index.html`).then(content => ({ type: 'html', content, name: section.name })));
-                    section.meta.components.forEach(componentFile => {
-                        const fileType = componentFile.split('.').pop();
-                        filePromises.push(fetchFileContent(`${basePath}${componentFile}`).then(content => ({ type: fileType, content, name: componentFile })));
+                const globalCssContent = await fetchFileContent('assets/global.css');
+                // Используем полное имя файла из value
+                const paletteCssContent = await fetchFileContent(`assets/PALETTES/${selectedPaletteFile}`);
+                const styleCssContent = await fetchFileContent(`assets/STYLES/${selectedStyle}/${styleCssFileName}.css`);
+                const fontTxtContent = await fetchFileContent(`assets/STYLES/${selectedStyle}/font.txt`);
+
+                const filePromises = selectedSections
+                    .sort((a, b) => a.meta.index - b.meta.index)
+                    .flatMap(section => {
+                        const basePath = `${SECTIONS_PATH}${section.name}/${section.version ? section.version + '/' : ''}`;
+                        const componentPromises = section.meta.components.map(file => {
+                            const type = file.split('.').pop();
+                            return fetchFileContent(`${basePath}${file}`).then(content => ({ type, content, name: file }));
+                        });
+                        return [
+                            fetchFileContent(`${basePath}index.html`).then(content => ({ type: 'html', content, name: section.name })),
+                            ...componentPromises
+                        ];
                     });
-                });
 
                 const allFiles = await Promise.all(filePromises);
 
                 const defaultResetCss = `html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}`;
                 
                 let allCss = `/* --- Default Reset --- */\n${defaultResetCss}\n\n`;
-
-                if (globalCssContent) {
-                    allCss += `/* --- Global Styles (assets/global.css) --- */\n${globalCssContent}\n\n`;
-                }
-                
+                if (globalCssContent) allCss += `/* --- Global (assets/global.css) --- */\n${globalCssContent}\n\n`;
+                if (paletteCssContent) allCss += `/* --- Palette (${selectedPaletteFile}) --- */\n${paletteCssContent}\n\n`;
+                if (styleCssContent) allCss += `/* --- Style (${selectedStyle}.css) --- */\n${styleCssContent}\n\n`;
                 allCss += allFiles.filter(f => f.type === 'css').map(f => `/* --- ${f.name} --- */\n${f.content}`).join('\n\n');
+                
                 let allJs = allFiles.filter(f => f.type === 'js').map(f => `// --- ${f.name} ---\n${f.content}`).join('\n\n');
                 let allHtml = allFiles.filter(f => f.type === 'html').map(f => `<!-- SECTION: ${f.name} -->\n${f.content}`).join('\n\n');
                 
-                const anchorIds = (allHtml.match(/id="([^"]+)"/g) || []).map(idAttr => idAttr.substring(4, idAttr.length - 1)).filter(id => id !== 'header' && id !== 'footer');
-                anchorIds.forEach((id, index) => {
-                    allHtml = allHtml.replace(new RegExp(`{{anchor${index + 1}}}`, 'g'), `#${id}`);
-                });
+                const anchorIds = (allHtml.match(/id="([^"]+)"/g) || []).map(idAttr => idAttr.substring(4, idAttr.length - 1)).filter(id => !['header', 'footer'].includes(id));
+                anchorIds.forEach((id, index) => { allHtml = allHtml.replace(new RegExp(`{{anchor${index + 1}}}`, 'g'), `#${id}`); });
 
                 for (const [key, value] of Object.entries(textVariables)) {
                     const placeholder = new RegExp(`{{${key}}}`, 'g');
@@ -779,10 +875,8 @@
                     allJs = allJs.replace(placeholder, value);
                 }
 
-                // Оборачиваем весь JS в самовызывающуюся функцию для немедленного исполнения
                 const finalJs = `(function() {\n${allJs}\n})();`;
-
-                const finalHtml = `<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${domainName}.${tld}</title><link rel="canonical" href="https://${canonicalDomain}" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" /><style>${allCss}</style></head><body>${allHtml}<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"><\/script><script>${finalJs}<\/script></body></html>`;
+                const finalHtml = `<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${domainName}.${tld}</title><link rel="canonical" href="https://${canonicalDomain}" />${fontTxtContent || ''}<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" /><style>${allCss}</style></head><body>${allHtml}<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"><\/script><script>${finalJs}<\/script></body></html>`;
                 
                 resultHtmlEl.value = finalHtml;
                 generationSpinner.classList.add('hidden');
@@ -790,35 +884,37 @@
                 previewWrapper.classList.add('hidden');
             }
 
-            // --- 5. Обработчики событий для результата ---
+            // --- 5. Обработчики событий ---
             generateBtn.addEventListener('click', handleGenerate);
             copyBtn.addEventListener('click', () => {
-                resultHtmlEl.select();
-                document.execCommand('copy');
+                resultHtmlEl.select(); document.execCommand('copy');
                 copyBtn.textContent = 'Скопировано!';
                 setTimeout(() => { copyBtn.textContent = 'Копировать HTML'; }, 2000);
             });
             downloadBtn.addEventListener('click', () => {
                 const blob = new Blob([resultHtmlEl.value], { type: 'text/html' });
                 const a = document.createElement('a');
-                a.href = URL.createObjectURL(blob);
-                a.download = 'index.html';
+                a.href = URL.createObjectURL(blob); a.download = 'index.html';
                 document.body.appendChild(a); a.click(); document.body.removeChild(a);
             });
             showPreviewBtn.addEventListener('click', () => {
                  previewWrapper.classList.toggle('hidden');
-                 if(!previewWrapper.classList.contains('hidden')) {
-                    previewFrame.srcdoc = resultHtmlEl.value;
-                 }
+                 if(!previewWrapper.classList.contains('hidden')) previewFrame.srcdoc = resultHtmlEl.value;
             });
+            
+            async function initialLoad() {
+                await loadStylesAndPalettes();
+                await loadSections();
+            }
 
-            // --- Инициализация ---
-            loadRepoBtn.addEventListener('click', loadSections);
-            loadSections();
+            loadRepoBtn.addEventListener('click', initialLoad);
+            initialLoad();
         });
     </script>
 </body>
 </html>
+
+
 
 
 
