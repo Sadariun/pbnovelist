@@ -61,6 +61,7 @@
         flex-wrap: wrap;
         padding: 0;
         gap: 14px;
+        max-width: 76%;
     }
     .hiw > div {
         width: 100%;

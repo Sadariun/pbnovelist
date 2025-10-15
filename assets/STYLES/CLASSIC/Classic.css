@@ -36,7 +36,12 @@ p{
 }
 
 @media (max-width: 768px){
-    h1{
+
+:root{
+    --sectionPadding: 1.5rem;
+}
+
+h1{
     font-size: 40px;
     font-weight: 700;
 }

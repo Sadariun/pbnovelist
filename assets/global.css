@@ -8,6 +8,7 @@ body{
     margin: auto;
     margin-right: auto;
     margin-bottom: 75px;
+    box-sizing: border-box;
 }
 
 .mainBtn{
@@ -18,7 +19,6 @@ body{
     background: var(--accent);
     border-radius: var(--brad);
     transition: transform 150ms cubic-bezier(0.47, 0, 0.745, 0.715);
-    box-sizing: border-box;
 }
 
 .mainBtn:hover{
