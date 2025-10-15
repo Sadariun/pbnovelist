@@ -1,0 +1,17 @@
+:root {
+    /*BG*/
+    --bg: #99744a;
+    --innerBg: #c19c6f;
+    --innerBlackBg: #99744a;
+    --innerBlackLighterBg: #c19c6f;
+
+    /*ACCENT*/
+    --accent: #195c9b;
+    --accentHover: #19729b;
+    
+    /*TEXT*/
+    --textMain: #404936;
+    --textP: #404936;
+    --textPLighter: #404936;
+    --textBtn: #404936;
+}
