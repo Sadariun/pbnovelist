@@ -1,4 +1,9 @@
-   .partnerContainer{
+#partners{
+    padding: var(--sectionPadding);
+    background-color: var(--innerBg);
+}
+
+.partnerContainer{
     display: flex;
     flex-direction: row;
     justify-content: center;

@@ -7,7 +7,7 @@
 
     /*ACCENT*/
     --accent: #1d779b;
-    --accentHover: #00ffd5;
+    --accentHover: #00a9c7;
     
     /*TEXT*/
     --textMain: #b0bfff;

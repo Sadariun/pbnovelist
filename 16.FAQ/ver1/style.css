@@ -1,10 +1,10 @@
 .faq>div {
-    background-color: var(--bg);
     border-radius: var(--brad)
 }
 
 #faq{
-    /* margin-bottom: 0; */
+    background-color: var(--innerBg);
+    border-radius: var(--brad)
 }
 
 .accord__container {
@@ -18,14 +18,12 @@
     overflow: hidden;
     cursor: pointer;
     padding: 32px 64px;
-    background-color: var(--innerBg);
+    background-color: var(--innerBlackLighterBg);
     border-radius: var(--brad);
-    transform: skewX(-10deg)
 }
 
 .accord__item h3,.accord__item p {
     margin-bottom: 0;
-    transform: skewX(10deg)
 }
 
 .accord__item>div:first-child>p {

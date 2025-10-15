@@ -65,7 +65,15 @@ footer {
 }
 
 .footer__top>nav li a {
-    width: max-content
+    width: max-content;
+    text-decoration: none;
+    transition: transform 150ms cubic-bezier(0.47, 0, 0.745, 0.715);
+}
+
+
+.footer__top>nav li a:hover{
+    color: var(--accentHover);
+    scale: 1.04;
 }
 
 .footer__bottom {

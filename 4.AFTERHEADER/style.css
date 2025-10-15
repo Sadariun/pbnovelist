@@ -32,12 +32,6 @@
     flex-wrap: wrap;
     gap: 20px;
 }
-.hiw > div:first-child > a {
-    min-width: 312px;
-}
-.hiw > div:first-child > div a {
-    flex: 1 0 20%;
-}
 
 .hiw_swiper {
     border-radius: var(--brad);
