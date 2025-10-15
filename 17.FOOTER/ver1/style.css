@@ -26,10 +26,6 @@ footer {
     gap: 16px;
 }
 
-.footer__top>div>ul>li {
-    background: var(--accent);
-}
-
 .footer__top>nav{
     width: 39%;
     display: grid;
@@ -77,8 +73,8 @@ footer {
 }
 
 .footer__bottom {
-    padding: 8px 0;
-    text-align: left;
+    padding: 16px 0;
+    text-align: center;
     background-color: var(--innerBlackBg);
     border-top: 1px var(--innerBg) solid;
 }
