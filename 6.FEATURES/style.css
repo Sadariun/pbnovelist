@@ -12,7 +12,7 @@
                 flex-direction: column;
             }
             .models__cards_container .img-placeholder {
-                background-color: var(--accent);
+                background-color: var(--innerBlackBg);
                 color: white;
                 display: flex;
                 align-items: center;
@@ -27,7 +27,7 @@
                 max-width: 80px;
             }
              .models__cards_container .img-placeholder.dark {
-                background-color: #1a1f3d;
+                background-color: var(--innerBlackLighterBg);
              }
             .models__cards_container > div > div:last-child {
                 padding: 30px;

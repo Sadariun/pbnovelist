@@ -16,6 +16,11 @@
     z-index: 2;
 }
 
+.pricing__container .mainBtn{
+    align-self: center;
+    display: flex;
+}
+
 .pricing__container .btnContainer a{
      z-index: 2;
 }
@@ -39,6 +44,7 @@
     background-color: var(--accentHover)!important;
     /* opacity: 0; */
     filter: blur(-5px);
+    margin-top: 5rem;
 }
 
 .pricing__container .pricing__card:nth-child(2) .btnContainer::before{
@@ -80,12 +86,13 @@
     text-align: left;
     height: 100%;
     padding-bottom: 80px;
-    border-radius: 0;
     overflow: hidden;
 }
 
 .pricing__card p, .pricing__card span{
-    margin-bottom: 0
+    margin-bottom: 0;
+    justify-self: center;
+    align-self: center;
 }
 
 
@@ -126,8 +133,12 @@
    margin: 24px 0;
 }
 
-.pricing__card:nth-child(odd) {
-    min-height: 578px
+.pricing__card:nth-child(3) {
+    border-radius: 0 var(--brad) var(--brad) 0;
+}
+
+.pricing__card:nth-child(1){
+    border-radius: var(--brad) 0 0 var(--brad);
 }
 
 .pricing__card ul li:not(:last-child) {
@@ -141,7 +152,6 @@
     top: 50%;
     transform: translateY(-50%);
     width: 100%;
-    height: 100%;
     background: url(/assets/checkGreen.svg);
     background-repeat: no-repeat;
     object-fit: contain;
@@ -150,7 +160,7 @@
 
 .pricing__card_features li {
     /* margin-left: 34px */
-    list-style: circle;
+    list-style: none;
     max-width: fit-content;
     justify-self: center;
     max-width: 88%;

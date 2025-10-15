@@ -1,6 +1,7 @@
 #partners{
     padding: var(--sectionPadding);
     background-color: var(--innerBg);
+    border-radius: var(--brad);
 }
 
 .partnerContainer{
@@ -17,7 +18,7 @@
     width: min(150px, 12rem);
     padding: 1rem;
     border-radius: 50%;
-    background-color: var(--innerBg, white);
+    background-color: var(--textMain, white);
     border: var(--accent, blue) 4px solid;
     transition: all .4s cubic-bezier(.075, .82, .165, 1)
 }

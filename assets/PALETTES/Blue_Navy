@@ -1,6 +1,6 @@
 :root {
     /*BG*/
-    --bg: #dee2ff;
+    --bg: #eff1ff;
     --innerBg: #5473ff;
     --innerBlackBg: #090081;
     --innerBlackLighterBg: #191b9b;
