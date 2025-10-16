@@ -22,7 +22,7 @@
 .section-flex div img {
     flex-grow: 1;
     display: block;
-    border-radius: var(--bradMed)
+    border-radius: var(--brad);
 }
 
 .section-flex.row-reverse {
@@ -53,7 +53,6 @@
     align-items: center;
     justify-content: center;
     font-weight: 700;
-    font-size: 18px
 }
 
 .how-repair-block .step-number {
@@ -64,7 +63,6 @@
 .step-content h3 {
     margin-bottom: 12px!important;
     font-weight: 700;
-    font-size: 20px
 }
 
 .step-content p {
@@ -205,5 +203,9 @@
     .section-flex {
         gap: 35px;
         align-items: start
+    }
+
+    .step-number{
+        align-self: center;
     }
 }

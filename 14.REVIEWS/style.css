@@ -77,3 +77,9 @@
 .rev__card_rating_active {
   color: #ffc700;
 }
+
+@media(max-width: 768px){
+  #reviews_2 .swiper-wrapper {
+  max-width: unset;
+}
+}

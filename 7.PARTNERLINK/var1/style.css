@@ -1,0 +1,68 @@
+    /* ===== Experts (law-firm styling) ===== */
+/* ===== Experts (law-firm styling) ===== */
+.expertreview {
+  background: var(--bg);            /* как и другие секции */
+  padding: 80px 0;
+}
+.expertreview h2 {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+.expertreview .highlight{
+  color: var(--accent, #e0b15a);
+}
+
+/* сетка */
+.expertReview{
+  display:grid;
+  grid-template-columns:1fr;
+  gap: 16px;
+}
+
+/* ссылки внутри цитат — золотой акцент */
+.expertReview a{
+  color: var(--accent, #e0b15a);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(224,177,90,.35);
+}
+.expertReview a:hover{
+  border-color: var(--accent, #e0b15a);
+}
+
+/* левый штрих у абзаца — тонкий золотой градиент */
+.expertReview p{
+  border-left: 4px solid transparent;
+  border-image: linear-gradient(180deg, var(--accentHover), var(--innerBg)) 1;
+  padding-left: 18px;
+  margin: 0 0 1rem;
+  font-style: italic;
+}
+
+/* автор */
+.expertReview span{
+  font-style: italic;
+  opacity: .7;
+  display:block;
+  text-align:right;
+  font-size: 18px;
+}
+
+/* карточки */
+.review-card{
+  background: var(--innerBg);
+  border: 1px solid var(--border, #e9e9e9);
+  border-radius: var(--radius, 18px);
+  padding: 2rem 2.2rem;
+  box-shadow: var(--shadow, 0 10px 24px rgba(0,0,0,.08));
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.review-card:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(0,0,0,.14);
+  border-color: var(--accent, #e0b15a);
+}
+
+/* 2 колонки на десктопе */
+@media (min-width: 900px){
+  .expertReview{ grid-template-columns: 1fr 1fr; }
+}
