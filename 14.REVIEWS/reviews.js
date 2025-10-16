@@ -4,6 +4,14 @@ document.addEventListener("DOMContentLoaded", function () {
       loop: true,
       slidesPerView: "auto",
       spaceBetween: 20,
+      breakpoints:{
+        769: {
+          slidesPerView: 1
+        },
+        1024:{
+          slidesPerView: 2
+        }
+      }
     });
   }
 });
