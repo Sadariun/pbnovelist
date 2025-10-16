@@ -1,0 +1,5 @@
+{
+  "index": 13,
+  "required": false,
+  "components": ["style.css","gallery.js"]
+}

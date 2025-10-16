@@ -55,7 +55,7 @@ footer {
     flex-direction: row;
     align-items: left;
     flex-wrap: wrap;
-    row-gap: 32px;
+    row-gap: 20px;
     justify-content: left;
     flex-direction: column;
 }
