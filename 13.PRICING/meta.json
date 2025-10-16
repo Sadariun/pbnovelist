@@ -1,5 +1,5 @@
 {
   "index": 13,
-  "required": true,
+  "required": false,
   "components": ["style.css"]
 }
