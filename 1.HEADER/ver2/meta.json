@@ -1,0 +1,5 @@
+{
+  "index": 1,
+  "required": true,
+  "components": ["style.css", "burger.js"]
+}
