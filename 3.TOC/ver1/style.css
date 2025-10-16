@@ -2,6 +2,7 @@
     background-color: var(--innerBg);
     padding: var(--sectionPadding);
     border-radius: var(--brad);
+    margin-top: 75px!important;
 }
 
 .toc__container>ul li {

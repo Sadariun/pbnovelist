@@ -45,6 +45,7 @@
 .partnersContainer .partnerHeading{
     /* border-radius: var(--brad, 16px); */
     padding: 0 1.5rem;
+    box-sizing: border-box;
 }
 
 .partnerHeading a{

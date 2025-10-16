@@ -55,7 +55,7 @@ footer {
     flex-direction: row;
     align-items: left;
     flex-wrap: wrap;
-    row-gap: 12px;
+    row-gap: 32px;
     justify-content: left;
     flex-direction: column;
 }
@@ -81,6 +81,7 @@ footer {
 
 .footer__bottom p {
     justify-self: center;
+    line-height: 150%;
 }
 
 @media (max-width: 768px) {

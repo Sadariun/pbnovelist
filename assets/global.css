@@ -1,5 +1,6 @@
 body{
     background: var(--bg);
+    line-height: 150%;
 }
 
 .wrapper, section:not(.noWrap){
