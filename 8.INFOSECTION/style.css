@@ -1,0 +1,209 @@
+.section-flex {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    gap: 24px;
+    justify-content: space-between;
+    flex-wrap: wrap
+}
+
+.section-flex.stretch {
+    align-items: stretch
+}
+
+.section-flex>* {
+    flex: 1 1 40%
+}
+
+.section-flex {
+    gap: 70px
+}
+
+.section-flex div img {
+    flex-grow: 1;
+    display: block;
+    border-radius: var(--bradMed)
+}
+
+.section-flex.row-reverse {
+    flex-direction: row-reverse
+}
+
+.step {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 24px
+}
+
+.step_flex {
+    display: flex;
+    align-items: center;
+    gap: 12px
+}
+
+.step-number {
+    background: var(--accent);
+    color: var(--textMain);
+    min-width: 52px;
+    min-height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px
+}
+
+.how-repair-block .step-number {
+    background: var(--acccent);
+    color: var(--textMain)!important
+}
+
+.step-content h3 {
+    margin-bottom: 12px!important;
+    font-weight: 700;
+    font-size: 20px
+}
+
+.step-content p {
+    margin: 0
+}
+
+.how-repair .section-flex {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+    justify-content: space-between;
+    flex-wrap: wrap
+}
+
+.how-repair-block .section-flex.reverse {
+    flex-direction: column-reverse
+}
+
+.how-repair__steps-container {
+    display: flex;
+    flex-direction: column
+}
+
+.how-repair__steps {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 24px
+}
+
+.how-repair__steps-container a {
+    max-width: 240px
+}
+
+.how-repair-block h2+p {
+    margin-bottom: 32px
+}
+
+.how-repair-block img {
+    border-radius: var(--brad)
+}
+
+@media (min-width: 768px) {
+    .how-repair__steps .step {
+        flex:1 1 40%!important
+    }
+
+    .how-repair-block .how-repair__steps-container {
+        align-items: start
+    }
+
+    .how-repair__steps-container {
+        align-items: center
+    }
+
+    
+}
+
+@media (max-width: 1200px) {
+    .how-repair {
+        padding:60px 0
+    }
+
+    .step {
+        flex-direction: column;
+        align-items: start
+    }
+
+    .how-repair .section-flex {
+        align-items: start
+    }
+
+    .how-repair .section-flex_second {
+        flex-direction: column-reverse
+    }
+
+    .how-repair .section-flex>* {
+        flex: 0 1 100%
+    }
+
+    .how-repair .sectionImg .desktop {
+        display: none
+    }
+
+    .how-repair .sectionImg .mobile {
+        display: block
+    }
+
+    .how-repair__steps .step {
+        flex: 1 1 100%
+    }
+
+    .how-repair-block .how-repair__steps .step {
+        flex: 1 1 100%!important
+    }
+}
+
+@media (min-width: 1200px) {
+    .how-repair .sectionImg .desktop {
+        display:block
+    }
+
+    .how-repair .sectionImg .mobile {
+        display: none
+    }
+
+    .how-repair__steps .step {
+        flex: 1 1 100%!important
+    }
+
+    .how-repair__steps-container {
+        align-items: start
+    }
+
+    .section-flex .mainBtn{
+        align-self: flex-start;
+    }
+}
+
+@media (max-width: 700px) {
+    .section-flex>* {
+        flex:1 1 100%
+    }
+
+    .section-flex div img {
+        aspect-ratio: 4/3;
+        width: 100%;
+        object-position: top;
+        height: auto;
+        display: block;
+        margin: 0 auto
+    }
+
+    .section-flex.column-reverse {
+        flex-direction: column-reverse
+    }
+
+    .section-flex {
+        gap: 35px;
+        align-items: start
+    }
+}

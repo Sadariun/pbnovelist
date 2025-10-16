@@ -16,7 +16,7 @@
 .expertReview{
   display:grid;
   grid-template-columns:1fr;
-  gap:2rem;
+  gap: 16px;
 }
 
 /* ссылки внутри цитат — золотой акцент */

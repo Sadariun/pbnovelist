@@ -86,3 +86,9 @@
 div.show{
     margin-top: 28px;
 }
+
+@media (max-width: 768px){
+    .accord__item{
+        padding: 32px 16px;
+    }
+}

@@ -63,7 +63,7 @@
   height: unset;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 .reviewer_item-stars {
   display: flex;

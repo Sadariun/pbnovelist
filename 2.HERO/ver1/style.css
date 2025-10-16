@@ -59,11 +59,11 @@ img{
     grid-template-columns: 1fr;
     gap: 8px;
     background-color: var(--innerBlackBg);
-    padding: 0;
+    padding: 1.5rem 0.2rem;
 }
 
-.hero div div:first-child {
-    height: 300px;
+.heading .mainBtn{
+    align-self: center;
 }
 
 .heading p, .heading h1{
