@@ -154,11 +154,15 @@
         }
 
         .section-card.selected button,
-        .section-card.selected select {
+        .section-card.selected select:not([data-required="true"]) {
             background-color: var(--green-500);
             color: var(--white);
             border-color: var(--green-600);
             cursor: default;
+        }
+        
+         .section-card.selected select[data-required="true"] {
+            border-color: var(--green-600);
         }
 
         .section-card .required-badge {
@@ -464,7 +468,7 @@
                     <p>Магия в процессе... Собираем ваш сайт.</p>
                 </div>
                 <div id="result-container" class="hidden">
-                    <div class="actions">
+                     <div class="actions">
                          <button id="copy-html-btn" class="btn btn-secondary">Копировать HTML</button>
                          <button id="download-html-btn" class="btn btn-green">Скачать index.html</button>
                          <button id="show-preview-btn" class="btn btn-blue">Показать превью</button>
@@ -492,15 +496,19 @@
             const generateBtn = document.getElementById('generate-btn');
             const selectedCountEl = document.getElementById('selected-count');
             const selectedListEl = document.getElementById('selected-sections-list');
+            
             const resultHtmlEl = document.getElementById('result-html');
+
             const step5 = document.getElementById('step5');
             const resultContainer = document.getElementById('result-container');
             const generationSpinner = document.getElementById('generation-spinner');
+            
             const copyBtn = document.getElementById('copy-html-btn');
             const downloadBtn = document.getElementById('download-html-btn');
             const showPreviewBtn = document.getElementById('show-preview-btn');
             const previewWrapper = document.getElementById('preview-wrapper');
             const previewFrame = document.getElementById('previewFrame');
+
             const repoUrlInput = document.getElementById('repoUrl');
             const loadRepoBtn = document.getElementById('loadRepoBtn');
             const notificationArea = document.getElementById('notification-area');
@@ -529,7 +537,10 @@
                     const response = await fetch(url, { cache: 'no-store' });
                     if (!response.ok) return null;
                     return await response.json();
-                } catch (error) { console.error(`Ошибка при загрузке JSON ${url}:`, error); return null; }
+                } catch (error) { 
+                    console.error(`Ошибка при загрузке JSON ${url}:`, error); 
+                    return null; 
+                }
             }
 
             // --- 1. Логика загрузки ---
@@ -568,7 +579,6 @@
                 try {
                     const assetsContent = await getRepoContents('assets');
                     
-                    // Загрузка стилей
                     const stylesDir = assetsContent.find(item => item.name === 'STYLES' && item.type === 'dir');
                     if (stylesDir) {
                         const styleFolders = await getRepoContents(stylesDir.path);
@@ -577,32 +587,20 @@
                                 .filter(item => item.type === 'dir')
                                 .map(dir => `<option value="${dir.name}">${dir.name}</option>`)
                                 .join('');
-                        } else {
-                            styleSelect.innerHTML = '<option>Стили не найдены</option>';
-                        }
-                    } else {
-                        styleSelect.innerHTML = '<option>Папка STYLES не найдена</option>';
-                    }
+                        } else { styleSelect.innerHTML = '<option>Стили не найдены</option>'; }
+                    } else { styleSelect.innerHTML = '<option>Папка STYLES не найдена</option>'; }
 
-                    // Загрузка палитр
                     const palettesDir = assetsContent.find(item => item.name === 'PALETTES' && item.type === 'dir');
                     if (palettesDir) {
                         const paletteFiles = await getRepoContents(palettesDir.path);
                         if (paletteFiles.length > 0) {
                             paletteSelect.innerHTML = paletteFiles
                                 .filter(item => item.type === 'file')
-                                .map(file => {
-                                    const displayName = file.name.replace('.css', '');
-                                    const valueName = file.name;
-                                    return `<option value="${valueName}">${displayName}</option>`
-                                })
+                                .map(file => `<option value="${file.name}">${file.name.replace('.css', '')}</option>`)
                                 .join('');
-                        } else {
-                            paletteSelect.innerHTML = '<option>Палитры не найдены</option>';
-                        }
-                    } else {
-                        paletteSelect.innerHTML = '<option>Папка PALETTES не найдена</option>';
-                    }
+                        } else { paletteSelect.innerHTML = '<option>Палитры не найдены</option>'; }
+                    } else { paletteSelect.innerHTML = '<option>Папка PALETTES не найдена</option>'; }
+                    
                     styleSelect.disabled = false;
                     paletteSelect.disabled = false;
                 } catch (e) {
@@ -622,7 +620,9 @@
 
                 const metaUrl = `${GITHUB_REPO_RAW_URL}${SECTIONS_PATH}${sectionName}/meta.json`;
                 const meta = await fetchJson(metaUrl);
-                if (meta) return { ...meta, name: sectionName, hasVersions: false, versions: [] };
+                if (meta) {
+                    return { ...meta, name: sectionName, hasVersions: false, versions: [] };
+                }
                 
                 const versions = [];
                 const prefixes = ['ver', 'var']; 
@@ -632,22 +632,26 @@
                         const versionName = `${prefix}${versionCounter}`;
                         const verMetaUrl = `${GITHUB_REPO_RAW_URL}${SECTIONS_PATH}${sectionName}/${versionName}/meta.json`;
                         const verMeta = await fetchJson(verMetaUrl);
-                        
                         if (verMeta) {
-                            if (!versions.some(v => v.name === versionName)) versions.push({ ...verMeta, name: versionName });
+                            if (!versions.some(v => v.name === versionName)) {
+                                versions.push({ ...verMeta, name: versionName });
+                            }
                             versionCounter++;
-                        } else break;
+                        } else {
+                            break;
+                        }
                     }
                 }
                 
                 versions.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
-
-                if (versions.length > 0) return { name: sectionName, hasVersions: true, versions, required: versions[0].required, index: versions[0].index };
+                if (versions.length > 0) {
+                    return { name: sectionName, hasVersions: true, versions, required: versions[0].required, index: versions[0].index };
+                }
                 return null;
             }
 
             async function loadSections() {
-                availableSections = [];
+                availableSections = []; 
                 selectedSections = [];
                 selectedListEl.innerHTML = '';
                 updateSelectedList();
@@ -662,7 +666,6 @@
                         .filter(item => item.type === 'dir' && !item.name.startsWith('.') && item.name.toLowerCase() !== 'assets')
                         .map(item => item.name);
                 } catch (e) {
-                    console.error("Ошибка при получении списка секций из API:", e);
                     sectionsLoader.style.display = 'none';
                     sectionsContainer.innerHTML = `<p style="color: var(--red-700); text-align: center; grid-column: 1 / -1;"><b>Ошибка:</b> Не удалось получить список секций. ${e.message}</p>`;
                     return;
@@ -677,7 +680,6 @@
                 const promises = dynamicSections.map(fetchSectionMeta);
                 const results = await Promise.all(promises);
                 availableSections = results.filter(s => s !== null);
-                
                 availableSections.sort((a, b) => a.index - b.index);
                 sectionsLoader.style.display = 'none';
 
@@ -694,7 +696,7 @@
                 availableSections.forEach(section => {
                     const card = document.createElement('div');
                     card.className = 'section-card';
-                    card.dataset.sectionName = section.name; // Add section name for easy access
+                    card.dataset.sectionName = section.name;
                     let optionsHtml = '';
                     if (section.hasVersions) {
                         optionsHtml = `<select data-section="${section.name}"><option value="">Выбрать версию</option><option value="random">Случайно</option>${section.versions.map(v => `<option value="${v.name}">${v.name}</option>`).join('')}</select>`;
@@ -703,9 +705,15 @@
                     }
                     card.innerHTML = `<div><h3 style="text-transform: capitalize;">${formatSectionName(section.name)}</h3>${section.required ? '<span class="required-badge">Обязательный</span>' : ''}</div>${optionsHtml}`;
                     sectionsContainer.appendChild(card);
+                    
                     if (section.required) {
-                        card.querySelector('select, button').disabled = true;
-                        card.style.cssText = 'background-color: var(--gray-100); opacity: 0.7;';
+                        const control = card.querySelector('select, button');
+                        if (control.tagName === 'BUTTON') {
+                            control.disabled = true;
+                            card.style.cssText = 'background-color: var(--gray-100); opacity: 0.7;';
+                        } else if (control.tagName === 'SELECT') {
+                            control.dataset.required = "true";
+                        }
                     }
                 });
             }
@@ -718,7 +726,7 @@
                     const control = card.querySelector('button, select');
                     const sectionData = availableSections.find(s => s.name === sectionName);
 
-                    if (!sectionData) return; // Exit if data not ready
+                    if (!sectionData) return;
 
                     if (selection) {
                         card.classList.add('selected');
@@ -728,7 +736,7 @@
                             control.disabled = true;
                             control.textContent = 'Добавлено';
                         }
-                    } else { // Not selected
+                    } else {
                         card.classList.remove('selected');
                         if (!sectionData.required) {
                            if (control.tagName === 'BUTTON') {
@@ -746,7 +754,7 @@
                 selectedListEl.innerHTML = selectedSections.sort((a,b) => a.meta.index - b.meta.index).map(s => `<div><span>${s.name} ${s.version ? `(${s.version})` : ''}</span><button data-id="${s.id}" class="remove-btn">&times;</button></div>`).join('');
                 selectedCountEl.textContent = selectedSections.length;
                 generateBtn.disabled = selectedSections.length < 4;
-                updateSectionCardsState(); // Update card styles on every change
+                updateSectionCardsState();
             }
             
             function addRequiredSections() {
@@ -766,6 +774,15 @@
             }
 
             function removeSection(id) {
+                const sectionToRemove = selectedSections.find(s => s.id === id);
+                if (!sectionToRemove) return;
+
+                const isRequired = availableSections.find(s => s.name === sectionToRemove.name)?.required;
+                if (isRequired) {
+                    showNotification('Эту секцию нельзя удалить, она обязательная. Вы можете поменять ее версию.', 'info');
+                    return;
+                }
+                
                 selectedSections = selectedSections.filter(s => s.id !== id);
                 updateSelectedList();
             }
@@ -783,19 +800,22 @@
                     const selectElement = e.target;
                     const sectionName = selectElement.dataset.section;
                     let versionName = selectElement.value;
-
                     const sectionData = availableSections.find(s => s.name === sectionName);
                     if (!sectionData) return;
-
-                    // Remove any existing version of this section first
+                    
                     const index = selectedSections.findIndex(s => s.name === sectionName);
                     if (index > -1) {
-                        selectedSections.splice(index, 1);
+                         selectedSections.splice(index, 1);
                     }
                     
-                    // If user selected "Выбрать версию", we just removed it, so update and exit.
-                    if (!versionName) {
-                        updateSelectedList();
+                    if (!versionName && sectionData.required) {
+                         showNotification('Обязательный блок должен иметь выбранную версию.', 'info');
+                         // Re-add the first version
+                         const firstVersionMeta = sectionData.versions[0];
+                         addSection(sectionName, firstVersionMeta.name, firstVersionMeta);
+                         return;
+                    } else if (!versionName) {
+                        updateSelectedList(); 
                         return;
                     }
 
@@ -803,31 +823,16 @@
                         const randomIndex = Math.floor(Math.random() * sectionData.versions.length);
                         versionName = sectionData.versions[randomIndex].name;
                     }
-                    
                     const versionMeta = sectionData.versions.find(v => v.name === versionName);
                     if (!versionMeta) return;
-
-                    // Add the new version
-                    selectedSections.push({
-                        id: `${sectionName}-${versionName}`,
-                        name: sectionName,
-                        version: versionName,
-                        meta: versionMeta
-                    });
                     
-                    // Update UI list which will also update the cards state
-                    updateSelectedList();
+                    addSection(sectionName, versionName, versionMeta);
                 }
             });
 
             selectedListEl.addEventListener('click', e => {
                 if (e.target.classList.contains('remove-btn')) {
                     const id = e.target.dataset.id;
-                    const section = selectedSections.find(s => s.id === id);
-                    if (section && availableSections.find(s => s.name === section.name)?.required) {
-                        showNotification('Эту секцию нельзя удалить, она обязательная.', 'info');
-                        return;
-                    }
                     removeSection(id);
                 }
             });
@@ -855,21 +860,16 @@
                 const useWww = document.getElementById('useWww').value === 'yes';
                 const canonicalDomain = `${useWww ? 'www.' : ''}${domainName}.${tld}`;
                 const textVariables = { 
-                    domainName, 
-                    tld, 
-                    canonicalDomain, 
+                    domainName, tld, canonicalDomain, 
                     canonicalName: `https://${canonicalDomain}`, 
-                    companyName: 'My Website', 
-                    phone: '' 
+                    companyName: 'My Website', phone: '' 
                 };
 
                 const selectedStyle = styleSelect.value;
-                const selectedPaletteFile = paletteSelect.value; // Теперь это полное имя файла, например "Blue_Navy"
-                // Fix for style filename case (e.g., folder 'CLASSIC' -> file 'Classic.css')
+                const selectedPaletteFile = paletteSelect.value;
                 const styleCssFileName = selectedStyle.charAt(0).toUpperCase() + selectedStyle.slice(1).toLowerCase();
                 
                 const globalCssContent = await fetchFileContent('assets/global.css');
-                // Используем полное имя файла из value
                 const paletteCssContent = await fetchFileContent(`assets/PALETTES/${selectedPaletteFile}`);
                 const styleCssContent = await fetchFileContent(`assets/STYLES/${selectedStyle}/${styleCssFileName}.css`);
                 const fontTxtContent = await fetchFileContent(`assets/STYLES/${selectedStyle}/font.txt`);
@@ -899,22 +899,25 @@
                 allCss += allFiles.filter(f => f.type === 'css').map(f => `/* --- ${f.name} --- */\n${f.content}`).join('\n\n');
                 
                 let allJs = allFiles.filter(f => f.type === 'js').map(f => `// --- ${f.name} ---\n${f.content}`).join('\n\n');
-                let allHtml = allFiles.filter(f => f.type === 'html').map(f => `<!-- SECTION: ${f.name} -->\n${f.content}`).join('\n\n');
+                let allHtmlBody = allFiles.filter(f => f.type === 'html').map(f => `<!-- SECTION: ${f.name} -->\n${f.content}`).join('\n\n');
                 
-                const anchorIds = (allHtml.match(/id="([^"]+)"/g) || []).map(idAttr => idAttr.substring(4, idAttr.length - 1)).filter(id => !['header', 'footer'].includes(id));
-                anchorIds.forEach((id, index) => { allHtml = allHtml.replace(new RegExp(`{{anchor${index + 1}}}`, 'g'), `#${id}`); });
+                const anchorIds = (allHtmlBody.match(/id="([^"]+)"/g) || []).map(idAttr => idAttr.substring(4, idAttr.length - 1)).filter(id => !['header', 'footer'].includes(id));
+                anchorIds.forEach((id, index) => { allHtmlBody = allHtmlBody.replace(new RegExp(`{{anchor${index + 1}}}`, 'g'), `#${id}`); });
 
+                // --- Replace variables in all content ---
                 for (const [key, value] of Object.entries(textVariables)) {
                     const placeholder = new RegExp(`{{${key}}}`, 'g');
-                    allHtml = allHtml.replace(placeholder, value);
+                    allHtmlBody = allHtmlBody.replace(placeholder, value);
                     allCss = allCss.replace(placeholder, value);
                     allJs = allJs.replace(placeholder, value);
                 }
 
                 const finalJs = `(function() {\n${allJs}\n})();`;
-                const finalHtml = `<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${domainName}.${tld}</title><link rel="canonical" href="https://${canonicalDomain}" />${fontTxtContent || ''}<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" /><style>${allCss}</style></head><body>${allHtml}<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"><\/script><script>${finalJs}<\/script></body></html>`;
+
+                const finalHtml = `<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${domainName}.${tld}</title><link rel="canonical" href="https://${canonicalDomain}" />${fontTxtContent || ''}<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" /><style>${allCss}</style></head><body>${allHtmlBody}<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"><\/script><script>${finalJs}<\/script></body></html>`;
                 
                 resultHtmlEl.value = finalHtml;
+                
                 generationSpinner.classList.add('hidden');
                 resultContainer.classList.remove('hidden');
                 previewWrapper.classList.add('hidden');
@@ -922,20 +925,27 @@
 
             // --- 5. Обработчики событий ---
             generateBtn.addEventListener('click', handleGenerate);
+            
             copyBtn.addEventListener('click', () => {
-                resultHtmlEl.select(); document.execCommand('copy');
+                resultHtmlEl.select(); 
+                document.execCommand('copy');
                 copyBtn.textContent = 'Скопировано!';
                 setTimeout(() => { copyBtn.textContent = 'Копировать HTML'; }, 2000);
             });
+
             downloadBtn.addEventListener('click', () => {
                 const blob = new Blob([resultHtmlEl.value], { type: 'text/html' });
                 const a = document.createElement('a');
-                a.href = URL.createObjectURL(blob); a.download = 'index.html';
+                a.href = URL.createObjectURL(blob);
+                a.download = 'index.html';
                 document.body.appendChild(a); a.click(); document.body.removeChild(a);
             });
+
             showPreviewBtn.addEventListener('click', () => {
                  previewWrapper.classList.toggle('hidden');
-                 if(!previewWrapper.classList.contains('hidden')) previewFrame.srcdoc = resultHtmlEl.value;
+                 if(!previewWrapper.classList.contains('hidden')) {
+                    previewFrame.srcdoc = resultHtmlEl.value;
+                 }
             });
             
             async function initialLoad() {
@@ -949,5 +959,4 @@
     </script>
 </body>
 </html>
-
 
