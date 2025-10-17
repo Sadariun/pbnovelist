@@ -20,7 +20,7 @@ header>nav>ul {
     gap: 39px
 }
 
-header .nav{
+.header__nav{
     margin-left: auto;
 }
 
