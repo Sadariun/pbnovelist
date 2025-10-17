@@ -73,6 +73,11 @@ a{
     .wrapper, section:not(.noWrap){
         max-width: 95%;
     }
+
+    .mainBtn{
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 
 

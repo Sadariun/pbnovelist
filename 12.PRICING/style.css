@@ -173,7 +173,7 @@
 @media (max-width: 768px) {
     .pricing__card {
         flex:1 1 50%;
-        width: 100%
+        /* width: 100% */
     }
 
     .pricing__card:nth-child(odd) {
