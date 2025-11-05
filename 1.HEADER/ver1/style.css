@@ -26,7 +26,7 @@ header>nav>ul {
 
 header>nav>ul a {
     width: max-content;
-    transition: all .4s cubic-bezier(.075, .82, .165, 1)
+    transition: var(--transitionMain)
 }
 
 header>nav>ul a::after {
@@ -65,7 +65,7 @@ header img, footer img{
         backdrop-filter: blur(8px);
         z-index: 50;
         transform: translateX(-120%) translateY(0);
-        transition: all .4s cubic-bezier(.075, .82, .165, 1);
+        transition: var(--transitionMain);
         display: flex;
         flex-direction: column
     }

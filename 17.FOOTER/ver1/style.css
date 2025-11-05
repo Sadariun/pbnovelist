@@ -148,7 +148,7 @@ footer {
 }
 
 .logo, .footer__top div:first-child a{
-    transition: all .4s cubic-bezier(.075, .82, .165, 1);
+    transition: var(--transitionMain);
     border-radius: var(--brad);
     padding: 8px;
 }

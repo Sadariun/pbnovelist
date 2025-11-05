@@ -33,7 +33,7 @@
     height: 50%;
     position: absolute;
     background-color: var(--accent);
-    transition: all .4s cubic-bezier(.075, .82, .165, 1);
+    transition: var(--transitionMain);
     z-index: 1;
     pointer-events: none;
     border: -10px var(--innerBg) solid;

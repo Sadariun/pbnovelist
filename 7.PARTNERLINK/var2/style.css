@@ -20,7 +20,7 @@
     border-radius: 50%;
     background-color: var(--textMain, white);
     border: var(--accent, blue) 4px solid;
-    transition: all .4s cubic-bezier(.075, .82, .165, 1)
+    transition: var(--transitionMain)
 }
 
 .partnerLogo:hover, .partnerLogo:active{

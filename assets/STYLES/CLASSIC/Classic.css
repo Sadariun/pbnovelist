@@ -1,6 +1,7 @@
 :root{
     --brad: 32px;
     --sectionPadding: 3rem;
+    --transitionMain: all .4s cubic-bezier(.075, .82, .165, 1);
 }
 
 body{
