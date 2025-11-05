@@ -1,211 +1,266 @@
-.section-flex {
-    display: flex;
-    flex-direction: row;
-    align-items: start;
-    gap: 24px;
-    justify-content: space-between;
-    flex-wrap: wrap
-}
+/* --- style.css --- */
+        .section-flex {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            align-items: start;
+            gap: 24px;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            /* margin-bottom: 150px!important; */
+        }
 
-.section-flex.stretch {
-    align-items: stretch
-}
+        .section-flex img{
+        }
 
-.section-flex>* {
-    flex: 1 1 40%
-}
+        .flexTextblock{
+            z-index: 4;
+            justify-self: center;
+            align-self: center;
+            margin: auto 0;
+        }
 
-.section-flex {
-    gap: 70px
-}
+        .big_bg{
+            position: absolute;
+            width: 100%;
+            height: 101%;
+            left: -30%;
+            top: -0.5%;
+            z-index: 1;
+            && img{
+                object-position: 0% 20%;
+            }
+        }
 
-.section-flex div img {
-    flex-grow: 1;
-    display: block;
-    border-radius: var(--brad);
-}
+        .section-flex::before {
+            position: absolute;
+            content: '';
+            width: 180%;
+            height: 101%;
+            left: -40%;
+            top: -0.5%;
+            background: linear-gradient(90deg,rgba(0, 255, 234, 0) 20% ,rgba(236, 205, 105, 0) 40%, rgba(1, 24, 58, 1) 50%, rgb(5, 11, 56) 70%, rgb(189, 64, 26) 80%, rgb(194, 191, 16) 100%),
+            linear-gradient(180deg,var(--bg) 0%, rgba(13, 11, 11, 0) 16%, rgba(13, 11, 11, 0) 50%, rgba(13, 11, 11, 0) 84%, var(--bg) 100%);
+            z-index: 3;
+            pointer-events: none; 
+        }
 
-.section-flex.row-reverse {
-    flex-direction: row-reverse
-}
 
-.step {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 20px;
-    gap: 24px
-}
+        .section-flex.stretch {
+            align-items: stretch
+        }
 
-.step_flex {
-    display: flex;
-    align-items: center;
-    gap: 12px
-}
+        .section-flex>* {
+            flex: 1 1 40%
+        }
 
-.step-number {
-    background: var(--accent);
-    color: var(--textMain);
-    min-width: 52px;
-    min-height: 52px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-}
+        .section-flex {
+            gap: 70px
+        }
 
-.how-repair-block .step-number {
-    background: var(--acccent);
-    color: var(--textMain)!important
-}
+        .section-flex div img {
+            flex-grow: 1;
+            display: block;
+            border-radius: var(--brad);
+        }
 
-.step-content h3 {
-    margin-bottom: 12px!important;
-    font-weight: 700;
-}
+        .section-flex.row-reverse {
+            flex-direction: row-reverse
+        }
 
-.step-content p {
-    margin: 0
-}
+        .step {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 24px
+        }
 
-.how-repair .section-flex {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 24px;
-    justify-content: space-between;
-    flex-wrap: wrap
-}
+        .step_flex {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
 
-.how-repair-block .section-flex.reverse {
-    flex-direction: column-reverse
-}
+        .step-number {
+            background: var(--accent);
+            color: var(--textMain);
+            min-width: 52px;
+            min-height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            position: relative;
+            && .buoy{
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                aspect-ratio: 1/1;
+            }
+        }
 
-.how-repair__steps-container {
-    display: flex;
-    flex-direction: column
-}
+        .how-repair-block .step-number {
+            background: var(--acccent);
+            color: var(--textMain) !important
+        }
 
-.how-repair__steps {
-    display: flex;
-    flex-wrap: wrap;
-    column-gap: 24px
-}
+        .step-content h3 {
+            margin-bottom: 12px !important;
+            font-weight: 700;
+        }
 
-.how-repair__steps-container a {
-    max-width: 240px
-}
+        .step-content p {
+            margin: 0
+        }
 
-.how-repair-block h2+p {
-    margin-bottom: 32px
-}
+        .how-repair .section-flex {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 24px;
+            justify-content: space-between;
+            flex-wrap: wrap
+        }
 
-.how-repair-block img {
-    border-radius: var(--brad)
-}
+        .how-repair-block .section-flex.reverse {
+            flex-direction: column-reverse
+        }
 
-@media (min-width: 768px) {
-    .how-repair__steps .step {
-        flex:1 1 40%!important
-    }
+        .how-repair__steps-container {
+            display: flex;
+            flex-direction: column
+        }
 
-    .how-repair-block .how-repair__steps-container {
-        align-items: start
-    }
+        .how-repair__steps {
+            display: flex;
+            flex-wrap: wrap;
+            column-gap: 24px
+        }
 
-    .how-repair__steps-container {
-        align-items: center
-    }
+        .how-repair__steps-container a {
+            max-width: 240px
+        }
 
-    
-}
+        .how-repair-block h2+p {
+            margin-bottom: 32px
+        }
 
-@media (max-width: 1200px) {
-    .how-repair {
-        padding:60px 0
-    }
+        .how-repair-block img {
+            border-radius: var(--brad)
+        }
 
-    .step {
-        flex-direction: column;
-        align-items: start
-    }
+        @media (min-width: 768px) {
+            .how-repair__steps .step {
+                flex: 1 1 40% !important
+            }
 
-    .how-repair .section-flex {
-        align-items: start
-    }
+            .how-repair-block .how-repair__steps-container {
+                align-items: start
+            }
 
-    .how-repair .section-flex_second {
-        flex-direction: column-reverse
-    }
+            .how-repair__steps-container {
+                align-items: center
+            }
 
-    .how-repair .section-flex>* {
-        flex: 0 1 100%
-    }
 
-    .how-repair .sectionImg .desktop {
-        display: none
-    }
+        }
 
-    .how-repair .sectionImg .mobile {
-        display: block
-    }
+        @media (max-width: 1200px) {
+            .how-repair {
+                padding: 60px 0
+            }
 
-    .how-repair__steps .step {
-        flex: 1 1 100%
-    }
+            .step {
+                flex-direction: column;
+                align-items: start
+            }
 
-    .how-repair-block .how-repair__steps .step {
-        flex: 1 1 100%!important
-    }
-}
+            .how-repair .section-flex {
+                align-items: start
+            }
 
-@media (min-width: 1200px) {
-    .how-repair .sectionImg .desktop {
-        display:block
-    }
+            .how-repair .section-flex_second {
+                flex-direction: column-reverse
+            }
 
-    .how-repair .sectionImg .mobile {
-        display: none
-    }
+            .how-repair .section-flex>* {
+                flex: 0 1 100%
+            }
 
-    .how-repair__steps .step {
-        flex: 1 1 100%!important
-    }
+            .how-repair .sectionImg .desktop {
+                display: none
+            }
 
-    .how-repair__steps-container {
-        align-items: start
-    }
+            .how-repair .sectionImg .mobile {
+                display: block
+            }
 
-    .section-flex .mainBtn{
-        align-self: flex-start;
-    }
-}
+            .how-repair__steps .step {
+                flex: 1 1 100%
+            }
 
-@media (max-width: 700px) {
-    .section-flex>* {
-        flex:1 1 100%
-    }
+            .how-repair-block .how-repair__steps .step {
+                flex: 1 1 100% !important
+            }
+        }
 
-    .section-flex div img {
-        aspect-ratio: 4/3;
-        width: 100%;
-        object-position: top;
-        height: auto;
-        display: block;
-        margin: 0 auto
-    }
+        @media (min-width: 1200px) {
+            .how-repair .sectionImg .desktop {
+                display: block
+            }
 
-    .section-flex.column-reverse {
-        flex-direction: column-reverse
-    }
+            .how-repair .sectionImg .mobile {
+                display: none
+            }
 
-    .section-flex {
-        gap: 35px;
-        align-items: start
-    }
+            .how-repair__steps .step {
+                flex: 1 1 100% !important
+            }
 
-    .step-number{
-        align-self: center;
-    }
-}
+            .how-repair__steps-container {
+                align-items: start
+            }
+
+            .section-flex .mainBtn {
+                align-self: flex-start;
+            }
+        }
+
+        @media (max-width: 700px) {
+            /* .section-flex>* {
+                flex: 1 1 100%
+            } */
+
+            .section-flex::before {
+            position: absolute;
+            content: '';
+            top: -5%;
+            height: 350px;
+             background: none;
+            z-index: 3;
+            pointer-events: none; 
+        }
+            
+            .section-flex div img {
+                display: none;
+            }
+
+            .big_bg img{
+                display: none;
+            }
+
+            .section-flex.column-reverse {
+                flex-direction: column-reverse
+            }
+
+            .section-flex {
+                gap: 35px;
+                align-items: start
+            }
+
+            .step-number {
+                align-self: center;
+            }
+        }
