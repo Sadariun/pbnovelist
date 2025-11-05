@@ -37,4 +37,11 @@
             }
             .models__cards_container h3 { text-align: left; margin-bottom: 15px; }
             .models__cards_container p { text-align: left; margin-bottom: 20px; }
-            .models__cards_container .btn { margin-top: auto; max-width: 180px; }
+            .models__cards_container .btn { 
+                margin-top: auto; 
+                max-width: 180px; 
+                transition: var(--transitionMain);
+                &&:hover{
+                    color: var(--accent);
+                }
+            }
