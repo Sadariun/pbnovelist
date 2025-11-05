@@ -1,8 +1,15 @@
 .toc{
-    background-color: var(--innerBg);
-    padding: var(--sectionPadding);
+    background-color: var(--bg);
     border-radius: var(--brad);
     margin-top: 75px!important;
+}
+
+.toc-a{
+    transition: var(--transitionMain);
+    &&:hover{
+        color: var(--accent);
+        cursor: pointer;
+    }
 }
 
 .toc__container>ul li {
@@ -50,7 +57,6 @@ section.toc .toc__container .swiper-scrollbar {
 .toc__container .swiper-scrollbar-drag {
     background-color: var(--accent);
     border-radius: 6px;
-    border: 1px solid rgba(251, 169, 44, 0.2);
     height: 100%;
     position: relative;
     cursor: default;
@@ -64,10 +70,4 @@ section.toc .toc__container .swiper-scrollbar {
 /* Show scrollbar on hover */
 .toc__container:hover .swiper-scrollbar {
     opacity: 1;
-}
-
-@media (max-width: 768px) {
-    .toc h2 {
-        /* font-size:24px!important */
-    }
 }
