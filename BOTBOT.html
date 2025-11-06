@@ -447,6 +447,19 @@
                 <div id="sections-container"></div>
             </section>
             
+            <!-- Шаг 3.5: Дополнительные страницы -->
+            <section id="step3-5" class="step-card">
+                <h2>Шаг 3.5: Дополнительные страницы (опционально)</h2>
+                <p style="color: var(--gray-600); margin-bottom: 1rem;">Добавьте внутренние страницы сайта. Каждая страница должна иметь уникальное имя.</p>
+                <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+                    <input type="text" id="additional-page-name" placeholder="Имя страницы (например: about-us)" style="flex: 1;">
+                    <button id="add-additional-page-btn" class="btn btn-secondary">Добавить страницу</button>
+                </div>
+                <div id="additional-pages-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <!-- Дополнительные страницы будут здесь -->
+                </div>
+            </section>
+            
             <!-- Шаг 4: Выбранные секции и генерация -->
             <section id="step4" class="step-card">
                 <h2>Шаг 4: Ваш сайт</h2>
@@ -490,7 +503,8 @@
 
             let availableSections = [];
             let selectedSections = [];
-            let generatedFiles = { html: '', css: '', js: '', htmlBody: '' }; // Храним сгенерированные файлы
+            let additionalPages = []; // Массив дополнительных страниц: [{ name: 'about-us', id: '...' }]
+            let generatedFiles = { html: '', css: '', js: '', htmlBody: '', additionalPages: [] }; // Храним сгенерированные файлы
             let currentDomainName = 'website'; // Сохраняем имя домена для имени архива
 
             // --- DOM Element References ---
@@ -511,6 +525,10 @@
             const showPreviewBtn = document.getElementById('show-preview-btn');
             const previewWrapper = document.getElementById('preview-wrapper');
             const previewFrame = document.getElementById('previewFrame');
+            
+            const additionalPageNameInput = document.getElementById('additional-page-name');
+            const addAdditionalPageBtn = document.getElementById('add-additional-page-btn');
+            const additionalPagesList = document.getElementById('additional-pages-list');
 
             const repoUrlInput = document.getElementById('repoUrl');
             const loadRepoBtn = document.getElementById('loadRepoBtn');
@@ -840,17 +858,93 @@
                 }
             });
             
+            // --- 3.5. Логика дополнительных страниц ---
+            
+            function updateAdditionalPagesList() {
+                if (additionalPages.length === 0) {
+                    additionalPagesList.innerHTML = '<p style="color: var(--gray-600); font-style: italic;">Нет добавленных страниц</p>';
+                    return;
+                }
+                additionalPagesList.innerHTML = additionalPages.map(page => 
+                    '<div style="display: flex; justify-content: space-between; align-items: center; background-color: var(--gray-100); padding: 0.5rem; border-radius: 6px;">' +
+                        '<span><strong>' + page.name + '</strong></span>' +
+                        '<button data-id="' + page.id + '" class="remove-btn" style="background: none; border: none; color: var(--red-500); font-weight: 700; font-size: 1.5rem; line-height: 1; cursor: pointer; padding: 0 0.5rem;">&times;</button>' +
+                    '</div>'
+                ).join('');
+            }
+            
+            function addAdditionalPage(name) {
+                const trimmedName = name.trim();
+                if (!trimmedName) {
+                    showNotification('Имя страницы не может быть пустым', 'error');
+                    return;
+                }
+                
+                // Проверяем на уникальность имени
+                if (additionalPages.some(p => p.name.toLowerCase() === trimmedName.toLowerCase())) {
+                    showNotification('Страница с таким именем уже существует', 'error');
+                    return;
+                }
+                
+                // Валидация имени (только латиница, цифры, дефисы, подчеркивания)
+                if (!/^[a-zA-Z0-9_-]+$/.test(trimmedName)) {
+                    showNotification('Имя страницы может содержать только латинские буквы, цифры, дефисы и подчеркивания', 'error');
+                    return;
+                }
+                
+                const id = 'page-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+                additionalPages.push({ id: id, name: trimmedName });
+                updateAdditionalPagesList();
+                additionalPageNameInput.value = '';
+            }
+            
+            function removeAdditionalPage(id) {
+                additionalPages = additionalPages.filter(p => p.id !== id);
+                updateAdditionalPagesList();
+            }
+            
+            addAdditionalPageBtn.addEventListener('click', () => {
+                addAdditionalPage(additionalPageNameInput.value);
+            });
+            
+            additionalPageNameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    addAdditionalPage(additionalPageNameInput.value);
+                }
+            });
+            
+            additionalPagesList.addEventListener('click', e => {
+                if (e.target.classList.contains('remove-btn')) {
+                    const id = e.target.dataset.id;
+                    removeAdditionalPage(id);
+                }
+            });
+            
+            // Инициализация списка
+            updateAdditionalPagesList();
+            
             // --- 4. Логика генерации сайта ---
 
             async function fetchFileContent(path) {
                 const baseUrl = repoUrlInput.value.trim();
-                if (!baseUrl) return '';
+                if (!baseUrl) {
+                    console.warn('fetchFileContent: No base URL');
+                    return '';
+                }
                 const GITHUB_REPO_RAW_URL = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+                const fullUrl = `${GITHUB_REPO_RAW_URL}${path}`;
                 try {
-                    const response = await fetch(`${GITHUB_REPO_RAW_URL}${path}`);
-                    if (!response.ok) return '';
-                    return await response.text();
-                } catch { return ''; }
+                    const response = await fetch(fullUrl);
+                    if (!response.ok) {
+                        console.warn(`fetchFileContent failed: ${response.status} ${response.statusText} for ${fullUrl}`);
+                        return '';
+                    }
+                    const text = await response.text();
+                    return text;
+                } catch (error) {
+                    console.error(`fetchFileContent error for ${fullUrl}:`, error);
+                    return '';
+                }
             }
 
             async function handleGenerate() {
@@ -868,6 +962,10 @@
                     canonicalName: `https://${canonicalDomain}`, 
                     companyName: 'My Website', phone: '' 
                 };
+                
+                // Загружаем шаблон дополнительной страницы
+                const additionalPageTemplate = await fetchFileContent('assets/ADDITIONALPAGES/templateInfoPage/index.html');
+                console.log('Template fetch result:', additionalPageTemplate ? 'Success (' + additionalPageTemplate.length + ' chars)' : 'Failed - empty or not found');
 
                 const selectedStyle = styleSelect.value;
                 const selectedPaletteFile = paletteSelect.value;
@@ -916,10 +1014,53 @@
                     allJs = allJs.replace(placeholder, value);
                 }
 
+                // Генерируем дополнительные страницы
+                const generatedAdditionalPages = [];
+                console.log('Additional pages count:', additionalPages.length);
+                console.log('Template loaded:', additionalPageTemplate ? 'Yes (' + additionalPageTemplate.length + ' chars)' : 'No');
+                console.log('Template preview (first 200 chars):', additionalPageTemplate ? additionalPageTemplate.substring(0, 200) : 'N/A');
+                
+                // Если шаблон не загрузился, пробуем альтернативный путь
+                let templateToUse = additionalPageTemplate;
+                if (!templateToUse || templateToUse.length === 0) {
+                    console.log('Trying alternative path...');
+                    templateToUse = await fetchFileContent('assets/ADDITIONALPAGES/templateInfoPage/index.html');
+                    if (!templateToUse || templateToUse.length === 0) {
+                        // Пробуем без префикса assets
+                        templateToUse = await fetchFileContent('ADDITIONALPAGES/templateInfoPage/index.html');
+                    }
+                    console.log('Alternative fetch result:', templateToUse ? 'Success (' + templateToUse.length + ' chars)' : 'Still failed');
+                }
+                
+                if (templateToUse && templateToUse.length > 0 && additionalPages.length > 0) {
+                    for (const page of additionalPages) {
+                        let pageContent = templateToUse;
+                        
+                        // Заменяем переменные в шаблоне страницы
+                        for (const [key, value] of Object.entries(textVariables)) {
+                            const placeholder = new RegExp(`{{${key}}}`, 'g');
+                            pageContent = pageContent.replace(placeholder, value);
+                        }
+                        
+                        // Заменяем специфичную переменную для имени страницы
+                        pageContent = pageContent.replace(/\{\{additionalPageName\}\}/g, page.name);
+                        
+                        generatedAdditionalPages.push({
+                            name: page.name,
+                            content: pageContent
+                        });
+                    }
+                }
+                
+                console.log('Generated additional pages:', generatedAdditionalPages.length);
+
                 // Сохраняем отдельные файлы
                 generatedFiles.css = allCss;
                 generatedFiles.js = allJs;
                 generatedFiles.htmlBody = allHtmlBody;
+                generatedFiles.additionalPages = generatedAdditionalPages;
+                
+                console.log('Saved to generatedFiles.additionalPages:', generatedFiles.additionalPages.length);
                 
                 // Создаем HTML с ссылками на внешние файлы
                 const finalHtml = '<!DOCTYPE html>\n' +
@@ -979,6 +1120,32 @@
                     // Создаем папку js и добавляем JS файл
                     const finalJs = `(function() {\n${generatedFiles.js}\n})();`;
                     zip.folder('js').file('scripts.js', finalJs);
+                    
+                    // Добавляем дополнительные страницы, если они есть
+                    console.log('Adding to ZIP - additional pages:', generatedFiles.additionalPages ? generatedFiles.additionalPages.length : 0);
+                    if (generatedFiles.additionalPages && generatedFiles.additionalPages.length > 0) {
+                        generatedFiles.additionalPages.forEach(page => {
+                            console.log('Adding page:', page.name, 'Content length:', page.content ? page.content.length : 0);
+                            try {
+                                // Создаем папку с именем страницы и добавляем index.html внутрь
+                                const pageFolder = zip.folder(page.name);
+                                if (pageFolder) {
+                                    pageFolder.file('index.html', page.content);
+                                    console.log('Successfully added:', page.name + '/index.html');
+                                } else {
+                                    console.error('Failed to create folder for:', page.name);
+                                }
+                            } catch (error) {
+                                console.error('Error adding page:', page.name, error);
+                            }
+                        });
+                    } else {
+                        console.log('No additional pages to add. Check:', {
+                            hasAdditionalPages: !!generatedFiles.additionalPages,
+                            length: generatedFiles.additionalPages ? generatedFiles.additionalPages.length : 0,
+                            allKeys: Object.keys(generatedFiles)
+                        });
+                    }
                     
                     // Генерируем ZIP архив
                     const blob = await zip.generateAsync({ type: 'blob' });
