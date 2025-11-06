@@ -441,8 +441,8 @@
 
     <div class="container">
         <header class="page-header">
-            <h1>Конструктор Сайтов</h1>
-            <p>Создайте свой сайт в несколько простых шагов</p>
+            <h1>PBNOVELIST</h1>
+            <p>Спидран по сайтам</p>
         </header>
 
         <main>
@@ -480,6 +480,19 @@
                         <select id="useWww">
                             <option value="no">Нет</option>
                             <option value="yes">Да</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="pageLanguage">Язык страницы</label>
+                        <select id="pageLanguage">
+                            <option value="ru">Русский (ru)</option>
+                            <option value="en">English (en)</option>
+                            <option value="it">Italiano (it)</option>
+                            <option value="de">Deutsch (de)</option>
+                            <option value="fr">Français (fr)</option>
+                            <option value="es">Español (es)</option>
+                            <option value="pl">Polski (pl)</option>
+                            <option value="uk">Українська (uk)</option>
                         </select>
                     </div>
                 </div>
@@ -1032,11 +1045,13 @@
                 currentDomainName = domainName; // Сохраняем для использования в downloadBtn
                 const tld = document.getElementById('tld').value || 'com';
                 const useWww = document.getElementById('useWww').value === 'yes';
+                const pageLanguage = document.getElementById('pageLanguage').value || 'ru';
                 const canonicalDomain = `${useWww ? 'www.' : ''}${domainName}.${tld}`;
                 const textVariables = { 
                     domainName, tld, canonicalDomain, 
                     canonicalName: `https://${canonicalDomain}`, 
-                    companyName: 'My Website', phone: '' 
+                    companyName: 'My Website', phone: '',
+                    pageLanguage: pageLanguage
                 };
                 
                 // Загружаем шаблон дополнительной страницы
@@ -1112,6 +1127,9 @@
                     for (const page of additionalPages) {
                         let pageContent = templateToUse;
                         
+                        // Заменяем язык в шаблоне страницы
+                        pageContent = pageContent.replace(/lang="[^"]*"/g, 'lang="' + pageLanguage + '"');
+                        
                         // Заменяем переменные в шаблоне страницы
                         for (const [key, value] of Object.entries(textVariables)) {
                             const placeholder = new RegExp(`{{${key}}}`, 'g');
@@ -1140,7 +1158,7 @@
                 
                 // Создаем HTML с ссылками на внешние файлы
                 const finalHtml = '<!DOCTYPE html>\n' +
-                    '<html lang="ru">\n' +
+                    '<html lang="' + pageLanguage + '">\n' +
                     '<head>\n' +
                     '    <meta charset="UTF-8">\n' +
                     '    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
@@ -1252,8 +1270,9 @@
                  if(!previewWrapper.classList.contains('hidden')) {
                     // Для превью создаем временный HTML с инлайн стилями и скриптами
                     const finalJs = '(function() {\n' + generatedFiles.js + '\n})();';
+                    const previewLang = document.getElementById('pageLanguage') ? document.getElementById('pageLanguage').value : 'ru';
                     const previewHtml = '<!DOCTYPE html>\n' +
-                        '<html lang="ru">\n' +
+                        '<html lang="' + previewLang + '">\n' +
                         '<head>\n' +
                         '    <meta charset="UTF-8">\n' +
                         '    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
