@@ -347,6 +347,75 @@
             display: none;
         }
 
+        /* --- Overlay --- */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .overlay.hidden {
+            display: none;
+        }
+
+        .overlay-content {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 10px 10px -5px rgb(0 0 0 / 0.04);
+            position: relative;
+        }
+
+        .overlay-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .overlay-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            line-height: 1;
+            color: var(--gray-600);
+            cursor: pointer;
+            padding: 0;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .close-btn:hover {
+            background-color: var(--gray-200);
+            color: var(--gray-800);
+        }
+
         /* --- Responsive --- */
         @media (min-width: 768px) {
             .container {
@@ -474,27 +543,33 @@
                 </div>
             </section>
             
-             <!-- Шаг 5: Результат -->
-            <section id="step5" class="step-card hidden">
-                <h2>Шаг 5: Готово!</h2>
-                <div id="generation-spinner" class="spinner-container hidden">
-                    <div class="spinner"></div>
-                    <p>Магия в процессе... Собираем ваш сайт.</p>
-                </div>
-                <div id="result-container" class="hidden">
-                     <div class="actions">
-                         <button id="copy-html-btn" class="btn btn-secondary">Копировать HTML</button>
-                         <button id="download-html-btn" class="btn btn-green">Скачать архив (ZIP)</button>
-                         <button id="show-preview-btn" class="btn btn-blue">Показать превью</button>
-                    </div>
-                    <div id="preview-wrapper" class="hidden">
-                         <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Превью сайта</h3>
-                         <iframe id="previewFrame" title="Превью сайта"></iframe>
-                    </div>
-                    <textarea id="result-html" readonly></textarea>
-                </div>
-            </section>
         </main>
+    </div>
+
+    <!-- Overlay для результатов -->
+    <div id="result-overlay" class="overlay hidden">
+        <div class="overlay-content">
+            <div class="overlay-header">
+                <h2>Готово!</h2>
+                <button id="close-overlay-btn" class="close-btn">&times;</button>
+            </div>
+            <div id="generation-spinner" class="spinner-container hidden">
+                <div class="spinner"></div>
+                <p>Магия в процессе... Собираем ваш сайт.</p>
+            </div>
+            <div id="result-container" class="hidden">
+                 <div class="actions">
+                     <button id="copy-html-btn" class="btn btn-secondary">Копировать HTML</button>
+                     <button id="download-html-btn" class="btn btn-green">Скачать архив (ZIP)</button>
+                     <button id="show-preview-btn" class="btn btn-blue">Показать превью</button>
+                </div>
+                <div id="preview-wrapper" class="hidden">
+                     <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Превью сайта</h3>
+                     <iframe id="previewFrame" title="Превью сайта"></iframe>
+                </div>
+                <textarea id="result-html" readonly></textarea>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -516,7 +591,8 @@
             
             const resultHtmlEl = document.getElementById('result-html');
 
-            const step5 = document.getElementById('step5');
+            const resultOverlay = document.getElementById('result-overlay');
+            const closeOverlayBtn = document.getElementById('close-overlay-btn');
             const resultContainer = document.getElementById('result-container');
             const generationSpinner = document.getElementById('generation-spinner');
             
@@ -948,7 +1024,7 @@
             }
 
             async function handleGenerate() {
-                document.getElementById('step5').classList.remove('hidden');
+                resultOverlay.classList.remove('hidden');
                 generationSpinner.classList.remove('hidden');
                 resultContainer.classList.add('hidden');
 
@@ -1202,6 +1278,25 @@
 
             loadRepoBtn.addEventListener('click', initialLoad);
             initialLoad();
+
+            // Закрытие overlay
+            closeOverlayBtn.addEventListener('click', () => {
+                resultOverlay.classList.add('hidden');
+            });
+
+            // Закрытие overlay при клике на фон
+            resultOverlay.addEventListener('click', (e) => {
+                if (e.target === resultOverlay) {
+                    resultOverlay.classList.add('hidden');
+                }
+            });
+
+            // Закрытие overlay по Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !resultOverlay.classList.contains('hidden')) {
+                    resultOverlay.classList.add('hidden');
+                }
+            });
         });
     </script>
 </body>
