@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Конструктор Сайтов</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -470,7 +471,7 @@
                 <div id="result-container" class="hidden">
                      <div class="actions">
                          <button id="copy-html-btn" class="btn btn-secondary">Копировать HTML</button>
-                         <button id="download-html-btn" class="btn btn-green">Скачать index.html</button>
+                         <button id="download-html-btn" class="btn btn-green">Скачать архив (ZIP)</button>
                          <button id="show-preview-btn" class="btn btn-blue">Показать превью</button>
                     </div>
                     <div id="preview-wrapper" class="hidden">
@@ -489,6 +490,8 @@
 
             let availableSections = [];
             let selectedSections = [];
+            let generatedFiles = { html: '', css: '', js: '', htmlBody: '' }; // Храним сгенерированные файлы
+            let currentDomainName = 'website'; // Сохраняем имя домена для имени архива
 
             // --- DOM Element References ---
             const sectionsContainer = document.getElementById('sections-container');
@@ -856,6 +859,7 @@
                 resultContainer.classList.add('hidden');
 
                 const domainName = document.getElementById('domainName').value || 'example';
+                currentDomainName = domainName; // Сохраняем для использования в downloadBtn
                 const tld = document.getElementById('tld').value || 'com';
                 const useWww = document.getElementById('useWww').value === 'yes';
                 const canonicalDomain = `${useWww ? 'www.' : ''}${domainName}.${tld}`;
@@ -912,10 +916,31 @@
                     allJs = allJs.replace(placeholder, value);
                 }
 
-                const finalJs = `(function() {\n${allJs}\n})();`;
-
-                const finalHtml = `<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${domainName}.${tld}</title><link rel="canonical" href="https://${canonicalDomain}" />${fontTxtContent || ''}<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" /><style>${allCss}</style></head><body>${allHtmlBody}<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"><\/script><script>${finalJs}<\/script></body></html>`;
+                // Сохраняем отдельные файлы
+                generatedFiles.css = allCss;
+                generatedFiles.js = allJs;
+                generatedFiles.htmlBody = allHtmlBody;
                 
+                // Создаем HTML с ссылками на внешние файлы
+                const finalHtml = '<!DOCTYPE html>\n' +
+                    '<html lang="ru">\n' +
+                    '<head>\n' +
+                    '    <meta charset="UTF-8">\n' +
+                    '    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
+                    '    <title>' + domainName + '.' + tld + '</title>\n' +
+                    '    <link rel="canonical" href="https://' + canonicalDomain + '" />\n' +
+                    (fontTxtContent || '') + '\n' +
+                    '    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />\n' +
+                    '    <link rel="stylesheet" href="css/styles.css">\n' +
+                    '</head>\n' +
+                    '<body>\n' +
+                    allHtmlBody + '\n' +
+                    '<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"><\/script>\n' +
+                    '<script src="js/scripts.js"><\/script>\n' +
+                    '</body>\n' +
+                    '</html>';
+                
+                generatedFiles.html = finalHtml;
                 resultHtmlEl.value = finalHtml;
                 
                 generationSpinner.classList.add('hidden');
@@ -933,18 +958,73 @@
                 setTimeout(() => { copyBtn.textContent = 'Копировать HTML'; }, 2000);
             });
 
-            downloadBtn.addEventListener('click', () => {
-                const blob = new Blob([resultHtmlEl.value], { type: 'text/html' });
-                const a = document.createElement('a');
-                a.href = URL.createObjectURL(blob);
-                a.download = 'index.html';
-                document.body.appendChild(a); a.click(); document.body.removeChild(a);
+            downloadBtn.addEventListener('click', async () => {
+                if (!window.JSZip) {
+                    showNotification('Библиотека JSZip не загружена. Обновите страницу.', 'error');
+                    return;
+                }
+
+                try {
+                    downloadBtn.disabled = true;
+                    downloadBtn.textContent = 'Создание архива...';
+                    
+                    const zip = new JSZip();
+                    
+                    // Добавляем HTML файл
+                    zip.file('index.html', generatedFiles.html);
+                    
+                    // Создаем папку css и добавляем CSS файл
+                    zip.folder('css').file('styles.css', generatedFiles.css);
+                    
+                    // Создаем папку js и добавляем JS файл
+                    const finalJs = `(function() {\n${generatedFiles.js}\n})();`;
+                    zip.folder('js').file('scripts.js', finalJs);
+                    
+                    // Генерируем ZIP архив
+                    const blob = await zip.generateAsync({ type: 'blob' });
+                    
+                    // Скачиваем архив
+                    const a = document.createElement('a');
+                    a.href = URL.createObjectURL(blob);
+                    a.download = `${currentDomainName || 'website'}.zip`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(a.href);
+                    
+                    downloadBtn.textContent = 'Архив создан!';
+                    setTimeout(() => {
+                        downloadBtn.textContent = 'Скачать архив';
+                        downloadBtn.disabled = false;
+                    }, 2000);
+                } catch (error) {
+                    showNotification(`Ошибка при создании архива: ${error.message}`, 'error');
+                    downloadBtn.disabled = false;
+                    downloadBtn.textContent = 'Скачать архив';
+                }
             });
 
-            showPreviewBtn.addEventListener('click', () => {
+            showPreviewBtn.addEventListener('click', async () => {
                  previewWrapper.classList.toggle('hidden');
                  if(!previewWrapper.classList.contains('hidden')) {
-                    previewFrame.srcdoc = resultHtmlEl.value;
+                    // Для превью создаем временный HTML с инлайн стилями и скриптами
+                    const finalJs = '(function() {\n' + generatedFiles.js + '\n})();';
+                    const previewHtml = '<!DOCTYPE html>\n' +
+                        '<html lang="ru">\n' +
+                        '<head>\n' +
+                        '    <meta charset="UTF-8">\n' +
+                        '    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
+                        '    <title>Превью</title>\n' +
+                        '    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />\n' +
+                        '    <style>' + generatedFiles.css + '</style>\n' +
+                        '</head>\n' +
+                        '<body>\n' +
+                        generatedFiles.htmlBody + '\n' +
+                        '<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"><\/script>\n' +
+                        '<script>' + finalJs + '<\/script>\n' +
+                        '</body>\n' +
+                        '</html>';
+                    previewFrame.srcdoc = previewHtml;
                  }
             });
             

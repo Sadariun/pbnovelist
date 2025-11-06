@@ -39,7 +39,7 @@
             height: 101%;
             left: -40%;
             top: -0.5%;
-            background: linear-gradient(90deg,rgba(0, 255, 234, 0) 20% ,rgba(236, 205, 105, 0) 40%, rgba(1, 24, 58, 1) 50%, rgb(5, 11, 56) 70%, rgb(189, 64, 26) 80%, rgb(194, 191, 16) 100%),
+            background: linear-gradient(90deg,rgba(0, 0, 0, 0) 20% ,rgba(0, 0, 0, 0) 40%, var(--bg) 50%, var(--innerBg) 80%, var(--accentHover) 100%),
             linear-gradient(180deg,var(--bg) 0%, rgba(13, 11, 11, 0) 16%, rgba(13, 11, 11, 0) 50%, rgba(13, 11, 11, 0) 84%, var(--bg) 100%);
             z-index: 3;
             pointer-events: none; 
