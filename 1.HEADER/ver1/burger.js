@@ -9,19 +9,19 @@ document.addEventListener("DOMContentLoaded", function () {
         burgerIcon.classList.toggle("open");
         nav.classList.toggle("navOpen");
 
-        if (html.style.overflow === "hidden") {
-            html.style.overflow = "";
-        } else {
-            html.style.overflow = "hidden";
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        }
+        // if (html.style.overflow === "hidden") {
+        //     html.style.overflow = "";
+        // } else {
+        //     html.style.overflow = "hidden";
+        //     window.scrollTo({ top: 0, behavior: "smooth" });
+        // }
     });
 
     navLinks.forEach(function (link) {
         link.addEventListener("click", function () {
             burgerIcon.classList.remove("open");
             nav.classList.remove("navOpen");
-            html.style.overflow = "";
+            // html.style.overflow = "";
         });
     });
 
