@@ -288,12 +288,60 @@
             padding: 0.5rem;
             border: 1px solid var(--gray-300);
         }
-        
-        #previewFrame {
+
+        /* --- Fullscreen Preview --- */
+        #fullscreen-preview-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 600px;
-            border: 1px solid var(--gray-200);
-            border-radius: 8px;
+            height: 100%;
+            background-color: var(--white);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #fullscreen-preview-overlay.hidden {
+            display: none;
+        }
+
+        #fullscreen-preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background-color: var(--gray-800);
+            color: var(--white);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        #fullscreen-preview-header h3 {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        #close-fullscreen-btn {
+            background-color: var(--red-500);
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        #close-fullscreen-btn:hover {
+            background-color: var(--red-700);
+        }
+
+        #fullscreen-preview-frame {
+            flex: 1;
+            width: 100%;
+            border: none;
+            background-color: var(--white);
         }
 
         /* --- Selected Sections List --- */
@@ -521,7 +569,16 @@
 
             <!-- Шаг 3: Выбор секций -->
             <section id="step3" class="step-card">
-                <h2>Шаг 3: Выберите секции для сайта</h2>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem;">
+                    <h2 style="margin: 0;">Шаг 3: Выберите секции для сайта</h2>
+                    <div id="random-controls" style="display: none; align-items: center; gap: 0.5rem;">
+                        <label for="random-count" style="margin: 0; font-size: 0.9rem; white-space: nowrap;">Количество секций:</label>
+                        <input type="number" id="random-count" min="9" value="9" style="width: 70px; padding: 0.4rem; border-radius: 6px; border: 1px solid var(--gray-300);">
+                        <button id="random-site-btn" class="btn btn-primary" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; white-space: nowrap;">
+                            🎲 Случайный сайт
+                        </button>
+                    </div>
+                </div>
                 <div id="sections-loader" class="spinner-container">
                     <div class="spinner"></div>
                     <p>Загрузка доступных секций...</p>
@@ -546,7 +603,7 @@
             <section id="step4" class="step-card">
                 <h2>Шаг 4: Ваш сайт</h2>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                    <p style="color: var(--gray-600);">Выбрано секций: <span id="selected-count" style="font-weight: 700;">0</span>. (Минимум: 4)</p>
+                    <p style="color: var(--gray-600);">Выбрано секций: <span id="selected-count" style="font-weight: 700;">0</span>. (Минимум: 9)</p>
                      <button id="generate-btn" disabled class="btn btn-primary">
                         Создать сайт
                     </button>
@@ -574,15 +631,20 @@
                  <div class="actions">
                      <button id="copy-html-btn" class="btn btn-secondary">Копировать HTML</button>
                      <button id="download-html-btn" class="btn btn-green">Скачать архив (ZIP)</button>
-                     <button id="show-preview-btn" class="btn btn-blue">Показать превью</button>
-                </div>
-                <div id="preview-wrapper" class="hidden">
-                     <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Превью сайта</h3>
-                     <iframe id="previewFrame" title="Превью сайта"></iframe>
+                     <button id="show-fullscreen-preview-btn" class="btn btn-blue">Показать превью</button>
                 </div>
                 <textarea id="result-html" readonly></textarea>
             </div>
         </div>
+    </div>
+
+    <!-- Fullscreen Preview Overlay -->
+    <div id="fullscreen-preview-overlay" class="hidden">
+        <div id="fullscreen-preview-header">
+            <h3>Предпросмотр на весь экран</h3>
+            <button id="close-fullscreen-btn">Закрыть</button>
+        </div>
+        <iframe id="fullscreen-preview-frame" title="Полноэкранный превью сайта"></iframe>
     </div>
 
     <script>
@@ -601,6 +663,9 @@
             const generateBtn = document.getElementById('generate-btn');
             const selectedCountEl = document.getElementById('selected-count');
             const selectedListEl = document.getElementById('selected-sections-list');
+            const randomSiteBtn = document.getElementById('random-site-btn');
+            const randomCountInput = document.getElementById('random-count');
+            const randomControls = document.getElementById('random-controls');
             
             const resultHtmlEl = document.getElementById('result-html');
 
@@ -611,9 +676,10 @@
             
             const copyBtn = document.getElementById('copy-html-btn');
             const downloadBtn = document.getElementById('download-html-btn');
-            const showPreviewBtn = document.getElementById('show-preview-btn');
-            const previewWrapper = document.getElementById('preview-wrapper');
-            const previewFrame = document.getElementById('previewFrame');
+            const showFullscreenPreviewBtn = document.getElementById('show-fullscreen-preview-btn');
+            const fullscreenPreviewOverlay = document.getElementById('fullscreen-preview-overlay');
+            const fullscreenPreviewFrame = document.getElementById('fullscreen-preview-frame');
+            const closeFullscreenBtn = document.getElementById('close-fullscreen-btn');
             
             const additionalPageNameInput = document.getElementById('additional-page-name');
             const addAdditionalPageBtn = document.getElementById('add-additional-page-btn');
@@ -744,7 +810,13 @@
                         const verMeta = await fetchJson(verMetaUrl);
                         if (verMeta) {
                             if (!versions.some(v => v.name === versionName)) {
-                                versions.push({ ...verMeta, name: versionName });
+                                // Используем название из meta.json или дефолтное имя
+                                const displayName = verMeta.name || versionName;
+                                versions.push({ 
+                                    ...verMeta, 
+                                    name: versionName,
+                                    displayName: displayName
+                                });
                             }
                             versionCounter++;
                         } else {
@@ -798,6 +870,7 @@
                 } else {
                     renderSections();
                     addRequiredSections();
+                    randomControls.style.display = 'flex'; // Показываем контролы после загрузки секций
                 }
             }
 
@@ -809,7 +882,7 @@
                     card.dataset.sectionName = section.name;
                     let optionsHtml = '';
                     if (section.hasVersions) {
-                        optionsHtml = `<select data-section="${section.name}"><option value="">Выбрать версию</option><option value="random">Случайно</option>${section.versions.map(v => `<option value="${v.name}">${v.name}</option>`).join('')}</select>`;
+                        optionsHtml = `<select data-section="${section.name}"><option value="">Выбрать версию</option><option value="random">Случайно</option>${section.versions.map(v => `<option value="${v.name}">${v.displayName || v.name}</option>`).join('')}</select>`;
                     } else {
                         optionsHtml = `<button data-section="${section.name}" class="btn btn-secondary" style="width: 100%; background-color: #eef2ff; color: #4338ca;">Добавить</button>`;
                     }
@@ -861,9 +934,12 @@
             }
 
             function updateSelectedList() {
-                selectedListEl.innerHTML = selectedSections.sort((a,b) => a.meta.index - b.meta.index).map(s => `<div><span>${s.name} ${s.version ? `(${s.version})` : ''}</span><button data-id="${s.id}" class="remove-btn">&times;</button></div>`).join('');
+                selectedListEl.innerHTML = selectedSections.sort((a,b) => a.meta.index - b.meta.index).map(s => {
+                    const versionDisplay = s.version ? `(${s.displayName || s.version})` : '';
+                    return `<div><span>${s.name} ${versionDisplay}</span><button data-id="${s.id}" class="remove-btn">&times;</button></div>`;
+                }).join('');
                 selectedCountEl.textContent = selectedSections.length;
-                generateBtn.disabled = selectedSections.length < 4;
+                generateBtn.disabled = selectedSections.length < 9;
                 updateSectionCardsState();
             }
             
@@ -872,14 +948,21 @@
                     if (section.required) {
                         let version = section.hasVersions ? section.versions[0].name : null;
                         let meta = section.hasVersions ? section.versions[0] : section;
-                        addSection(section.name, version, meta);
+                        let displayName = section.hasVersions ? section.versions[0].displayName : null;
+                        addSection(section.name, version, meta, displayName);
                     }
                 });
             }
 
-            function addSection(name, version, meta) {
+            function addSection(name, version, meta, displayName) {
                 if (selectedSections.find(s => s.name === name)) return;
-                selectedSections.push({ id: `${name}-${version || ''}`, name, version, meta });
+                selectedSections.push({ 
+                    id: `${name}-${version || ''}`, 
+                    name, 
+                    version, 
+                    meta,
+                    displayName: displayName || version // Сохраняем читаемое название
+                });
                 updateSelectedList();
             }
 
@@ -901,7 +984,7 @@
                 if (e.target.tagName === 'BUTTON' && e.target.dataset.section) {
                     const sectionName = e.target.dataset.section;
                     const sectionData = availableSections.find(s => s.name === sectionName);
-                    if (sectionData) addSection(sectionName, null, sectionData);
+                    if (sectionData) addSection(sectionName, null, sectionData, null);
                 }
             });
 
@@ -922,7 +1005,7 @@
                          showNotification('Обязательный блок должен иметь выбранную версию.', 'info');
                          // Re-add the first version
                          const firstVersionMeta = sectionData.versions[0];
-                         addSection(sectionName, firstVersionMeta.name, firstVersionMeta);
+                         addSection(sectionName, firstVersionMeta.name, firstVersionMeta, firstVersionMeta.displayName);
                          return;
                     } else if (!versionName) {
                         updateSelectedList(); 
@@ -936,7 +1019,7 @@
                     const versionMeta = sectionData.versions.find(v => v.name === versionName);
                     if (!versionMeta) return;
                     
-                    addSection(sectionName, versionName, versionMeta);
+                    addSection(sectionName, versionName, versionMeta, versionMeta.displayName);
                 }
             });
 
@@ -944,6 +1027,93 @@
                 if (e.target.classList.contains('remove-btn')) {
                     const id = e.target.dataset.id;
                     removeSection(id);
+                }
+            });
+            
+            // --- Генерация случайного сайта ---
+            
+            function generateRandomSite() {
+                // Получаем желаемое количество секций из поля ввода
+                let desiredCount = parseInt(randomCountInput.value) || 9;
+                const minRequired = 9;
+                
+                // Валидация: не меньше минимума
+                if (desiredCount < minRequired) {
+                    desiredCount = minRequired;
+                    randomCountInput.value = minRequired;
+                    showNotification(`⚠️ Минимальное количество секций: ${minRequired}`, 'info');
+                }
+                
+                // Очищаем все секции
+                selectedSections = [];
+                
+                // Сначала добавляем все обязательные секции со случайными вариантами
+                const requiredSections = availableSections.filter(s => s.required);
+                requiredSections.forEach(section => {
+                    if (section.hasVersions && section.versions.length > 0) {
+                        // Выбираем случайную версию для обязательной секции
+                        const randomVersion = section.versions[Math.floor(Math.random() * section.versions.length)];
+                        addSection(section.name, randomVersion.name, randomVersion, randomVersion.displayName);
+                    } else {
+                        // Обязательная секция без версий
+                        addSection(section.name, null, section, null);
+                    }
+                });
+                
+                // Получаем список необязательных секций
+                const optionalSections = availableSections.filter(s => !s.required);
+                
+                if (optionalSections.length === 0 && selectedSections.length < desiredCount) {
+                    showNotification('Добавлены только обязательные секции (нет доступных необязательных)', 'info');
+                    return;
+                }
+                
+                // Вычисляем, сколько секций нужно добавить
+                const currentCount = selectedSections.length;
+                const needToAdd = Math.max(desiredCount - currentCount, 0);
+                
+                // Если нужно добавить больше, чем есть необязательных, берем все
+                const countToAdd = Math.min(needToAdd, optionalSections.length);
+                
+                // Перемешиваем массив необязательных секций
+                const shuffled = [...optionalSections].sort(() => 0.5 - Math.random());
+                
+                // Добавляем случайные необязательные секции
+                for (let i = 0; i < countToAdd; i++) {
+                    const section = shuffled[i];
+                    
+                    if (section.hasVersions && section.versions.length > 0) {
+                        // Выбираем случайную версию
+                        const randomVersion = section.versions[Math.floor(Math.random() * section.versions.length)];
+                        addSection(section.name, randomVersion.name, randomVersion, randomVersion.displayName);
+                    } else {
+                        // Секция без версий
+                        addSection(section.name, null, section, null);
+                    }
+                }
+                
+                const finalCount = selectedSections.length;
+                if (finalCount < desiredCount) {
+                    showNotification(`🎲 Сгенерировано ${finalCount} секций (запрошено ${desiredCount}, но недостаточно доступных секций)`, 'info');
+                } else {
+                    showNotification(`🎲 Случайный сайт сгенерирован! Выбрано секций: ${finalCount}`, 'info');
+                }
+            }
+            
+            randomSiteBtn.addEventListener('click', generateRandomSite);
+            
+            // Валидация поля количества секций
+            randomCountInput.addEventListener('input', () => {
+                const value = parseInt(randomCountInput.value);
+                if (value < 9) {
+                    randomCountInput.value = 9;
+                }
+            });
+            
+            randomCountInput.addEventListener('blur', () => {
+                const value = parseInt(randomCountInput.value);
+                if (!value || value < 9) {
+                    randomCountInput.value = 9;
                 }
             });
             
@@ -1180,7 +1350,6 @@
                 
                 generationSpinner.classList.add('hidden');
                 resultContainer.classList.remove('hidden');
-                previewWrapper.classList.add('hidden');
             }
 
             // --- 5. Обработчики событий ---
@@ -1265,29 +1434,34 @@
                 }
             });
 
-            showPreviewBtn.addEventListener('click', async () => {
-                 previewWrapper.classList.toggle('hidden');
-                 if(!previewWrapper.classList.contains('hidden')) {
-                    // Для превью создаем временный HTML с инлайн стилями и скриптами
-                    const finalJs = '(function() {\n' + generatedFiles.js + '\n})();';
-                    const previewLang = document.getElementById('pageLanguage') ? document.getElementById('pageLanguage').value : 'ru';
-                    const previewHtml = '<!DOCTYPE html>\n' +
-                        '<html lang="' + previewLang + '">\n' +
-                        '<head>\n' +
-                        '    <meta charset="UTF-8">\n' +
-                        '    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
-                        '    <title>Превью</title>\n' +
-                        '    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />\n' +
-                        '    <style>' + generatedFiles.css + '</style>\n' +
-                        '</head>\n' +
-                        '<body>\n' +
-                        generatedFiles.htmlBody + '\n' +
-                        '<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"><\/script>\n' +
-                        '<script>' + finalJs + '<\/script>\n' +
-                        '</body>\n' +
-                        '</html>';
-                    previewFrame.srcdoc = previewHtml;
-                 }
+            // Обработчик для полноэкранного предпросмотра
+            showFullscreenPreviewBtn.addEventListener('click', () => {
+                // Создаем HTML для полноэкранного превью
+                const finalJs = '(function() {\n' + generatedFiles.js + '\n})();';
+                const previewLang = document.getElementById('pageLanguage') ? document.getElementById('pageLanguage').value : 'ru';
+                const fullscreenHtml = '<!DOCTYPE html>\n' +
+                    '<html lang="' + previewLang + '">\n' +
+                    '<head>\n' +
+                    '    <meta charset="UTF-8">\n' +
+                    '    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
+                    '    <title>Полноэкранный превью</title>\n' +
+                    '    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />\n' +
+                    '    <style>' + generatedFiles.css + '</style>\n' +
+                    '</head>\n' +
+                    '<body>\n' +
+                    generatedFiles.htmlBody + '\n' +
+                    '<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"><\/script>\n' +
+                    '<script>' + finalJs + '<\/script>\n' +
+                    '</body>\n' +
+                    '</html>';
+                
+                fullscreenPreviewFrame.srcdoc = fullscreenHtml;
+                fullscreenPreviewOverlay.classList.remove('hidden');
+            });
+
+            // Закрытие полноэкранного предпросмотра
+            closeFullscreenBtn.addEventListener('click', () => {
+                fullscreenPreviewOverlay.classList.add('hidden');
             });
             
             async function initialLoad() {
@@ -1312,12 +1486,19 @@
 
             // Закрытие overlay по Escape
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && !resultOverlay.classList.contains('hidden')) {
-                    resultOverlay.classList.add('hidden');
+                if (e.key === 'Escape') {
+                    // Приоритет закрытия: сначала полноэкранный превью, потом результаты
+                    if (!fullscreenPreviewOverlay.classList.contains('hidden')) {
+                        fullscreenPreviewOverlay.classList.add('hidden');
+                    } else if (!resultOverlay.classList.contains('hidden')) {
+                        resultOverlay.classList.add('hidden');
+                    }
                 }
             });
         });
     </script>
 </body>
 </html>
+
+
 
