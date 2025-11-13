@@ -19,6 +19,7 @@
         padding: 16px;
         position: relative;
         z-index: 2;
+        overflow: hidden;
         &&:nth-child(2n){
             background-color: var(--innerBlackBg);
         };
