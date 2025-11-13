@@ -1,5 +1,5 @@
 {
-  "name": "Подвал стандартный",
+  "name": "Basic footer",
   "index": 17,
   "required": true,
   "components": ["footer.css"]

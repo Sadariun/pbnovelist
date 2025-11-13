@@ -65,15 +65,4 @@
     .resultControls {
         display: none;
     }
-    /* .gallery::after {
-        background: linear-gradient(
-            90deg,
-            rgba(246, 246, 252, 0.741) 0%,
-            rgba(246, 246, 252, 0.741) 8%,
-            rgba(255, 255, 255, 0) 12%,
-            rgba(255, 255, 255, 0) 87%,
-            rgba(246, 246, 252, 0.741) 88%,
-            rgba(246, 246, 252, 0.741) 100%
-        );
-    } */
 }

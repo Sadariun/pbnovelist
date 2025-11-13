@@ -97,7 +97,7 @@
         z-index: 2;
         border: var(--bg) 4px solid;
         ;
-        background: linear-gradient(90deg,rgba(0, 0, 0, 1), rgba(0, 0, 0, 0) 5%, rgba(0, 0, 0, 0) 95%, rgba(0, 0, 0, 1) 100%);
+        background: linear-gradient(90deg,var(--bg), rgba(0, 0, 0, 0) 5%, rgba(0, 0, 0, 0) 95%, var(--bg) 100%);
     }
 }
 
