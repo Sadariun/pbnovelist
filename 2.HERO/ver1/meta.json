@@ -2,5 +2,5 @@
   "name": "Классический герой",
   "index": 2,
   "required": true,
-  "components": ["style.css"]
+  "components": ["hero.css"]
 }

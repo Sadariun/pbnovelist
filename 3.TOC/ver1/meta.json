@@ -2,5 +2,5 @@
   "name": "Оглавление стандарт",
   "index": 3,
   "required": true,
-  "components": ["style.css","toc.js"]
+  "components": ["toc.css","toc.js"]
 }

@@ -2,8 +2,7 @@ header {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-    /* padding: 48px 0; */
+    gap: 24px;
     margin-bottom: 0!important;
 }
 
@@ -17,6 +16,10 @@ header>nav>ul {
     flex-direction: row;
     align-items: center;
     gap: 39px
+}
+
+.header__nav{
+    margin-left: auto;
 }
 
 header>nav>ul a {

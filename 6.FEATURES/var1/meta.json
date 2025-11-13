@@ -1,6 +1,6 @@
 {
-  "name": "Сетка возможностей",
+  "name": "Tabs with icons",
   "index": 6,
   "required": false,
-  "components": ["style.css"]
+  "components": ["features.css"]
 }

@@ -1,6 +1,6 @@
 {
-  "name": "Шапка базовая",
+  "name": "Base Header",
   "index": 1,
   "required": true,
-  "components": ["style.css", "burger.js"]
+  "components": ["header.css", "burger.js"]
 }

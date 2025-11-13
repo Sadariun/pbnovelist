@@ -2,5 +2,5 @@
   "name": "FAQ классика",
   "index": 16,
   "required": true,
-  "components": ["style.css","faq.js"]
+  "components": ["faq.css","faq.js"]
 }

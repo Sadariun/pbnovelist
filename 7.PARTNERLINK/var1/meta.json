@@ -1,6 +1,6 @@
 {
-  "name": "Компактный партнер",
+  "name": "Experts review",
   "index": 7,
   "required": false,
-  "components": ["style.css"]
+  "components": ["partner.css"]
 }

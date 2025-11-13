@@ -2,5 +2,5 @@
   "name": "Подвал стандартный",
   "index": 17,
   "required": true,
-  "components": ["style.css"]
+  "components": ["footer.css"]
 }

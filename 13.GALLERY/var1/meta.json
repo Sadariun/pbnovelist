@@ -1,0 +1,6 @@
+{ 
+  "name": "Nowrap",
+  "index": 13,
+  "required": false,
+  "components": ["gallery.css","gallery.js"]
+}
