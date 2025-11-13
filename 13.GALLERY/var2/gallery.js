@@ -5,8 +5,10 @@ var swiper = new Swiper(".gallery", {
             spaceBetween: 20,
             draggable: true,
             loop: true,
-            autoplay: {
-                delay: 1000,
+            navigation: {
+                nextEl: ".arrow.right",
+                prevEl: ".arrow.left",
+                disabledClass: "disabled",
             },
             breakpoints: {
                 0: {

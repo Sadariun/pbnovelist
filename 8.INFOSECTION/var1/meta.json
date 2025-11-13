@@ -1,4 +1,5 @@
 {
+  "name": "Image left List right",
   "index": 8,
   "required": false,
   "components": ["info.css"]

@@ -1,0 +1,6 @@
+{
+  "name": "Left text right image",
+  "index": 2,
+  "required": true,
+  "components": ["hero.css"]
+}

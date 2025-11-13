@@ -34,10 +34,8 @@ footer {
 
 .footer__top>div>ul a {
     display: inline-block;
-    width: 48px;
-    height: 48px;
-    /* background-color: var(--innerBg); */
-    /* border-radius: 100px; */
+    width: 64px;
+    height: 64px;
     display: flex;
     align-items: center;
     justify-content: center
@@ -127,8 +125,8 @@ footer {
     }
 
     .footer__top>div>ul a{
-        width: 32px;
-        height: 32px;
+        width: 52px;
+        height: 52px;
     }
 }
 
