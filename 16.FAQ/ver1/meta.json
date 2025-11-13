@@ -1,5 +1,5 @@
 {
-  "name": "FAQ классика",
+  "name": "Base FAQ",
   "index": 16,
   "required": true,
   "components": ["faq.css","faq.js"]

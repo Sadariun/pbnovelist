@@ -1,5 +1,5 @@
 {
-  "name": "Классический герой",
+  "name": "Base hero",
   "index": 2,
   "required": true,
   "components": ["hero.css"]
