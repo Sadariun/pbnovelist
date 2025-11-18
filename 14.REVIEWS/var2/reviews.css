@@ -1,0 +1,197 @@
+#recensioni{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    position: relative;
+
+}
+
+
+.reviewImage, .gradientSection{
+    position: absolute;
+    width: 200%;
+    height: 105%;
+    grid-row: 1 / 3;
+    top: -5%;
+    left: -68%;
+    user-select: none;
+}
+
+.gradientSection{
+    background: linear-gradient(180deg,var(--bg) 0%, rgba(13, 11, 11, 0) 12%, rgba(13, 11, 11, 0) 88%, var(--bg) 100%),
+    linear-gradient(90deg,rgba(13, 11, 11, 1) 27%, rgba(13, 11, 11, 0) 43%, rgba(13, 11, 11, 0) 75%, rgba(13, 11, 11, 1) 89%);
+    z-index: 2;
+    user-select: none;
+}
+#recensioni{
+    display: relative;
+}
+
+#recensioni .wrapper .reviewControls{
+    position: absolute;
+    height: 64px;
+    width: calc(128px + 1rem);
+    display: flex;
+    justify-content: space-between;
+    right: 5%;
+    bottom: -15%;
+    && div{
+        height: 64px;
+        width: 64px;
+        border-radius: 50%;
+        transition: all .4s cubic-bezier(.075, .82, .165, 1);
+        background: var(--innerBg);
+    }
+}
+
+@media (max-width: 768px) {
+    #recensioni .wrapper .reviewControls{
+       display: none;
+    }
+}
+
+
+#recensioni h2 {
+  text-align: left;
+}
+
+#recensioni .swiper{
+    position: relative;
+    border-radius: var(--brad);
+    cursor: grab;
+    &&:active{
+        cursor: grabbing;
+    }
+    &&::after{
+        position: absolute;
+        content: '';
+        right: 0;
+        bottom: 0;
+        height: 100%;
+        width: 100%;
+        background: linear-gradient(95deg,rgba(13, 11, 11, 0) 78%, var(--bg) 100%);
+        z-index: 1;
+        pointer-events: none;
+        user-select: none;
+    }
+}
+
+#recensioni .wrapper{
+    padding: 1rem 2rem;
+    z-index: 2;
+    position: relative;
+    &&::before{
+        position: absolute;
+        left: -100%;
+        top: -10%;
+        height: 135%;
+        width: 200%;
+        content: '';
+        background-color: var(--bg);
+        filter: blur(5px) opacity(0.8);
+        border-radius: var(--brad);
+        z-index: -1;
+    }
+}
+.recensioni_item {
+  background-color: var(--innerBlackBg);
+  padding: 24px;
+  border-radius: 24px;
+  color: var(--textP);
+}
+.namerecensioniWrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  p{
+    font-style: italic;
+    margin: 0;
+    white-space: nowrap;
+  }
+}
+
+.wrapNameImage{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  height: 40px;
+  width: 40px;
+  justify-content: flex-start;
+  .avatarReview{
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+  }
+
+}
+.reviewer_item-name{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 0.4rem;
+  /* width: 90%; */
+}
+.recensioni_item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.recensioni_item-body {
+  font-size: 16px;
+}
+.recensioni_item h4 {
+  margin-bottom: 4px;
+}
+#recensioni .swiper-wrapper {
+  max-width: 360px;
+}
+#recensioni .swiper-slide {
+  height: unset;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.reviewer_item-stars {
+  display: flex;
+  max-width: 50px;
+  gap: 0px;
+}
+.reviewer_item-stars p {
+  font-size: 24px;
+  margin-bottom: 0;
+}
+.rev__card_rating_active {
+  color: var(--accentHover);
+}
+
+@media(max-width: 768px){
+
+
+#recensioni  {
+  max-width: 95%;
+  grid-template-columns: 1fr;
+}
+
+#recensioni .wrapper{
+    max-width: 100%;
+    padding: 0;
+}
+
+.reviewImage, .gradientSection{
+    display: none;
+}
+
+#recensioni .wrapper::before {
+    display: none;
+}}
+
+.mainBtn:hover, .reviewControls div:hover {
+    scale: 1.04;
+    cursor: pointer;
+    box-shadow: var(--accentHover) 0 0 30px;
+}

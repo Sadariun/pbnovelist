@@ -1,0 +1,114 @@
+.hiwer {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    align-items: stretch;
+    justify-content: space-between;
+    border-radius: var(--brad);
+    gap: 48px;
+    padding: var(--sectionPadding);
+    background: var(--innerBg);
+    min-height: 400px;
+    && .hiwerInfo{
+        height: fit-content;
+        && p{
+            margin-bottom: 0;
+            text-align: center;
+        }
+        && h2{
+            text-align: center;
+        }
+    }
+}
+
+.hiwer > div {
+    flex: 1 1 50%;
+}
+
+.hiwer > img{
+    border-radius: var(--brad);
+}
+
+.hiwer img{
+    border-radius: var(--brad);
+    overflow: hidden;
+}
+.hiwer > div:last-child img {
+    /* object-position: 50% 20%; */
+}
+.hiwerRev {
+    flex-direction: row-reverse;
+}
+.hiwerRev > div:first-child > div {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.hiwer_swiper {
+    border-radius: var(--brad);
+    overflow: hidden;
+    /* max-height: 640px; */
+}
+.hiwer_swiper .swiper-slide {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    max-width: 100%;
+}
+
+.hiwer_swiper .swiper-slide > * {
+    flex: 1 1 50%;
+}
+
+@media (max-width: 1100px) {
+    .refferal_img {
+        display: none;
+    }
+
+    .hiwer > div:last-child{
+        aspect-ratio: unset;
+    }
+}
+
+@media (max-width: 768px) {
+    .hiwer {
+        grid-template-columns: 1fr;
+        flex-direction: column;
+        flex-wrap: wrap;
+        padding: var(--sectionPadding);
+        gap: 0;
+        max-width: 76%;
+        min-height: unset;
+    }
+
+    .hiwer p{
+        margin-bottom: 0;
+    }
+
+    .hiwer > div {
+        width: 100%;
+        flex: 1 1 100% !important;
+        padding: var(--sectionPadding);
+        max-width: fit-content;
+    }
+    .hiwer > div:first-child {
+        margin-top: 24px;
+    }
+    .hiwer > div:first-child > div {
+        flex-direction: column;
+    }
+    .hiwer > div:first-child > a {
+        max-width: 100%;
+    }
+    .hiwer div:last-child{
+        display: none;
+    }
+
+    .hiwer div:first-child{
+        max-height: 400px;
+    }
+
+}

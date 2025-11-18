@@ -1,0 +1,6 @@
+{
+  "name": "Classic Double Image",
+  "index": 4,
+  "required": true,
+  "components": ["afterheader.css"]
+}

@@ -1,4 +1,5 @@
 {
+  "name": "Classic image Right",
   "index": 15,
   "required": false,
   "components": ["prefaq.css"]
