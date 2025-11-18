@@ -1,4 +1,5 @@
 { 
+  "anchor": "gallery",
   "name": "Block with navigation",
   "index": 13,
   "required": false,

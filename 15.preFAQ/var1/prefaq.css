@@ -1,4 +1,4 @@
-.hiwer {
+.preFaq {
     display: flex;
     flex-direction: row-reverse;
     align-items: stretch;
@@ -9,30 +9,30 @@
     background: var(--innerBg);
 }
 
-.hiwer > div {
+.preFaq > div {
     flex: 1 1 50%;
 }
-.hiwer > div:first-child {
+.preFaq > div:first-child {
     flex: 1 1 50%;
     max-height: fit-content;
     margin: auto 0;
 }
-.hiwer > div:last-child {
+.preFaq > div:last-child {
     aspect-ratio: 1.5/1;
     border-radius: var(--brad);
 }
 
-.hiwer img{
+.preFaq img{
     border-radius: var(--brad);
     overflow: hidden;
 }
-.hiwer > div:last-child img {
+.preFaq > div:last-child img {
     /* object-position: 50% 20%; */
 }
-.hiwerRev {
+.preFaqRev {
     flex-direction: row-reverse;
 }
-.hiwerRev > div:first-child > div {
+.preFaqRev > div:first-child > div {
     display: flex;
     flex-direction: row;
     align-items: stretch;
@@ -41,19 +41,19 @@
     gap: 20px;
 }
 
-.hiwer_swiper {
+.preFaq_swiper {
     border-radius: var(--brad);
     overflow: hidden;
     /* max-height: 640px; */
 }
-.hiwer_swiper .swiper-slide {
+.preFaq_swiper .swiper-slide {
     display: flex;
     flex-direction: row;
     gap: 6px;
     max-width: 100%;
 }
 
-.hiwer_swiper .swiper-slide > * {
+.preFaq_swiper .swiper-slide > * {
     flex: 1 1 50%;
 }
 
@@ -62,13 +62,13 @@
         display: none;
     }
 
-    .hiwer > div:last-child{
+    .preFaq > div:last-child{
         aspect-ratio: unset;
     }
 }
 
 @media (max-width: 768px) {
-    .hiwer {
+    .preFaq {
         flex-direction: column;
         flex-wrap: wrap;
         padding: 0;
@@ -76,23 +76,23 @@
         max-width: 76%;
     }
 
-    .hiwer p{
+    .preFaq p{
         margin-bottom: 0;
     }
 
-    .hiwer > div {
+    .preFaq > div {
         width: 100%;
         flex: 1 1 100% !important;
         padding: var(--sectionPadding);
         max-width: fit-content;
     }
-    .hiwer > div:first-child {
+    .preFaq > div:first-child {
         margin-top: 24px;
     }
-    .hiwer > div:first-child > div {
+    .preFaq > div:first-child > div {
         flex-direction: column;
     }
-    .hiwer > div:first-child > a {
+    .preFaq > div:first-child > a {
         max-width: 100%;
     }
 }

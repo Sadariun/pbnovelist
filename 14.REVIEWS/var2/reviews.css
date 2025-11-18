@@ -1,4 +1,4 @@
-#recensioni{
+#reviews{
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
@@ -23,11 +23,11 @@
     z-index: 2;
     user-select: none;
 }
-#recensioni{
+#reviews{
     display: relative;
 }
 
-#recensioni .wrapper .reviewControls{
+#reviews .wrapper .reviewControls{
     position: absolute;
     height: 64px;
     width: calc(128px + 1rem);
@@ -45,17 +45,17 @@
 }
 
 @media (max-width: 768px) {
-    #recensioni .wrapper .reviewControls{
+    #reviews .wrapper .reviewControls{
        display: none;
     }
 }
 
 
-#recensioni h2 {
+#reviews h2 {
   text-align: left;
 }
 
-#recensioni .swiper{
+#reviews .swiper{
     position: relative;
     border-radius: var(--brad);
     cursor: grab;
@@ -76,7 +76,7 @@
     }
 }
 
-#recensioni .wrapper{
+#reviews .wrapper{
     padding: 1rem 2rem;
     z-index: 2;
     position: relative;
@@ -93,13 +93,13 @@
         z-index: -1;
     }
 }
-.recensioni_item {
+.reviews_item {
   background-color: var(--innerBlackBg);
   padding: 24px;
   border-radius: 24px;
   color: var(--textP);
 }
-.namerecensioniWrapper{
+.namereviewsWrapper{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -136,21 +136,21 @@
   gap: 0.4rem;
   /* width: 90%; */
 }
-.recensioni_item-header {
+.reviews_item-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.recensioni_item-body {
+.reviews_item-body {
   font-size: 16px;
 }
-.recensioni_item h4 {
+.reviews_item h4 {
   margin-bottom: 4px;
 }
-#recensioni .swiper-wrapper {
+#reviews .swiper-wrapper {
   max-width: 360px;
 }
-#recensioni .swiper-slide {
+#reviews .swiper-slide {
   height: unset;
   display: flex;
   flex-direction: column;
@@ -172,12 +172,12 @@
 @media(max-width: 768px){
 
 
-#recensioni  {
+#reviews  {
   max-width: 95%;
   grid-template-columns: 1fr;
 }
 
-#recensioni .wrapper{
+#reviews .wrapper{
     max-width: 100%;
     padding: 0;
 }
@@ -186,7 +186,7 @@
     display: none;
 }
 
-#recensioni .wrapper::before {
+#reviews .wrapper::before {
     display: none;
 }}
 

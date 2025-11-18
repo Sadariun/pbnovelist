@@ -1,14 +1,14 @@
-#reviews_2 h2 {
+#reviews h2 {
   text-align: center;
 }
-.reviews_2_item {
+.reviews_item {
   background-color: var(--innerBlackBg);
   padding: 24px;
   border-radius: 24px;
   color: var(--textP);
   cursor: grab;
 }
-.namereviews_2Wrapper{
+.namereviewsWrapper{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -45,21 +45,21 @@
   gap: 0.4rem;
   /* width: 90%; */
 }
-.reviews_2_item-header {
+.reviews_item-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.reviews_2_item-body {
+.reviews_item-body {
   font-size: 16px;
 }
-.reviews_2_item h4 {
+.reviews_item h4 {
   margin-bottom: 4px;
 }
-#reviews_2 .swiper-wrapper {
+#reviews .swiper-wrapper {
   max-width: 360px;
 }
-#reviews_2 .swiper-slide {
+#reviews .swiper-slide {
   height: unset;
   display: flex;
   flex-direction: column;
@@ -79,7 +79,7 @@
 }
 
 @media(max-width: 768px){
-  #reviews_2 .swiper-wrapper {
+  #reviews .swiper-wrapper {
   max-width: unset;
 }
 }

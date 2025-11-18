@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   if (Swiper) {
-    const swiperrecensioni = new Swiper("#recensioni .swiper", {
+    const swiperreviews = new Swiper("#reviews .swiper", {
       loop: true,
       slidesPerView: "auto",
       spaceBetween: 20,
