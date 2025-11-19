@@ -3,7 +3,7 @@
     grid-template-rows: repeat(5, 1fr);
     grid-template-columns: 1fr 1fr;
     column-gap: 24px;
-    padding: 10% 0;
+    padding: 5% 0;
     && .heroInfo{
         position: relative;
         display: grid;
