@@ -1,0 +1,6 @@
+{
+  "name": "Three Images BG",
+  "index": 1,
+  "required": true,
+  "components": ["header.css", "burger.js"]
+}
