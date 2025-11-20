@@ -4,6 +4,10 @@
     --transitionMain: all .4s cubic-bezier(.075, .82, .165, 1);
 }
 
+html{
+    font-size: 18px;
+}
+
 body{
     font-family: 'Oswald', sans-serif;
     color: var(--textMain)
@@ -12,12 +16,14 @@ body{
 h1{
     font-size: 48px;
     font-weight: 700;
+    line-height: 1.2;
 }
 
 h2{
     font-size: 36px;
     font-weight: 500;
     margin-bottom: 3rem;
+    line-height: 1.2;
 }
 
 h3{
