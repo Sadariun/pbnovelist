@@ -1,0 +1,7 @@
+{
+  "anchor": "features",
+  "name": "Custom Tabs",
+  "index": 6,
+  "required": false,
+  "components": ["tabs.css"]
+}

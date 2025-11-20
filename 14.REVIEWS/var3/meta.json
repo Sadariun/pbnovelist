@@ -1,0 +1,7 @@
+{
+  "anchor": "reviews",
+  "name": "Center Style",
+  "index": 14,
+  "required": false,
+  "components": ["reviews.css","reviews.js"]
+}
