@@ -68,7 +68,7 @@
 }
 
 .partnerInfo b{
-    font-family: 'Poppins', sans-serif;
+    font-family: inherit;
     font-size: 24px;
     margin-bottom: 24px;
     font-weight: 500;
@@ -78,7 +78,7 @@
 }
 
 .partnerInfo ul li{
-    font-family: "Poppins", sans-serif;
+    font-family: inherit;
     list-style: circle;
     margin-left: 1.1rem;
 }

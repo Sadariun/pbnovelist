@@ -1,6 +1,6 @@
 {
-  "name": "Base hero",
+  "name": "Gallery hero",
   "index": 2,
   "required": true,
-  "components": ["hero.css"]
+  "components": ["hero.css", "herogallery.js"]
 }

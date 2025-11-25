@@ -10,6 +10,7 @@
     max-width: 98%;
     border-radius: var(--bradMed);
     overflow: hidden;
+    margin-bottom: 75px;
 }
 .gallery::after {
     content: "";

@@ -1,0 +1,130 @@
+:root{
+    --brad: 32px;
+    --sectionPadding: 3rem;
+    --transitionMain: all .4s cubic-bezier(.075, .82, .165, 1);
+}
+
+html{
+    font-size: 18px;
+}
+
+body{
+    font-family: 'Oswald', sans-serif;
+    color: var(--textMain)
+}
+
+h1{
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+h2{
+    font-size: 36px;
+    font-weight: 500;
+    margin-bottom: 3rem;
+    line-height: 1.2;
+}
+
+h3{
+    font-size: 28px;
+}
+
+span, b{
+    font-size: 24px;
+}
+
+a, p{
+    font-size: 18px;
+}
+
+p{
+    margin-bottom: 2.5rem;
+}
+
+body{
+    background: var(--bg);
+    line-height: 150%;
+}
+
+.wrapper, section:not(.noWrap){
+    width: 100%;
+    max-width: 1340px;
+    margin: auto;
+    margin-right: auto;
+    margin-bottom: 75px;
+    box-sizing: border-box;
+}
+
+.mainBtn{
+    align-self: center;
+    justify-self: center;
+    margin: 1rem 0;
+    padding: 1.4rem 1.5rem;
+    background: var(--accent);
+    border-radius: var(--brad);
+    transition: var(--transitionMain);
+}
+
+.mainBtn:hover{
+    transform: scale(1.04);
+    cursor: pointer;
+    box-shadow: 0px 0px 12px 5px var(--accentHover);
+}
+
+a{
+    color: unset;
+    text-decoration: none;
+}
+
+@media(max-width: 768px){
+    .wrapper, section:not(.noWrap){
+        max-width: 95%;
+    }
+
+    .mainBtn{
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+
+@media (max-width: 768px){
+
+:root{
+    --sectionPadding: 1.5rem;
+}
+
+h1{
+    font-size: 40px;
+    font-weight: 700;
+}
+
+h2{
+    font-size: 30px;
+    font-weight: 500;
+    text-align: center;
+}
+
+h3{
+    font-size: 26px;
+    text-align: center;
+}
+
+span, b{
+    font-size: 22px;
+}
+
+p{
+    font-size: 18px;
+    text-align: center;
+}
+}
+
+.logo{
+    transition: all;
+    transition: all .4s cubic-bezier(.075, .82, .165, 1);
+}
+.logo:hover{
+    scale: 1.04;
+}

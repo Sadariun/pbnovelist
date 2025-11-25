@@ -1,164 +1,139 @@
-.hero {
-            background-color: var(--innerBlackBg);
-            /* padding: var(--sectionPadding); */
+.heroGrid {
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: 1fr 1fr;
+    column-gap: 24px;
+    padding: 5% 0;
+    && .heroInfo{
+        position: relative;
+        display: grid;
+        grid-template-rows: 1fr 1fr auto;
+        gap: 16px;
+        grid-row: 2/5;
+        && span{
+            color: var(--accent);
         }
-
-        .hero div.wrapper {
-            display: grid;
-            grid-template-columns: 0.2fr 1fr 1fr;
-            grid-template-rows: 0.4fr 1fr 0.6fr;
-            gap: 8px;
+        && p {
+            max-height: fit-content;
             margin-bottom: 0;
         }
-
-        .hero div.heading{
-            grid-column: 2;
-            grid-row: 2;
-            gap: 2rem;
-            position: relative;
-            z-index: 5;
-            &&::after{
-                content: '';
-                position: absolute;
-                width: 175%;
-                height: 175%;
-                left: -37.5%;
-                top: -37.5%;
-                background: radial-gradient(circle, var(--bg) 0%, var(--bg)30%, rgba(236, 184, 105, 0) 60%);
-                z-index: -1;
-            }
-        }
-
-        .hero div div:first-child {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        && .mainBtn{
+            min-width: 50%;
             text-align: center;
+            margin: 0;
+            margin-right: auto;
         }
-
-        .heading .mainBtn{
-            justify-self: center;
-            align-self: center;
-            margin: 0 auto;
+        && h1{
+            margin-top: auto;
         }
-
-        .sub_h1 {
-            margin-bottom: 0;
+        && span{
+            font-size: inherit;
         }
-
-        h1 {
-            line-height: 100%;
-        }
-
-
-
-   .hero{
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero_img{
+        && .heroGradient{
             position: absolute;
-            height: 100%;
-            width: 100%;
-            left: 0;
-            top: 0;
+            background-color: var(--bg);
+            left: -50%;
+            top: -10%;
+            height: 120%;
+            width: 300%;
             z-index: -1;
-            && img{
-                object-position: 70% 25%;
-            }
+            filter: blur(20px);
         }
-
-        .hero_img.right{
-            &&::after{
-                content: '';
-                left: 0;
-                top:0;
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                z-index: 5;
-                background: linear-gradient(180deg,var(--bg) 0%, rgba(236, 195, 105, 0) 5%, rgba(236, 195, 105, 0) 95%, var(--bg) 100%);;
-            }
-        }
-
-        .hero_img.left{
-            left: unset;
-            right: 9%;
-            bottom: -7.5%;
-            top: unset;
-            width: 40%;
-            z-index: 1;
-            min-width: 275px;
-            && img{
-                object-fit: contain;
-                filter: sepia(0.2)
-            }
-            &&::after{
-                content: '';
-                left: 0;
-                bottom: 7%;
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                z-index: 5;
-                background: linear-gradient(180deg, rgba(236, 195, 105, 0) 96%, rgba(236, 190, 105, 0.658) 100%);
-                pointer-events: none;
-                user-select: none;
-            }
-        }
-
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            justify-self: center;
-            align-self: center;
-        }
-
-        .heading .mainBtn {
-            align-self: flex-start;
-            width: 70%;
-            text-align: center;
-        }
-
+    }
+    && .heroSwiper{
+        width: 100%;
+        grid-column: 2;
+        grid-row: 1/6;
+        cursor: grab;
+        background-color: var(--innerBlackLighterBg);
+        border-radius: var(--brad);
+        padding: 1.5rem;
+        position: relative;
+        && .swiper-slide{
+            border-radius: var(--brad);
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
         
-
-        @media(max-width: 768px) {
-            .hero div {
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 8px;
-                padding: 0 0.2rem;
+            && img{
+                width: 50%;  
             }
+        }
+        &&:active{
+            cursor: grabbing;
+        }
+    }
 
-            .heading .mainBtn {
-                align-self: center;
-            }
+    && .heroarrow{
+        position: absolute;
+        height: 64px;
+        width: 64px;
+        background-color: var(--bg);
+        border: var(--innerBlackLighterBg) 4px solid;
+        top: calc(50% - 32px);
+        left: 8px;
+        z-index: 2;
+        transition: var(--transitionMain);
+        border-radius: 50%;
+        &&.right{
+            right: 8px;
+            left: unset;
+        }
+        &&.left img{
+            transform: scaleX(-1);
+        }
+        &&:hover{
+            scale: 1.04;
+            cursor: pointer;
+            box-shadow: 0px 0px 12px 5px var(--accentHover);
+        }
+        &&:active{
+            scale: 0.96;
+            box-shadow: 0px 0px 12px 12px var(--accentHover);
+        }
+    }
+}
 
-            .heading p,
-            .heading h1 {
+@media (max-width: 768px) {
+    .heroGrid{
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr;
+        && .heroarrow{
+            height: 48px;
+            width: 48px;
+            top: calc(50% - 24px);
+        }
+        && .heroInfo{
+            grid-row: 2;
+            grid-column: 1;
+            justify-content: center;
+            grid-template-rows: auto;
+            && h1{
+                margin: 0 auto;
+                max-width: fit-content;
                 text-align: center;
             }
-
-            .hero_img{
-                height: 69%;
-                && img{
-                    object-position: 90% 50%;
-                }
-            }
-
-            .hero_img.right{
-                &&::after{
-                    position: absolute;
-                    width: 100%;
-                    height: 50%;
-                    /* background-color: red; */
-                    left: 0;
-                    top: 60%;
-                    content: '';
-                    background: linear-gradient(0deg, var(--bg) 75%, rgba(0, 0, 0, 0) 90%);
-                }
-            }
-
+        && .mainBtn{
+            margin: 0 auto;
         }
+        } 
+        && .heroSwiper{
+            grid-row: 1;
+            grid-column: 1;
+        } 
+        
+    }
+}
+
+.hero{
+    position: relative;
+    left: 0;
+    top: 0;
+    box-shadow: 0px 0px 28px 27px var(--bg) inset;
+    && .heroBg{
+    position: absolute;
+    z-index: -1;
+    max-height: 100%;
+    width: 100%;
+}
+}

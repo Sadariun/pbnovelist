@@ -31,7 +31,7 @@
 }
 
 .htu > div:last-child p {
-    font-family: "poppins", sans-serif;
+    font-family: inherit;
 }
 .htu > div:last-child > div {
     flex: 1 1 48.5%;

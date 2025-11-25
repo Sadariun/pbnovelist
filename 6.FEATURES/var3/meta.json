@@ -1,0 +1,7 @@
+{
+  "anchor": "features",
+  "name": "Cards with logo",
+  "index": 6,
+  "required": false,
+  "components": ["features.css"]
+}
