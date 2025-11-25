@@ -185,7 +185,7 @@
                 flex-direction: column-reverse
             }
 
-            .how-repair .section-flex>* {
+            .section-flex>* {
                 flex: 0 1 100%
             }
 
