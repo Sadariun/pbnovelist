@@ -4,7 +4,7 @@
     margin-top: 75px!important;
 }
 
-.toc-a{
+.toc a{
     transition: var(--transitionMain);
     &&:hover{
         color: var(--accent);
@@ -20,7 +20,6 @@
 .toc__container>ul a {
     padding-left: 24px;
     padding-right: 24px;
-    color: var(--textMain)!important
 }
 
 /* Custom scrollbar for TOC container */

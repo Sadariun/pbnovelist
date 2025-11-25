@@ -192,6 +192,8 @@
 
     .pricing__card{
         text-align: center;
+        min-width: 100%;
+        box-sizing: border-box;
     }
 
     .pricing__card_cost{
