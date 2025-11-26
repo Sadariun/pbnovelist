@@ -1,0 +1,80 @@
+# =============================================================
+# === ЕДИНЫЙ БЛОК ДЛЯ ВСЕХ РЕДИРЕКТОВ
+# =============================================================
+RewriteEngine On
+RewriteBase /
+
+# ПРАВИЛО 1: Если страница НЕ СУЩЕСТВУЕТ, сразу отправляем на каноническую главную.
+# Это правило ловит все запросы к несуществующим страницам (с www, без www, http, https)
+# и немедленно делает ОДИН редирект на https://{{canonicalDomain}}/.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . https://{{canonicalDomain}} [L,R=301]
+
+# ПРАВИЛО 2: Канонизация для СУЩЕСТВУЮЩИХ страниц.
+# Это правило сработает, ТОЛЬКО если файл/папка существуют.
+# Если используется http или домен www, делаем ОДИН редирект на канонический URL, сохраняя путь.
+RewriteCond %{HTTP_HOST} !^www.{{domainName}}\.{{tld}}$ [NC,OR]
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://{{canonicalDomain}}/$1 [L,R=301]
+
+# =============================================================
+# === .html (ОСТАВЛЕНО)
+# =============================================================
+# Добавляем .html, если файл существует
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*?)/?$ $1.html [L]
+
+# Удаляем .html из URL
+RewriteCond %{THE_REQUEST} \s/+([^\s]+?)\.html[\s?] [NC]
+RewriteRule ^ %1 [R=301,L]
+
+
+# =============================================================
+# === ОПТИМИЗАЦИЯ И БЕЗОПАСНОСТЬ (ОСТАВЛЕНО)
+# =============================================================
+
+# Сжатие gzip
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+    AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE font/woff font/woff2 font/ttf font/otf
+</IfModule>
+
+# Перезапись .js -> .js.gz
+<IfModule mod_rewrite.c>
+    RewriteCond %{HTTP:Accept-encoding} gzip
+    RewriteCond %{REQUEST_FILENAME}.gz -f
+    RewriteRule ^(.*)\.js$ $1\.js\.gz [QSA,L]
+</IfModule>
+
+# Правильные заголовки для .js.gz
+<IfModule mod_headers.c>
+    <FilesMatch "\.js\.gz$">
+        Header set Content-Encoding gzip
+        Header set Content-Type "application/javascript"
+    </FilesMatch>
+</IfModule>
+
+# Добавляем типы шрифтов и webp
+AddType font/woff2 .woff2
+AddType font/woff .woff
+AddType font/ttf .ttf
+AddType font/otf .otf
+AddType image/webp .webp
+
+# Блокировка плохих ботов
+RewriteCond %{HTTP_USER_AGENT} SemrushBot [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} AhrefsBot [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} MJ12bot [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} Riddler [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} aiHitBot [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} trovitBot [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} Detectify [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} BLEXBot [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} LinkpadBot [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} dotbot [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} FlipboardProxy [NC]
+RewriteRule (.*) - [F,L]
