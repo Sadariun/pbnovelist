@@ -34,7 +34,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (firstParagraph) {
                     firstParagraph.style.visibility = "visible";
                     setParagraphMarginTop(firstParagraph);
-                    firstItem.style.scale = "1.1";
+                    firstItem.style.scale = "1.05";
+                    firstItem.style.background = "var(--accent)";
                 }
 
                 descr.style.maxHeight = descr.scrollHeight  + "px";
@@ -68,10 +69,10 @@ document.addEventListener("DOMContentLoaded", function () {
                             otherDescr.classList.remove("show");
                             otherDescr.style.maxHeight = "0";
                             otherItem.style.scale = "1";
+                            otherItem.style.background = "var(--innerBlackLighterBg)";
                             if (otherParagraph) {
                                 otherParagraph.style.visibility = "hidden";
                                 otherParagraph.style.marginTop = "0";
-                                item.style.scale.remove
                             }
                             // Меняем иконку на "+" для закрытых аккордеонов
                             toggleAccordionIcon(otherItem, false);
@@ -86,6 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             paragraph.style.visibility = "hidden";
                             item.style.scale = "1";
                             paragraph.style.marginTop = "0";
+                            item.style.background = "var(--innerBlackLighterBg)"
                         }
                         toggleAccordionIcon(item, false);
                     } else {
@@ -93,7 +95,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         descr.style.maxHeight = descr.scrollHeight + "px";
                         if (paragraph) {
                             paragraph.style.visibility = "visible";
-                            item.style.scale = "1.1";
+                            item.style.scale = "1.05";
+                            item.style.background = "var(--accent)";
                             setParagraphMarginTop(paragraph);
                         }
                         toggleAccordionIcon(item, true);
