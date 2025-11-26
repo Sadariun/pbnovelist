@@ -4,6 +4,9 @@
 
 .gallery{
     cursor: grab;
+    &&:active{
+        cursor: grabbing;
+    }
 }
 
 .galleryWrapper{
