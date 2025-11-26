@@ -1,0 +1,79 @@
+.pricing-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    /* grid-template-rows: 0.2fr 0.2fr 1fr; */
+    gap: 8px;
+    border-radius: var(--brad);
+    text-align: center;
+    max-width: 90%;
+    margin: 0 auto;
+    && .pricing-card{
+        grid-row: 1/4;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        background-color: var(--innerBlackBg);
+        padding: 16px;
+        border-radius: var(--brad);
+        border: var(--accent) 4px solid;
+        
+    }
+    && .pricing-card:last-child{
+            grid-row: 3;
+            border: var(--accent) 4px dotted;
+        }
+    && .pricing-card:nth-child(2){
+            grid-row: 2/4;
+            border: var(--accent) 4px dashed;
+        }
+    && .topcard{
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        && .priceImg{
+            max-width: 30%;
+            margin: 0 auto;
+            border-radius: 50%;
+            background-color: var(--innerBg);
+            padding: 8px;
+        }
+        && span{
+            font-weight: 700;
+        }
+    }
+    && .bottomcard{
+        display: flex;
+        justify-self: stretch;
+        flex-grow: 1;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    && .mainBtn{
+        width: 50%;
+        margin: auto 0 0;
+    }
+
+    && ul{
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 768px){
+    .pricing-container{
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(3, 1fr);
+        grid-row: unset;
+        && .pricing-card{
+            grid-column: 1!important;
+            grid-row: unset!important;
+        }
+        && .bottomcard{
+            flex-grow: 1;
+            justify-self: unset;
+        }
+    }
+    
+}

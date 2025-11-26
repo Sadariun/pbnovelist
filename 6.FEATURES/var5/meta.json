@@ -1,0 +1,7 @@
+{
+  "anchor": "features",
+  "name": "Crosscircles",
+  "index": 6,
+  "required": false,
+  "components": ["crosscircles.css"]
+}

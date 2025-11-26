@@ -49,11 +49,14 @@ body{
 
 .wrapper, section:not(.noWrap){
     width: 100%;
-    max-width: 1500px;
+    max-width: 1340px;
     margin: auto;
     margin-right: auto;
-    margin-bottom: 65px;
     box-sizing: border-box;
+}
+
+.noWrap, .wrapper, section:not(.noWrap){
+    margin-bottom: 85px;
 }
 
 .mainBtn{
