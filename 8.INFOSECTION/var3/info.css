@@ -161,9 +161,9 @@
                 content: '';
                 position: absolute;
                 left: -5%;
-                top: -15%;
+                top: 0%;
                 width: 110%;
-                height: 130%;
+                height: 102%;
                 filter: blur(20px);
                 background: var(--innerBg);
                 z-index: -1;
