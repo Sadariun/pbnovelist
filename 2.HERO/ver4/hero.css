@@ -115,7 +115,7 @@
 
 @media (max-width: 768px) {
     .heroGrid{
-        grid-template-rows: 1fr 1fr;
+        grid-template-rows: auto;
         grid-template-columns: 1fr;
         && .heroarrow{
             height: 48px;
