@@ -1,6 +1,6 @@
 :root{
-    --brad: 32px;
-    --sectionPadding: 2.3rem;
+    --brad: 36px;
+    --sectionPadding: 2.5rem;
     --transitionMain: all .4s cubic-bezier(.075, .82, .165, 1);
 }
 
@@ -9,7 +9,7 @@ html{
 }
 
 body{
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Nunito', sans-serif;
     color: var(--textMain)
 }
 
@@ -49,10 +49,10 @@ body{
 
 .wrapper, section:not(.noWrap){
     width: 100%;
-    max-width: 1400px;
+    max-width: 1500px;
     margin: auto;
     margin-right: auto;
-    margin-bottom: 70px;
+    margin-bottom: 65px;
     box-sizing: border-box;
 }
 

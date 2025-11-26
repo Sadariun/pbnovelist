@@ -1,6 +1,6 @@
 :root{
-    --brad: 32px;
-    --sectionPadding: 2.3rem;
+    --brad: 34px;
+    --sectionPadding: 2.8rem;
     --transitionMain: all .4s cubic-bezier(.075, .82, .165, 1);
 }
 
@@ -9,12 +9,12 @@ html{
 }
 
 body{
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Sansita', sans-serif;
     color: var(--textMain)
 }
 
 h1{
-    font-size: 48px;
+    font-size: 50px;
     font-weight: 700;
     line-height: 1.2;
 }
@@ -49,10 +49,10 @@ body{
 
 .wrapper, section:not(.noWrap){
     width: 100%;
-    max-width: 1400px;
+    max-width: 1500px;
     margin: auto;
     margin-right: auto;
-    margin-bottom: 70px;
+    margin-bottom: 65px;
     box-sizing: border-box;
 }
 
