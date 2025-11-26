@@ -47,19 +47,19 @@
     gap: 20px;
 }
 
-.preFaq_swiper {
+.preFaqImageContainer {
     border-radius: var(--brad);
     overflow: hidden;
     /* max-height: 640px; */
 }
-.preFaq_swiper .swiper-slide {
+.preFaqImageContainer .swiper-slide {
     display: flex;
     flex-direction: row;
     gap: 6px;
     max-width: 100%;
 }
 
-.preFaq_swiper .swiper-slide > * {
+.preFaqImageContainer .swiper-slide > * {
     flex: 1 1 50%;
 }
 

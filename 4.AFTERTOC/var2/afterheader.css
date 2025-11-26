@@ -47,19 +47,19 @@
     gap: 20px;
 }
 
-.pastTOC_swiper {
+.pastTOCAddition {
     border-radius: var(--brad);
     overflow: hidden;
     /* max-height: 640px; */
 }
-.pastTOC_swiper .swiper-slide {
+.pastTOCAddition .swiper-slide {
     display: flex;
     flex-direction: row;
     gap: 6px;
     max-width: 100%;
 }
 
-.pastTOC_swiper .swiper-slide > * {
+.pastTOCAddition .swiper-slide > * {
     flex: 1 1 50%;
 }
 
