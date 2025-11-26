@@ -1,0 +1,6 @@
+{
+  "name": "Three Images Gallery",
+  "index": 2,
+  "required": true,
+  "components": ["hero.css", "herogallery.js"]
+}

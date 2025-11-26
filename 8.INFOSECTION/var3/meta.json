@@ -1,0 +1,7 @@
+{
+  "anchor": "infolist",
+  "name": "Center list images on side",
+  "index": 8,
+  "required": false,
+  "components": ["info.css"]
+}
