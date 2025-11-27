@@ -1,0 +1,6 @@
+{
+  "name": "Image Carousel",
+  "index": 2,
+  "required": true,
+  "components": ["hero.css"]
+}

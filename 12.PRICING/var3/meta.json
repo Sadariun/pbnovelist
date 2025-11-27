@@ -1,0 +1,7 @@
+{
+  "name": "Plans with Images",
+  "anchor": "pricing-plans",
+  "index": 12,
+  "required": false,
+  "components": ["pricing_plans.css"]
+}

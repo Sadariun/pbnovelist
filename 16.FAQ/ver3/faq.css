@@ -1,0 +1,95 @@
+.faqContainer{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    column-gap: var(--sectionPadding);
+    && .faqImage{
+        aspect-ratio: 1/1.2;
+        border-radius: var(--brad);
+        overflow: hidden;
+    }
+
+}
+
+.accord__container {
+    padding-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    gap: 10px;
+}
+
+.accord__item {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    padding: 32px 64px;
+    background-color: var(--innerBlackLighterBg);
+    border-radius: var(--brad);
+    transition: var(--transitionMain);
+    &&:hover{
+        box-shadow: 0px 0px 12px 5px var(--accentHover);
+        cursor: pointer;
+        z-index: 3;
+    }
+}
+
+.accord__item h3,.accord__item p {
+    margin-bottom: 0;
+}
+
+.accord__item>div:first-child>p {
+    font-weight: 400;
+    color: var(--mainText)!important;
+    font-size: 24px!important;
+    margin-bottom: 0
+}
+
+.accord__item>div:first-child {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center
+}
+
+.accord__item>div:last-child {
+    max-height: 0;
+    visibility: hidden;
+    transition: var(--transitionMain)
+}
+
+.accord__item>div:last-child p {
+    text-align: left;
+}
+
+.show {
+    visibility: visible!important
+}
+
+.accord__item div + div {
+    transition: max-height 0.3s ease;
+    overflow: hidden;
+    box-sizing: border-box; 
+}
+
+.accord__item div + div p {
+    transition: margin-top 0.3s ease;
+    visibility: hidden;
+    margin: 0;
+}
+
+.accord__item div + div.show p {
+    visibility: visible;
+    opacity: 1;
+    padding: 0 1rem;
+}
+
+div.show{
+    margin-top: 28px;
+}
+
+@media (max-width: 768px){
+    .accord__item{
+        padding: 32px 16px;
+    }
+}

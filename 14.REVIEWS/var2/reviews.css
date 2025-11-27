@@ -51,10 +51,6 @@
 }
 
 
-#reviews h2 {
-  text-align: left;
-}
-
 #reviews .swiper{
     position: relative;
     border-radius: var(--brad);

@@ -10,6 +10,7 @@
     min-height: 400px;
     && .preFaqInfo{
         height: fit-content;
+        align-self: center;
         && p{
             margin-bottom: 0;
             text-align: center;

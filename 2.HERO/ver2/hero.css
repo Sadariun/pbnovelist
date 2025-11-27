@@ -1,7 +1,7 @@
 .hero {
             background-color: var(--innerBlackBg);
             && p{
-                text-align: left;
+                text-align: right;
             }
         }
 
@@ -41,7 +41,7 @@
         .heading .mainBtn{
             justify-self: center;
             align-self: center;
-            margin-right: auto;
+            margin-left: auto;
         }
 
         .sub_h1 {
@@ -51,8 +51,7 @@
         h1 {
             display: block;
             line-height: 100%;
-            /* perspective: 3000px;
-            transform: translateZ(-500px) rotateX(30deg); */
+            text-align: right;
             && span, b{
             font-size: inherit;
             font-weight: 800;

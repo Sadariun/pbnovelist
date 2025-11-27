@@ -1,0 +1,111 @@
+.hero {
+    padding: 5.5% 0;
+    position: relative;
+    && .heroBg{
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left:0;
+        opacity: 0.4;
+        filter: blur(10px);
+    }
+}
+
+.heroMain{
+    z-index: 2;
+    position: relative;
+    text-align: center;
+    max-width: 75%;
+    margin: 0 auto;
+    && h1{
+        position: relative;
+        color: var(--accentHover);
+        background: var(--innerBg);
+        padding: 24px 24px 0;
+        max-width: fit-content;
+        margin: 0 auto;
+        border-radius: var(--brad) var(--brad) 0 0;
+        border: solid 4px var(--accent);
+        border-bottom: unset;
+        z-index: 3;
+    }
+    && .sub-h1{
+        background: var(--innerBg);
+        margin-bottom: 0;
+        padding: 24px;
+        border-radius: var(--brad);
+        border: solid 4px var(--accent);
+        transform: translateY(-4px);
+    }
+
+    && .mainBtn{
+        min-width: 50%;
+        font-weight: 700;
+        display: block;
+    }
+}
+
+.heroRot{
+  position:relative;
+  width:300px;
+  height:300px;
+  transform-style:preserve-3d;
+  animation:rotate 35s linear infinite;
+  margin: 6% auto 1%;
+}
+
+.heroRot span{
+  position:absolute;
+  width:104%;
+  height:100%;
+  transform-origin:center;
+  transform-style:preserve-3d;
+  transform:rotateY(calc(var(--i) * 45deg)) translateZ(380px);
+}
+
+.heroRot span img{
+  position:absolute;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position: 50% 20%;
+  border: var(--accent) solid 4px;
+  border-radius: var(--brad);
+  transition: var(--transitionMain);
+  &&:hover{
+    border: var(--accentHover) solid 4px;
+    box-shadow: 0px 0px 12px 5px var(--accentHover);
+    scale: 1.04;
+  }
+  &&:active{
+    scale: 0.96;
+  }
+}
+
+@keyframes rotate{
+  from{
+    transform:perspective(1200px) rotateY(0deg);
+  }
+  
+  to{
+    transform:perspective(1200px) rotateY(360deg);
+  }
+}
+
+@media(max-width: 768px){
+    .heroMain{
+        max-width: unset;
+        && h1{
+            max-width: unset;
+        }
+        && .sub-h1{
+            transform: translateY(-8px);
+            border-radius: 0 0 var(--brad) var(--brad);
+        }
+    }
+
+    .heroRot{
+        margin: 80px auto 20px;
+    }
+}

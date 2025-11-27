@@ -1,0 +1,7 @@
+{
+  "anchor": "faq",
+  "name": "Image FAQ",
+  "index": 16,
+  "required": true,
+  "components": ["faq.css","faq.js"]
+}
