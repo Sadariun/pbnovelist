@@ -29,6 +29,7 @@
         border: solid 4px var(--accent);
         border-bottom: unset;
         z-index: 3;
+        text-transform: uppercase;
     }
     && .sub-h1{
         background: var(--innerBg);
