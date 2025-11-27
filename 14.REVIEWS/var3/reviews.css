@@ -19,9 +19,13 @@
 }
 .rv-dot{ width:8px; height:8px; border-radius:50%; background:var(--brand); display:inline-block; }
 .rv-title{
-  text-align: start;
   margin:0;
-  color: var(--textMain);
+}
+
+@media(min-width: 768px){
+  .rv-title{
+    text-align: start;
+  }
 }
 
 .rev-btn{
