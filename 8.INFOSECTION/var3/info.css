@@ -110,7 +110,7 @@
             }
         }
 
-        .how-repair-block .step-number {
+        .info-block .step-number {
             background: var(--acccent);
             color: var(--textMain) !important
         }
@@ -124,7 +124,7 @@
             margin: 0
         }
 
-        .how-repair .section-flex {
+        .info .section-flex {
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -133,11 +133,11 @@
             flex-wrap: wrap
         }
 
-        .how-repair-block .section-flex.reverse {
+        .info-block .section-flex.reverse {
             flex-direction: column-reverse
         }
 
-        .how-repair__steps-container {
+        .info__steps-container {
             display: grid;
             flex-direction: row;
             
@@ -150,7 +150,7 @@
 
         
 
-        .how-repair__steps {
+        .info__steps {
             display: flex;
             flex-wrap: wrap;
             column-gap: 24px;
@@ -161,7 +161,7 @@
                 content: '';
                 position: absolute;
                 left: -5%;
-                top: 0%;
+                top: -1%;
                 width: 110%;
                 height: 102%;
                 filter: blur(20px);
@@ -170,28 +170,28 @@
             }
         }
 
-        .how-repair__steps-container a {
+        .info__steps-container a {
             max-width: 240px
         }
 
-        .how-repair-block h2+p {
+        .info-block h2+p {
             margin-bottom: 32px
         }
 
-        .how-repair-block img {
+        .info-block img {
             border-radius: var(--brad)
         }
 
         @media (min-width: 768px) {
-            .how-repair__steps .step {
+            .info__steps .step {
                 flex: 1 1 40% !important
             }
 
-            .how-repair-block .how-repair__steps-container {
+            .info-block .info__steps-container {
                 align-items: start
             }
 
-            .how-repair__steps-container {
+            .info__steps-container {
                 align-items: center
             }
 
@@ -199,7 +199,7 @@
         }
 
         @media (max-width: 1200px) {
-            .how-repair {
+            .info {
                 padding: 60px 0
             }
 
@@ -208,49 +208,49 @@
                 align-items: start
             }
 
-            .how-repair .section-flex {
+            .info .section-flex {
                 align-items: start
             }
 
-            .how-repair .section-flex_second {
+            .info .section-flex_second {
                 flex-direction: column-reverse
             }
 
-            .how-repair .section-flex>* {
+            .info .section-flex>* {
                 flex: 0 1 100%
             }
 
-            .how-repair .sectionImg .desktop {
+            .info .sectionImg .desktop {
                 display: none
             }
 
-            .how-repair .sectionImg .mobile {
+            .info .sectionImg .mobile {
                 display: block
             }
 
-            .how-repair__steps .step {
+            .info__steps .step {
                 flex: 1 1 100%
             }
 
-            .how-repair-block .how-repair__steps .step {
+            .info-block .info__steps .step {
                 flex: 1 1 100% !important
             }
         }
 
         @media (min-width: 1200px) {
-            .how-repair .sectionImg .desktop {
+            .info .sectionImg .desktop {
                 display: block
             }
 
-            .how-repair .sectionImg .mobile {
+            .info .sectionImg .mobile {
                 display: none
             }
 
-            .how-repair__steps .step {
+            .info__steps .step {
                 flex: 1 1 100% !important
             }
 
-            .how-repair__steps-container {
+            .info__steps-container {
                 align-items: start
             }
 
@@ -285,7 +285,7 @@
                 grid-template-rows: 1fr;
             }
 
-            .how-repair__steps{
+            .info__steps{
                 && h2{
                     margin-left: auto;
                     margin-right: auto;
