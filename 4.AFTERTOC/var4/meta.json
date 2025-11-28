@@ -1,0 +1,7 @@
+{
+  "anchor": "pastToc",
+  "name": "noWrap ImageBG",
+  "index": 4,
+  "required": true,
+  "components": ["pastToc.css"]
+}

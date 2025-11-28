@@ -67,6 +67,8 @@ body{
     background: var(--accent);
     border-radius: var(--brad);
     transition: var(--transitionMain);
+    display: block;
+    text-align: center;
 }
 
 .mainBtn:hover{

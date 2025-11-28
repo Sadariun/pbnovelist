@@ -1,6 +1,6 @@
 {
   "anchor": "preFaq",
-  "name": "Classic Double Image",
+  "name": "BG Image",
   "index": 15,
   "required": true,
   "components": ["preFaq.css"]
