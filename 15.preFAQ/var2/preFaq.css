@@ -78,11 +78,13 @@
     .preFaq {
         grid-template-columns: 1fr;
         flex-direction: column;
-        flex-wrap: wrap;
         padding: var(--sectionPadding);
-        gap: 0;
+        gap: 1.2rem;
         max-width: 76%;
         min-height: unset;
+        && .preFaqInfo{
+            padding: 0;
+        }
     }
 
     .preFaq p{
@@ -109,7 +111,9 @@
     }
 
     .preFaq div:first-child{
-        max-height: 400px;
+    aspect-ratio: 1/1;
+    padding: 0;
+    margin: 0;
     }
 
 }
