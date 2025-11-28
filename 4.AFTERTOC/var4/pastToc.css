@@ -1,114 +1,60 @@
-.pastToc {
+.preFaq{
     display: grid;
-    grid-template-columns: 1fr 1.5fr 1fr;
-    align-items: stretch;
-    justify-content: space-between;
-    border-radius: var(--brad);
-    gap: 48px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    position: relative;
     padding: var(--sectionPadding);
-    background: var(--innerBg);
-    min-height: 400px;
-    && .pastTocInfo{
-        height: fit-content;
-        && p{
-            margin-bottom: 0;
-            text-align: center;
-        }
-        && h2{
-            text-align: center;
-        }
-    }
-}
-
-.pastToc > div {
-    flex: 1 1 50%;
-}
-
-.pastToc > img{
-    border-radius: var(--brad);
-}
-
-.pastToc img{
-    border-radius: var(--brad);
     overflow: hidden;
-}
-.pastToc > div:last-child img {
-    /* object-position: 50% 20%; */
-}
-.pastTocRev {
-    flex-direction: row-reverse;
-}
-.pastTocRev > div:first-child > div {
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.pastTocAddition {
     border-radius: var(--brad);
-    overflow: hidden;
-    /* max-height: 640px; */
-}
-.pastTocAddition .swiper-slide {
-    display: flex;
-    flex-direction: row;
-    gap: 6px;
-    max-width: 100%;
-}
-
-.pastTocAddition .swiper-slide > * {
-    flex: 1 1 50%;
-}
-
-@media (max-width: 1100px) {
-    .refferal_img {
-        display: none;
+    && .gradBg{
+        position: absolute;
+        top: -50%;
+        left: 0;
+        z-index: -1;
+        width: 55%;
+        filter: blur(75px);
+        height: 200%;
+        background-color: var(--innerBlackBg);
     }
-
-    .pastToc > div:last-child{
-        aspect-ratio: unset;
+    && .mainBtn{
+        display: block;
+        margin-right: auto;
+        min-width: 40%;
+        text-align: center;
+    }
+    && .preFaqImageContainer{
+        position: absolute;
+        z-index: -2;
+        right: 0;
+        top: 0;
+        && img{
+            object-fit: cover;
+            transform: translateY(-9%) translateX(10%);
+        }
+        
     }
 }
 
-@media (max-width: 768px) {
-    .pastToc {
+@media (max-width: 768px){
+    .preFaq{
         grid-template-columns: 1fr;
-        flex-direction: column;
-        flex-wrap: wrap;
-        padding: var(--sectionPadding);
-        gap: 0;
-        max-width: 76%;
-        min-height: unset;
+        grid-template-rows: 0.75fr 1fr;
+        && .mainBtn{
+        min-width: 60%;
+        }
+        && div:first-child{
+            grid-row: 2;
+        }
+        && .gradBg{
+            filter: blur(50px);
+            height: 70%;
+            width: 200%;
+            top: unset;
+            bottom: 0%;
+            left: -50%;
+        }
+        && .preFaqImageContainer{
+            transform: translateY(35%) translateX(-15%) scale(1.5);
+        }
     }
-
-    .pastToc p{
-        margin-bottom: 0;
-    }
-
-    .pastToc > div {
-        width: 100%;
-        flex: 1 1 100% !important;
-        padding: var(--sectionPadding);
-        max-width: fit-content;
-    }
-    .pastToc > div:first-child {
-        margin-top: 24px;
-    }
-    .pastToc > div:first-child > div {
-        flex-direction: column;
-    }
-    .pastToc > div:first-child > a {
-        max-width: 100%;
-    }
-    .pastToc div:last-child{
-        display: none;
-    }
-
-    .pastToc div:first-child{
-        max-height: 400px;
-    }
-
 }

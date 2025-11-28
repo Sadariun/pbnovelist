@@ -70,7 +70,7 @@
             aspect-ratio: 1/1;
             && img{
                 max-width: 100%;  
-                object-position: 0% 20%;
+                object-position: top;
                 user-select: none;
             }
         }
