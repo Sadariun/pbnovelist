@@ -1,6 +1,6 @@
 #partners{
     padding: var(--sectionPadding);
-    background-color: var(--innerBg);
+    background-color: var(--innerBlackLighterBg);
     border-radius: var(--brad);
 }
 
@@ -20,7 +20,21 @@
     border-radius: 50%;
     background-color: var(--bg, white);
     border: var(--accent, blue) 4px solid;
-    transition: var(--transitionMain)
+    transition: var(--transitionMain);
+    position: relative;
+    &&:after{
+        position: absolute;
+        content: '';
+        width: 75%;
+        height: 75%;
+        background-color: var(--accent);
+        filter: blur(25px);
+        opacity: 0.6;
+        top: 12.5%;
+        left: 12.5%;
+        border-radius: 50%;
+        z-index: 1;
+    }
 }
 
 .partnerLogo:hover, .partnerLogo:active{
@@ -32,6 +46,8 @@
 .partnerLogo img{
     height: 100%;
     object-fit: contain;
+    z-index: 2;
+    position: relative;
 }
 
 @media (max-width: 768px){
