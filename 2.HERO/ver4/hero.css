@@ -1,6 +1,6 @@
 .heroGrid {
     display: grid;
-    grid-template-rows: 1.7fr 1fr;
+    grid-template-rows: 1.7fr 1fr 0.4fr;
     grid-template-columns: 1fr 1fr;
     gap: 24px;
     padding: 1% 0;
@@ -44,8 +44,8 @@
             position: absolute;
             background-color: var(--bg);
             left: 7.5%;
-            top: -12.5%;
-            height: 110%;
+            top: -20%;
+            height: 140%;
             width: 85%;
             z-index: -1;
             filter: blur(20px);
@@ -140,6 +140,11 @@
             grid-row: 1;
             grid-column: 1;
         } 
+        && .heroGradient{
+            left: -50%;
+            width: 200%;
+            opacity: 0.4;
+        }
         
     }
 }
@@ -154,5 +159,6 @@
     z-index: -1;
     max-height: 100%;
     width: 100%;
+    opacity: 0.5;
 }
 }
