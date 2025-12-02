@@ -1,90 +1,86 @@
-.pricingContainer{
-    width: 100%;
+.pricing-container{
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    border-radius: var(--brad);
     text-align: center;
-    gap: 24px;
-    && .pricingCard{
-        background: var(--innerBg);
+    max-width: 90%;
+    margin: 0 auto;
+    && .pricing-card{
+        grid-row: 1/4;
         display: flex;
         flex-direction: column;
+        gap: 16px;
+        background-color: var(--innerBlackBg);
+        padding: 16px;
         border-radius: var(--brad);
-        &&:nth-child(2){
-            background: var(--innerBlackLighterBg);
-            && .pricingTop{
-                && span, b{
-                    border: 4px solid var(--accentHover);
-                    border-bottom: unset;
-                    background: var(--innerBlackLighterBg)
-                }
-
-                && b{
-                background-color: var(--accentHover);
-                color: var(--bg);
-            }
-            }
-            && .pricingBottom{
-                border-top: 4px solid var(--accentHover);
-            }
-        }      
-        && .pricingTop{
-            display: flex;
-            flex-direction: column;
-            && .pricingImage{
-                aspect-ratio: 1/1;
-                border-radius: var(--brad) var(--brad) 0 0;
-                overflow: hidden;
-                && img{
-                    object-position: 50% 20%;
-                }
-                
-            }
-            && span, b{
-                position: relative;
-                z-index: 2;
-                padding: 4px 8px;
-                border-radius: 16px 16px 0 0;
-                transform: translateY(-74px); 
-                background: var(--innerBg);
-                max-width: fit-content;
-                margin: 0 auto;
-                border: 4px solid var(--accent);
-                border-bottom: unset;
-            }
-
-            && b{
-                background-color: var(--accent);
-                font-weight: 700;
-            }
-
-            
-                
-            } 
+        border: var(--accent) 4px solid;
+    }
+    && .pricing-card:last-child{
+            grid-row: 3;
+            border: var(--accent) 4px dotted;
         }
-        && .pricingBottom{
-            padding: var(--sectionPadding);
-            padding-bottom: 0px;
-            transform: translateY(-78px);
-            border-top: 4px solid var(--accent);
-            && ul{
-                display: flex;
-                flex-direction: column;
-                gap: 16px;
-                && li{
-                list-style:disc;
-                list-style-position: inside;
-                &&:nth-child(2n)::marker{
-                    color: var(--accent);
-                }
+    && .pricing-card:nth-child(2){
+            grid-row: 2/4;
+            border: var(--accent) 4px dashed;
+        }
+    && .topcard{
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        && .priceImg{
+            max-width: 30%;
+            margin: 0 auto;
+            border-radius: 50%;
+            background-color: var(--innerBg);
+            padding: 5%;
+            aspect-ratio: 1 / 1;
+            && img{
+                overflow: visible
             }
-            }
-            
-            
+        }
+        && span{
+            font-weight: 700;
         }
     }
+    && .bottomcard{
+        display: flex;
+        justify-self: stretch;
+        flex-grow: 1;
+        flex-direction: column;
+        gap: 16px;
+    }
 
-    @media (max-width: 768px){
-        .pricingContainer{
-            grid-template-columns: 1fr;
+    && .mainBtn{
+        width: 50%;
+        margin: auto 0 0;
+    }
+
+    && ul{
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 768px){
+    .pricing-container{
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(3, 1fr);
+        grid-row: unset;
+        && .pricing-card{
+            grid-column: 1!important;
+            grid-row: unset!important;
+        }
+        && .bottomcard{
+            flex-grow: 1;
+            justify-self: unset;
         }
     }
+    && .mainBtn{
+        width: fit-content;
+        margin: auto 0 0;
+        max-width: 100%;
+    }
+    
+}
