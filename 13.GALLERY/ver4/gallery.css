@@ -1,0 +1,45 @@
+#users-uploads .wrapper:first-child {
+    border-radius: var(--brad) var(--brad) 0 0;
+    padding-bottom: 0
+}
+
+#users-uploads .wrapper:nth-child(2) {
+    border-radius: 0 0 var(--brad) var(--brad)
+}
+
+.results {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 4px
+}
+
+.results div {
+    flex: 1 1 10%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px
+}
+
+.results img{
+    border-radius: var(--brad);
+}
+
+.results div:first-child img:first-child,
+.results div:nth-child(5) img:first-child {
+    height: 150%
+}
+
+.results div:nth-child(2) img:first-child {
+    height: 200%
+}
+
+.results div:nth-child(4) img:first-child {
+    height: 80%
+}
+
+@media (max-width: 768px){
+    .results div:nth-child(2n){
+        display: none;
+    }
+}

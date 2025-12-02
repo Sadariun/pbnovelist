@@ -1,0 +1,7 @@
+{ 
+  "anchor": "gallery",
+  "name": "Alt Mosaic 2",
+  "index": 13,
+  "required": false,
+  "components": ["gallery.css"]
+}
