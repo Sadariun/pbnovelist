@@ -34,9 +34,9 @@
   border-radius:50%;
   background: var(--innerBg); 
   color: var(--textMain);
-  border: var(--innerBlackLighterBg) 4px solid;
+  border: var(--innerBlackLighterBg) 0px solid;
   display:grid; 
-  place-items:center; 
+  place-items: center; 
   cursor:pointer; 
   transition: var(--transitionMain);
           && img{
