@@ -18,7 +18,7 @@
     width: min(150px, 12rem);
     padding: 1rem;
     border-radius: 50%;
-    background-color: var(--textMain, white);
+    background-color: var(--bg, white);
     border: var(--accent, blue) 4px solid;
     transition: var(--transitionMain)
 }
