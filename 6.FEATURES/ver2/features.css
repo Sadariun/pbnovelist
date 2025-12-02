@@ -10,7 +10,7 @@
     width: 100%;
     object-position: 50% 28%;
     min-height: 100%;
-
+    border-radius: var(--brad);
 }
 
 @media (max-width: 768px){
