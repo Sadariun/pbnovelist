@@ -1,6 +1,6 @@
 {
   "anchor": "preFaq",
-  "name": "Classis Image BG",
+  "name": "Classic Image BG",
   "index": 15,
   "required": true,
   "components": ["preFaq.css"]
