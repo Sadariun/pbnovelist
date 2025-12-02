@@ -12,7 +12,7 @@
         left: 0;
         z-index: -1;
         width: 55%;
-        filter: blur(75px);
+        filter: blur(50px);
         height: 200%;
         background-color: var(--innerBlackBg);
     }
