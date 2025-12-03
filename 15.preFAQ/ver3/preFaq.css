@@ -11,8 +11,8 @@
         top: -50%;
         left: 0;
         z-index: -1;
-        width: 55%;
-        filter: blur(50px);
+        width: 60%;
+        filter: blur(20px);
         height: 200%;
         background-color: var(--innerBlackBg);
     }
@@ -29,7 +29,7 @@
         top: 0;
         && img{
             object-fit: cover;
-            transform: translateY(-9%) translateX(10%);
+            transform: translateY(-9%) translateX(0%);
         }
         
     }
