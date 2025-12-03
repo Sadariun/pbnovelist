@@ -148,7 +148,7 @@ footer {
 .logo, .footer__top div:first-child a{
     transition: var(--transitionMain);
     border-radius: var(--brad);
-    padding: 8px;
+    padding: 2px;
 }
 
 .btnContainer:hover, .logo:hover, .footer__top div:first-child a:hover{
