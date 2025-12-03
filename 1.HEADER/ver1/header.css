@@ -37,7 +37,9 @@ header>nav>ul a:hover {
 
 header>a {
     max-width: 186px;
-    z-index: 80
+    z-index: 80;
+    margin-left: 0!important;
+    margin-right: 0!important;
 }
 
 header img, footer img{

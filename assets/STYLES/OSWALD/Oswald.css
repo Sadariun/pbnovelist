@@ -62,7 +62,7 @@ body{
 .mainBtn{
     align-self: center;
     justify-self: center;
-    margin: 1rem 0;
+    margin: 1rem auto;
     padding: 1.4rem 1.5rem;
     background: var(--accent);
     border-radius: var(--brad);
@@ -70,7 +70,6 @@ body{
     display: block;
     text-align: center;
 }
-
 .mainBtn:hover{
     transform: scale(1.04);
     cursor: pointer;
