@@ -1,6 +1,6 @@
 {
   "name": "Classic Image Right",
-  "anchor": "pastTOC",
+  "anchor": "about_main",
   "index": 4,
   "required": true,
   "components": ["afterheader.css"]

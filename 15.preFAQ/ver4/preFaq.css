@@ -1,7 +1,7 @@
-.preFaq{
+.special_offer{
     position: relative;
     overflow: hidden;
-    && .preFaqBG{
+    && .special_offerBG{
         position: absolute;
         z-index: 1;
         right: 10%;
@@ -19,7 +19,7 @@
             transform: rotate(-3deg);
         }
     }
-    && .preFaqMain{
+    && .special_offerMain{
         grid-column: 2;
         text-align: center;
         margin-bottom: 0;
@@ -28,11 +28,11 @@
         display: grid;
         position: relative;
         grid-template-columns: repeat(2, 1fr);
-        && *:not(.preFaqGradBg){
+        && *:not(.special_offerGradBg){
             z-index: 2;
             position: relative;
         }
-        && .preFaqGradBg{
+        && .special_offerGradBg{
             position: absolute;
             left: -38%;
             top: -82%;
@@ -55,15 +55,15 @@
 }
 
 @media (max-width: 768px){
-    .preFaq{
-        && .preFaqBG{
+    .special_offer{
+        && .special_offerBG{
             right: 10%;
             transform: scaleX(-1) translateY(10%) scale(1.5);
             &&::after{
                 display: none;
             }
         }
-        && .preFaqMain{
+        && .special_offerMain{
             grid-template-columns: 1fr;
             grid-template-rows: repeat(2, 1fr);
             && .mainBtn{
@@ -72,7 +72,7 @@
             && div{
                 grid-row: 2;
             }
-            && .preFaqGradBg{
+            && .special_offerGradBg{
                 filter: blur(20px);
                 transform: unset;
                 top: -20%;

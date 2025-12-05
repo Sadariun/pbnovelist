@@ -1,7 +1,7 @@
 {
-  "anchor": "pastToc",
+  "anchor": "about_main",
   "name": "Classic ImageBG",
   "index": 4,
   "required": true,
-  "components": ["pastToc.css"]
+  "components": ["about_main.css"]
 }

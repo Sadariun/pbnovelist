@@ -1,7 +1,7 @@
 {
-  "anchor": "preFaq",
+  "anchor": "special_offer",
   "name": "Classic Double Image",
   "index": 15,
   "required": true,
-  "components": ["preFaq.css"]
+  "components": ["special_offer.css"]
 }

@@ -1,4 +1,4 @@
-.pastTOC{
+.about_main{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto;
@@ -22,7 +22,7 @@
         min-width: 40%;
         text-align: center;
     }
-    && .pastTOCImageContainer{
+    && .about_mainImageContainer{
         position: absolute;
         z-index: -2;
         right: 0;
@@ -36,7 +36,7 @@
 }
 
 @media (max-width: 768px){
-    .pastTOC{
+    .about_main{
         grid-template-columns: 1fr;
         grid-template-rows: 0.75fr 1fr;
         && .mainBtn{
@@ -53,7 +53,7 @@
             bottom: 0%;
             left: -50%;
         }
-        && .pastTOCImageContainer{
+        && .about_mainImageContainer{
             transform: translateY(35%) translateX(-15%) scale(1.5);
         }
     }

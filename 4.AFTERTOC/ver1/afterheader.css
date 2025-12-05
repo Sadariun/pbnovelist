@@ -1,4 +1,4 @@
-.pastTOC {
+.about_main {
     display: flex;
     flex-direction: row-reverse;
     align-items: stretch;
@@ -9,30 +9,30 @@
     background: var(--innerBg);
 }
 
-.pastTOC > div {
+.about_main > div {
     flex: 1 1 50%;
 }
-.pastTOC > div:first-child {
+.about_main > div:first-child {
     flex: 1 1 50%;
     max-height: fit-content;
     margin: auto 0;
 }
-.pastTOC > div:last-child {
+.about_main > div:last-child {
     aspect-ratio: 1.5/1;
     border-radius: var(--brad);
 }
 
-.pastTOC img{
+.about_main img{
     border-radius: var(--brad);
     overflow: hidden;
 }
-.pastTOC > div:last-child img {
+.about_main > div:last-child img {
     /* object-position: 50% 20%; */
 }
-.pastTOCRev {
+.about_mainRev {
     flex-direction: row-reverse;
 }
-.pastTOCRev > div:first-child > div {
+.about_mainRev > div:first-child > div {
     display: flex;
     flex-direction: row;
     align-items: stretch;
@@ -41,19 +41,19 @@
     gap: 20px;
 }
 
-.pastTOCAddition {
+.about_mainAddition {
     border-radius: var(--brad);
     overflow: hidden;
     /* max-height: 640px; */
 }
-.pastTOCAddition .swiper-slide {
+.about_mainAddition .swiper-slide {
     display: flex;
     flex-direction: row;
     gap: 6px;
     max-width: 100%;
 }
 
-.pastTOCAddition .swiper-slide > * {
+.about_mainAddition .swiper-slide > * {
     flex: 1 1 50%;
 }
 
@@ -62,13 +62,13 @@
         display: none;
     }
 
-    .pastTOC > div:last-child{
+    .about_main > div:last-child{
         aspect-ratio: unset;
     }
 }
 
 @media (max-width: 768px) {
-    .pastTOC {
+    .about_main {
         flex-direction: column;
         flex-wrap: wrap;
         padding: 0;
@@ -76,23 +76,23 @@
         max-width: 76%;
     }
 
-    .pastTOC p{
+    .about_main p{
         margin-bottom: 0;
     }
 
-    .pastTOC > div {
+    .about_main > div {
         width: 100%;
         flex: 1 1 100% !important;
         padding: var(--sectionPadding);
         max-width: fit-content;
     }
-    .pastTOC > div:first-child {
+    .about_main > div:first-child {
         margin-top: 24px;
     }
-    .pastTOC > div:first-child > div {
+    .about_main > div:first-child > div {
         flex-direction: column;
     }
-    .pastTOC > div:first-child > a {
+    .about_main > div:first-child > a {
         max-width: 100%;
     }
 }

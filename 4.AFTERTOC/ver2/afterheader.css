@@ -1,4 +1,4 @@
-.pastTOC {
+.about_main {
     display: grid;
     grid-template-columns: 1fr 1.5fr 1fr;
     align-items: stretch;
@@ -8,7 +8,7 @@
     padding: var(--sectionPadding);
     background: var(--innerBg);
     min-height: 400px;
-    && .pastTOCInfo{
+    && .about_mainInfo{
         height: fit-content;
         align-self: center;
         && p{
@@ -21,25 +21,25 @@
     }
 }
 
-.pastTOC > div {
+.about_main > div {
     flex: 1 1 50%;
 }
 
-.pastTOC > img{
+.about_main > img{
     border-radius: var(--brad);
 }
 
-.pastTOC img{
+.about_main img{
     border-radius: var(--brad);
     overflow: hidden;
 }
-.pastTOC > div:last-child img {
+.about_main > div:last-child img {
     /* object-position: 50% 20%; */
 }
-.pastTOCRev {
+.about_mainRev {
     flex-direction: row-reverse;
 }
-.pastTOCRev > div:first-child > div {
+.about_mainRev > div:first-child > div {
     display: flex;
     flex-direction: row;
     align-items: stretch;
@@ -48,19 +48,19 @@
     gap: 20px;
 }
 
-.pastTOCImageContainer {
+.about_mainImageContainer {
     border-radius: var(--brad);
     overflow: hidden;
     /* max-height: 640px; */
 }
-.pastTOCImageContainer .swiper-slide {
+.about_mainImageContainer .swiper-slide {
     display: flex;
     flex-direction: row;
     gap: 6px;
     max-width: 100%;
 }
 
-.pastTOCImageContainer .swiper-slide > * {
+.about_mainImageContainer .swiper-slide > * {
     flex: 1 1 50%;
 }
 
@@ -69,48 +69,48 @@
         display: none;
     }
 
-    .pastTOC > div:last-child{
+    .about_main > div:last-child{
         aspect-ratio: unset;
     }
 }
 
 @media (max-width: 768px) {
-    .pastTOC {
+    .about_main {
         grid-template-columns: 1fr;
         flex-direction: column;
         padding: var(--sectionPadding);
         gap: 1.2rem;
         max-width: 76%;
         min-height: unset;
-        && .pastTOCInfo{
+        && .about_mainInfo{
             padding: 0;
         }
     }
 
-    .pastTOC p{
+    .about_main p{
         margin-bottom: 0;
     }
 
-    .pastTOC > div {
+    .about_main > div {
         width: 100%;
         flex: 1 1 100% !important;
         padding: var(--sectionPadding);
         max-width: fit-content;
     }
-    .pastTOC > div:first-child {
+    .about_main > div:first-child {
         margin-top: 24px;
     }
-    .pastTOC > div:first-child > div {
+    .about_main > div:first-child > div {
         flex-direction: column;
     }
-    .pastTOC > div:first-child > a {
+    .about_main > div:first-child > a {
         max-width: 100%;
     }
-    .pastTOC div:last-child{
+    .about_main div:last-child{
         display: none;
     }
 
-    .pastTOC div:first-child{
+    .about_main div:first-child{
     aspect-ratio: 1/1;
     padding: 0;
     margin: 0;

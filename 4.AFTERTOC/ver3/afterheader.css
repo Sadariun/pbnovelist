@@ -1,7 +1,7 @@
-.pastTOC{
+.about_main{
     position: relative;
     overflow: hidden;
-    && .pastTOCBG{
+    && .about_mainBG{
         position: absolute;
         z-index: 1;
         right: 10%;
@@ -19,7 +19,7 @@
             transform: rotate(-3deg);
         }
     }
-    && .pastTOCMain{
+    && .about_mainMain{
         grid-column: 2;
         text-align: center;
         margin-bottom: 0;
@@ -28,11 +28,11 @@
         display: grid;
         position: relative;
         grid-template-columns: repeat(2, 1fr);
-        && *:not(.pastTOCGradBg){
+        && *:not(.about_mainGradBg){
             z-index: 2;
             position: relative;
         }
-        && .pastTOCGradBg{
+        && .about_mainGradBg{
             position: absolute;
             left: -38%;
             top: -82%;
@@ -55,15 +55,15 @@
 }
 
 @media (max-width: 768px){
-    .pastTOC{
-        && .pastTOCBG{
+    .about_main{
+        && .about_mainBG{
             right: 10%;
             transform: scaleX(-1) translateY(10%) scale(1.5);
             &&::after{
                 display: none;
             }
         }
-        && .pastTOCMain{
+        && .about_mainMain{
             grid-template-columns: 1fr;
             grid-template-rows: repeat(2, 1fr);
             && .mainBtn{
@@ -72,7 +72,7 @@
             && div{
                 grid-row: 2;
             }
-            && .pastTOCGradBg{
+            && .about_mainGradBg{
                 filter: blur(20px);
                 transform: unset;
                 top: -20%;

@@ -1,4 +1,4 @@
-.preFaq {
+.special_offer {
     display: grid;
     grid-template-columns: 1fr 1.5fr 1fr;
     align-items: stretch;
@@ -8,7 +8,7 @@
     padding: var(--sectionPadding);
     background: var(--innerBg);
     min-height: 400px;
-    && .preFaqInfo{
+    && .special_offerInfo{
         height: fit-content;
         align-self: center;
         && p{
@@ -21,25 +21,25 @@
     }
 }
 
-.preFaq > div {
+.special_offer > div {
     flex: 1 1 50%;
 }
 
-.preFaq > img{
+.special_offer > img{
     border-radius: var(--brad);
 }
 
-.preFaq img{
+.special_offer img{
     border-radius: var(--brad);
     overflow: hidden;
 }
-.preFaq > div:last-child img {
+.special_offer > div:last-child img {
     /* object-position: 50% 20%; */
 }
-.preFaqRev {
+.special_offerRev {
     flex-direction: row-reverse;
 }
-.preFaqRev > div:first-child > div {
+.special_offerRev > div:first-child > div {
     display: flex;
     flex-direction: row;
     align-items: stretch;
@@ -48,19 +48,19 @@
     gap: 20px;
 }
 
-.preFaqImageContainer {
+.special_offerImageContainer {
     border-radius: var(--brad);
     overflow: hidden;
     /* max-height: 640px; */
 }
-.preFaqImageContainer .swiper-slide {
+.special_offerImageContainer .swiper-slide {
     display: flex;
     flex-direction: row;
     gap: 6px;
     max-width: 100%;
 }
 
-.preFaqImageContainer .swiper-slide > * {
+.special_offerImageContainer .swiper-slide > * {
     flex: 1 1 50%;
 }
 
@@ -69,48 +69,48 @@
         display: none;
     }
 
-    .preFaq > div:last-child{
+    .special_offer > div:last-child{
         aspect-ratio: unset;
     }
 }
 
 @media (max-width: 768px) {
-    .preFaq {
+    .special_offer {
         grid-template-columns: 1fr;
         flex-direction: column;
         padding: var(--sectionPadding);
         gap: 1.2rem;
         max-width: 76%;
         min-height: unset;
-        && .preFaqInfo{
+        && .special_offerInfo{
             padding: 0;
         }
     }
 
-    .preFaq p{
+    .special_offer p{
         margin-bottom: 0;
     }
 
-    .preFaq > div {
+    .special_offer > div {
         width: 100%;
         flex: 1 1 100% !important;
         padding: var(--sectionPadding);
         max-width: fit-content;
     }
-    .preFaq > div:first-child {
+    .special_offer > div:first-child {
         margin-top: 24px;
     }
-    .preFaq > div:first-child > div {
+    .special_offer > div:first-child > div {
         flex-direction: column;
     }
-    .preFaq > div:first-child > a {
+    .special_offer > div:first-child > a {
         max-width: 100%;
     }
-    .preFaq div:last-child{
+    .special_offer div:last-child{
         display: none;
     }
 
-    .preFaq div:first-child{
+    .special_offer div:first-child{
     aspect-ratio: 1/1;
     padding: 0;
     margin: 0;
