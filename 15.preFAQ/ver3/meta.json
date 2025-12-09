@@ -1,7 +1,0 @@
-{
-  "anchor": "special_offer",
-  "name": "Classic Image BG",
-  "index": 15,
-  "required": true,
-  "components": ["special_offer.css"]
-}

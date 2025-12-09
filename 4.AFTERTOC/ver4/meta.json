@@ -1,7 +1,0 @@
-{
-  "anchor": "about_main",
-  "name": "Classic ImageBG",
-  "index": 4,
-  "required": true,
-  "components": ["about_main.css"]
-}
