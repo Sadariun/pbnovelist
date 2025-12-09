@@ -25,17 +25,12 @@
     border-radius: var(--brad);
 }
 
-.results div:first-child img:first-child,
-.results div:nth-child(5) img:first-child {
-    height: 150%
-}
-
 .results div:nth-child(2) img:first-child {
-    height: 200%
+    height: 100%
 }
 
 .results div:nth-child(4) img:first-child {
-    height: 80%
+    height: 100%
 }
 
 @media (max-width: 768px){
