@@ -33,9 +33,7 @@
     border-radius: var(--brad);
     overflow: hidden;
 }
-.special_offer > div:last-child img {
-    /* object-position: 50% 20%; */
-}
+
 .special_offerRev {
     flex-direction: row-reverse;
 }

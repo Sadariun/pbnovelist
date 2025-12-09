@@ -1,0 +1,7 @@
+{ 
+  "anchor": "gallery",
+  "name": "Big hover ver1",
+  "index": 13,
+  "required": false,
+  "components": ["gallery.css"]
+}

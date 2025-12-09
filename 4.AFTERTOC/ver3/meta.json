@@ -1,0 +1,7 @@
+{
+  "anchor": "about_main",
+  "name": "Before/After",
+  "index": 4,
+  "required": true,
+  "components": ["afterheader.css"]
+}

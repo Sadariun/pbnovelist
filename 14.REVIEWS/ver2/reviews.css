@@ -80,7 +80,6 @@
     padding: 1rem 2rem;
     z-index: 2;
     position: relative;
-    margin-bottom: 0;
     &&::before{
         position: absolute;
         left: -100%;
@@ -181,6 +180,7 @@
 #reviews .wrapper{
     max-width: 100%;
     padding: 0;
+    margin-bottom: 0;
 }
 
 .reviewImage, .gradientSection{

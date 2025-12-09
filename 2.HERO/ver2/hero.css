@@ -69,19 +69,22 @@
    .hero{
             position: relative;
             z-index: 1;
+            && p{
+                text-align: center;
+            }
         }
-
+            
         .hero_img{
             position: absolute;
             height: 100%;
-            width: 55%;
-            right: 72px;
+            width: 50%;
+            right: 60px;
             top: 0;
             z-index: -2;
             && img{
-                object-position: 30% 80%;
-                width: 100%;
+                object-position: top;
             }
+            
         }
 
         .hero{

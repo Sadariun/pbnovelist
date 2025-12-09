@@ -48,13 +48,10 @@
 
         .section-flex {
             gap: 70px;
-            padding-right: 80px;
-            padding-left: 80px;
         }
 
         .section-flex div img {
-            display: block;
-            width: 150%;
+            aspect-ratio: 1/2;
         }
 
         .section-flex.row-reverse {
@@ -103,7 +100,7 @@
                 left: 0;
                 right: 0;
                 z-index: 1;
-                background: linear-gradient(180deg,var(--bg) 1%, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0) 80%, var(--bg) 99%),
+                background: linear-gradient(180deg,var(--bg) 1%, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, 0) 80%, var(--bg) 99%),
                 linear-gradient(93deg,var(--bg) 0%, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, 0) 90%, var(--bg) 100%);       
                 user-select: none;
                 pointer-events: none;     
@@ -142,7 +139,7 @@
             flex-direction: row;
             
             && .mainBtn{
-                margin: 0 auto;
+                margin: 24px auto;
                 min-width: 60%;
                 text-align: center;
             }
@@ -157,17 +154,6 @@
             align-self: center;
             position: relative;
             z-index: 3;
-            &&::after{
-                content: '';
-                position: absolute;
-                left: -5%;
-                top: -1%;
-                width: 110%;
-                height: 102%;
-                filter: blur(20px);
-                background: var(--innerBg);
-                z-index: -1;
-            }
         }
 
         .info__steps-container a {
@@ -234,6 +220,11 @@
 
             .info-block .info__steps .step {
                 flex: 1 1 100% !important
+            }
+
+            .info__steps{
+                background: var(--innerBg);
+                padding: var(--sectionPadding);
             }
         }
 

@@ -1,0 +1,7 @@
+{
+  "anchor": "special_offer",
+  "name": "noWrap Image Right",
+  "index": 15,
+  "required": false,
+  "components": ["special_offer.css"]
+}
