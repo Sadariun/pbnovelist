@@ -77,7 +77,7 @@
 }
 
 #reviews .wrapper{
-    padding: 1rem 2rem;
+    padding: 1rem 2rem 1rem 0;
     z-index: 2;
     position: relative;
     &&::before{
