@@ -6,7 +6,6 @@
     grid-column: 2;
     grid-row-start: 1;
     grid-row: 1/4;
-    max-height: 350px;
     width: 100%;
     object-position: 50% 28%;
     min-height: 100%;
@@ -144,6 +143,7 @@
     align-items: center;
     justify-content: center;
     font-weight: 700;
+    margin: auto 0;
 }
 
 @media (max-width: 974px) {
