@@ -51,6 +51,7 @@
 .partnerHeading a{
     max-width: 200px;
     align-self: center;
+    margin: auto 0;
     /* max-height: fit-content; */
     padding: 0.5rem!important;
 }

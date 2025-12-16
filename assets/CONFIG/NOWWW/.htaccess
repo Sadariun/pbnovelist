@@ -14,7 +14,7 @@ RewriteRule . https://{{canonicalDomain}} [L,R=301]
 # ПРАВИЛО 2: Канонизация для СУЩЕСТВУЮЩИХ страниц.
 # Это правило сработает, ТОЛЬКО если файл/папка существуют.
 # Если используется http или домен www, делаем ОДИН редирект на канонический URL, сохраняя путь.
-RewriteCond %{HTTP_HOST} !^www.{{domainName}}\.{{tld}}$ [NC,OR]
+RewriteCond %{HTTP_HOST} !^{{domainName}}\.{{tld}}$ [NC,OR]
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://{{canonicalDomain}}/$1 [L,R=301]
 
