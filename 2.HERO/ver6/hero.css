@@ -1,0 +1,107 @@
+.hero{
+    height: max(88vh, 400px);
+    overflow: hidden;
+    position: relative;
+    && .heroBg{
+        height: 120%;
+        width: 120%;
+        transform: translateX(-10%) translateY(-10%);
+        position: absolute;
+        z-index: -1;
+        filter: opacity(0.3) grayscale(60%);
+    }
+    && .mainHeroInfo{
+        margin: auto;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        z-index: 2;
+        position: relative;
+        && .heroText{
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--bg) 0 5px 15px 10px;
+            justify-content: center;
+            background: var(--bg);
+            border-radius: 50%;
+            padding: min(24px, var(--sectionPadding));
+            height: auto;
+            border: 8px solid var(--accent);
+            max-height: max(80vh, 350px);
+            max-width: fit-content;
+            aspect-ratio: 1/1;
+        }
+    }
+    && b{
+        font-size: inherit;
+        color: var(--accent);
+        display: block;
+        text-transform: uppercase;
+        background: linear-gradient(100deg, var(--accent), var(--accentHover));
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    && br{
+        line-height: 0;
+    }
+    && .wrapper{
+        margin: 0 auto;
+        height: 100%;
+    }
+    && .movingStrip, .movingStripAlt{
+        position: absolute;
+        height: 80px;
+        width: 300%;
+        background:repeating-linear-gradient(
+			45deg,
+			var(--accentHover) 30px,
+			var(--accent) 60px,
+			var(--innerBg) 30px,
+			var(--bg) 90px
+		);
+        top: calc(50% - 40px);
+        right: -100%;
+        rotate: 25deg;
+        animation: animateStripes 2s linear infinite;
+        border: var(--innerBg) 4px solid;
+    }
+    && .movingStripAlt{
+        rotate: 155deg;
+    }
+    && .mainBtn{
+        font-size: 32px;
+        color: var(--bg);
+        padding: 2rem
+    }
+}
+
+@keyframes animateStripes {
+	0% {
+		transform: translateY(0);
+	}
+	100% {
+		transform: translateX(-170px) ;
+	}
+    }
+
+@keyframes animateStripesAlt {
+	0% {
+		background-position-y: 75%;
+	}
+	100% {
+		background-position-y: 25%;
+	}
+    }
+
+    @keyframes heroWobble{
+
+    }
+    @media (max-width: 768px){
+        .heroText{
+            border-radius: var(--brad)!important;
+            max-width: 80vw!important;
+        }
+    }
