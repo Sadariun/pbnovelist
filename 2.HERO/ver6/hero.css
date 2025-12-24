@@ -43,6 +43,7 @@
         background: linear-gradient(100deg, var(--accent), var(--accentHover));
         background-clip: text;
         -webkit-text-fill-color: transparent;
+        display: block;
     }
     && br{
         line-height: 0;
@@ -102,6 +103,17 @@
     @media (max-width: 768px){
         .heroText{
             border-radius: var(--brad)!important;
-            max-width: 80vw!important;
+            /* max-width: calc(95% - 24px - 8px)!important; */
+            box-sizing: content-box;
+            min-height: fit-content!important;
+            max-height: unset!important;
+            
+            && .mainBtn{
+                font-size: 24px;
+                color: var(--bg);
+                padding: 2rem;
+                margin: 1rem auto 0;
+                aspect-ratio: unset;
+            }
         }
     }
