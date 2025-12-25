@@ -1,0 +1,6 @@
+{
+  "name": "{Running image row}",
+  "index": 2,
+  "required": true,
+  "components": ["hero.css"]
+}
