@@ -1,0 +1,75 @@
+.toc{
+    background-color: var(--bg);
+    border-radius: var(--brad);
+    margin-top: 75px!important;
+    & ul{
+        padding: 8px 0;
+    }
+}
+
+.toc a{
+    transition: var(--transitionMain);
+    border-radius: 32px;
+    box-sizing: border-box;
+    padding: 16px;
+    transition: var(--transitionMain);
+    display: block;
+    transform: translateY(0);
+    border: var(--accent) solid 4px;
+    box-shadow: 0 0px 0px 0px var(--innerBg),
+    inset 0 0px 10px 0px var(--accent);
+    &&::selection{
+        color: red;
+    }
+    &&:hover{
+        color: var(--mainText);
+        background-color: var(--accent);
+        cursor: pointer;
+        border: var(--bg) solid 4px;
+        transform: translateY(-8px);
+        box-shadow: 0 12px 10px 0px var(--innerBg),
+        inset 0 0px 10px 5px var(--accentHover);
+    }
+}
+
+.toc__container>ul li {
+    min-width: max-content;
+    max-width: max-content
+}
+
+.toc__container {
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) transparent;
+}
+
+.toc__container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.toc__container::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 4px;
+}
+
+.toc__container .swiper-scrollbar,
+.toc .toc__container .swiper-scrollbar,
+section.toc .toc__container .swiper-scrollbar {
+    position: relative !important;
+    background: transparent !important;
+    border-radius: 6px !important;
+    height: 6px !important;
+    margin-top: 10px !important;
+    min-width: 100% !important;
+    opacity: 1 !important;
+    transition: opacity 0.3s ease !important;
+    left: 0;
+    right: 0;
+}
+
+.toc__container .swiper-scrollbar-drag {
+    background-color: var(--accent);
+    border-radius: 6px;
+    height: 100%;
+    position: relative;
+    cursor: default;
+}

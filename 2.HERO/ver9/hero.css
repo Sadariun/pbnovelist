@@ -1,0 +1,90 @@
+.hero{
+    position: relative;
+    height: 90vh;
+    display: flex;
+    overflow: hidden;
+    & .heroText{
+        width: fit-content;
+        text-align: center;
+        padding: 48px;
+        max-width: min(800px, 95%);
+        text-align: center;
+        & h1{
+            margin-bottom: 1rem;
+            -webkit-text-stroke: 2px var(--accent);
+        }
+        & b{
+            /* font-size: 2em; */
+            font-size: inherit;
+            display: inline-block;
+            text-transform: uppercase;
+        }
+        & .mainBtn{
+            min-width: 30vw;
+            font-size: 1.5em;
+        }
+    }
+    & .mainBg{
+        position: absolute;
+        height: 120%;
+        width: 120%;
+        left: -10%;
+        top: -10%;
+        overflow: hidden;
+        z-index: -1;
+        opacity: 0.3;
+        animation: herowobble 40s infinite ease-in-out;
+    }
+}
+
+@keyframes herowobble {
+    0%{
+        transform: perspective(800px) rotateX(0deg);
+    }
+    
+    25%{
+        transform: perspective(800px) translateX(2%) translateY(-2%);
+    }
+
+    75%{
+        transform: perspective(800px) translateX(-2%) translateY(2%);
+    }
+
+    100%{
+        transform: perspective(800px) rotateX(0deg);
+    }
+}
+
+@media (max-width: 960px){
+    .hero{
+        & .heroText{
+            padding: 0;
+        }
+    }
+}
+@media (max-width: 768px){
+    .hero{
+        display: grid;
+        grid-template-rows: minmax(40vh, auto) auto;
+        & .mainBg{
+            position: relative;
+            height: 100%;
+            width: auto;
+            grid-row: 1;
+            left: unset;
+            top: unset;
+            /* aspect-ratio: 1/1; */
+        }
+        & .heroText{
+            padding: 0;
+            grid-row: 2;
+            box-shadow: 0 -20px 20px 20px var(--bg);
+            & b{
+                font-size: 1em;
+            }
+            & .mainBtn{
+                width: 60vw;
+            }
+    }
+}
+}

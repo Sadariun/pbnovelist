@@ -1,0 +1,6 @@
+{
+  "name": "OpenButton TOC",
+  "index": 3,
+  "required": true,
+  "components": ["toc.css","toc.js"]
+}

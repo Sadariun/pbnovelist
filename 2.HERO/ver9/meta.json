@@ -1,0 +1,6 @@
+{
+  "name": "{Hero Wobble Simple}",
+  "index": 2,
+  "required": true,
+  "components": ["hero.css"]
+}
